@@ -2,7 +2,6 @@
   <v-container>
     <v-layout>
       <v-btn>Authoring</v-btn>
-
     </v-layout>
   </v-container>
 </template>
@@ -17,7 +16,7 @@
       steps: []
     }),
     methods:{
-                                      
+
     }
   }
 </script>
