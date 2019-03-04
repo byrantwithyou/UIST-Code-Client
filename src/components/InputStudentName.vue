@@ -41,6 +41,7 @@
         this.$store.commit("project/setSettings", {
           settings: settings
         });
+        this.$router.push("/step");
       }
     }
   }

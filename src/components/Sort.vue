@@ -1,22 +1,18 @@
 <template>
   <div>
-    <h1>Tutorial</h1>
-    <h1>Step Content</h1>
+    <h1>Sort</h1>
   </div>
 </template>
 
 <script>
   export default {
-    name: "Step",
-    data: () => ({
-
-    }),
+    name: "Sort",
     methods: {
       
     },
     created: function() {
 
-    },
-
+    }
   }
+
 </script>
