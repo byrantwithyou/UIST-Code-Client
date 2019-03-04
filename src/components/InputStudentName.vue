@@ -22,6 +22,26 @@
       studentLogin: function() {
         this.$socket.emit("studentLogin", this.studentName);
       }
+    },
+    sockets: {
+      authoring: function(authored) {
+        let behaviors = authored[0];
+        let steps = authored[1];
+        let subsections = authored[2];
+        let settings = authored[3];
+        this.$store.commit("project/setBehaviors", {
+          behaviors: behaviors
+        });
+        this.$store.commit("project/setSteps", {
+          steps: steps
+        });
+        this.$store.commit("project/setSubsections", {
+          subsections: subsections
+        });
+        this.$store.commit("project/setSettings", {
+          settings: settings
+        });
+      }
     }
   }
 </script>

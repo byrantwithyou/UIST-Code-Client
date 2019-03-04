@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-layout>
-      <v-btn>Authoring</v-btn>
+      <v-btn @click="test">Authoring</v-btn>
     </v-layout>
   </v-container>
 </template>
@@ -10,13 +10,15 @@
   import behaviors from "../behaviors";
   export default {
     data: () => ({
-      settings: {},
       behaviors: behaviors,
+      steps: [],
       subsections: [],
-      steps: []
+      settings: {},
     }),
     methods:{
-
+      test: function() {
+        this.$socket.emit("authoring", this.behaviors, this.steps, this.subsections, this.settings);
+      }
     }
   }
 </script>
