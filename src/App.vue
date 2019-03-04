@@ -14,6 +14,7 @@ export default {
     }
   },
   created: function() {
+    this.$router.push("/");
   },
     
 }
