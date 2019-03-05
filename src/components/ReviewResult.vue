@@ -4,6 +4,7 @@
     {{comment}}
     {{behavior}}
     {{reviewResult}}
+    <v-btn @click="sendToTeacher"></v-btn>
   </div>
 </template>
 
@@ -11,7 +12,7 @@
   export default {
     name: "Review Result",
     data: () => ({
-      
+
     }),
     methods: {
 
