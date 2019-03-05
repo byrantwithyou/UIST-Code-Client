@@ -16,11 +16,9 @@
     }),
     methods: {
       sendToTeacher: function() {
-        
       }
     },
     created: function() {
-      
     },
     props: {
       img: String,
