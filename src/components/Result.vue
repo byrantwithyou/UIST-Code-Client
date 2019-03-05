@@ -8,7 +8,7 @@
   export default {
     name: "Result",
     methods: {
-
+      
     },
     created: function() {
 
