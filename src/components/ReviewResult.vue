@@ -1,5 +1,10 @@
 <template>
-
+  <div>
+    {{img}}
+    {{comment}}
+    {{behavior}}
+    {{reviewResult}}
+  </div>
 </template>
 
 <script>
@@ -15,7 +20,10 @@
 
     },
     props: {
-      
+      img: String,
+      comment: String,
+      behavior: String,
+      reviewResult: String
     }
   }
 </script>
