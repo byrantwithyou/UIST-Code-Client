@@ -15,7 +15,9 @@
 
     }),
     methods: {
-
+      sendToTeacher: function() {
+        
+      }
     },
     created: function() {
       
