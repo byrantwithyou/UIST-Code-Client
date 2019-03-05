@@ -19,6 +19,8 @@
       test: function() {
         this.$socket.emit("authoring", this.behaviors, this.steps, this.subsections, this.settings);
       }
+    },
+    sockets: {
     }
   }
 </script>
