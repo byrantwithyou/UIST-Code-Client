@@ -3,7 +3,7 @@
     <h1>Tutorial</h1>
     <h1>Step Content</h1>
     <h1>Lots of behaviors</h1>
-
+    <v-btn @click="next" :disabled="currentStepBlockBehaviors.length != 0">Next</v-btn>
   </div>
 </template>
 
@@ -11,33 +11,35 @@
   export default {
     name: "Step",
     data: () => ({
-
+      currentStepBlockBehaviors: []
     }),
     methods: {
-      
-    },
-    created: function() {
-
+      next: function() {
+        if (this.currentStep == this.$store.state.project.steps.length) {
+          this.$router.push("/result");
+        }
+        else {
+          this.$store.commit("student/addStep");
+        }
+      }
     },
     computed: {
       currentStep: function() {
         return this.$store.state.project.steps[this.$store.state.student.state];
       },
-      currentBehaviors: function() {
-        let currentBehaviors = [];
-        for (let currentBehavior of this.currentStep.behaviors) {
-          currentBehaviors.push(this.$store.state.project.behaviors[currentBehavior]);
+      currentStepBehaviors: function() {
+        let currentStepBehaviors = [];
+        for (let currentStepBehavior of this.currentStep.behaviors) {
+          currentStepBehaviors.push(this.$store.state.project.behaviors[currentStepBehavior]);
         }
-        return currentBehaviors;
+        return currentStepBehaviors;
       },
-      currentBlockBehaviors: function() {
-        let currentBlockBehaviors = [];
-        for (let currentBehavior of this.currentBehaviors) {
-          if (currentBehavior.dealingMethod == "Block") {
-            currentBlockBehaviors.push(currentBehavior);
-          }
+    },
+    created: function() {
+      for (let currentStepBehavior of this.currentStepBehaviors) {
+        if (currentStepBehavior.dealingMethod == "Block") {
+          this.currentStepBlockBehaviors.push(currentStepBehavior);
         }
-        return currentBlockBehaviors;
       }
     }
 
