@@ -1,14 +1,20 @@
 <template>
   <v-container>
     <v-layout>
-      <v-text-field box outline placeholder="Please input your name here" v-model="studentName"></v-text-field>
-      <br>
+      <v-flex xs-8 offset-xs2>
       <v-card>
+        <v-card-media height="200"></v-card-media>
+        <v-card-text>
+          <v-text-field label="Your Name:" v-model="studentName"></v-text-field>
+        </v-card-text>
+        <v-card-media height="100">
+        </v-card-media>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn @click="studentLogin">Next</v-btn>
         </v-card-actions>
       </v-card>
+      </v-flex>
     </v-layout>
   </v-container>
 </template>
