@@ -5,10 +5,8 @@ import router from "./route";
 import store from "./store";
 import VueSocketIO from "vue-socket.io";
 
-
 let host = "http://localhost";
 let port = 8089;
-
 
 Vue.config.productionTip = false;
 Vue.use(new VueSocketIO({

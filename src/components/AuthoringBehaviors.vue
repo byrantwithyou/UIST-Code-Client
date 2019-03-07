@@ -21,19 +21,16 @@
             <v-container grid-list-md>
               <v-layout wrap>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedItem.name" label="Dessert name"></v-text-field>
+                  <v-text-field v-model="editedItem.name" label="Behavior name"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedItem.calories" label="Calories"></v-text-field>
+                  <v-text-field v-model="editedItem.description" label="Description"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedItem.fat" label="Fat (g)"></v-text-field>
+                  <v-text-field v-model="editedItem.level" label="Behavior Level"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedItem.carbs" label="Carbs (g)"></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedItem.protein" label="Protein (g)"></v-text-field>
+                  <v-text-field v-model="editedItem.dealingMethod" label="Dealing Method"></v-text-field>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -73,11 +70,7 @@
           </v-icon>
         </td>
       </template>
-      <template v-slot:no-data>
-        <v-btn color="primary" @click="initialize">Reset</v-btn>
-      </template>
     </v-data-table>
-    
   </div>
 </template>
 
@@ -96,23 +89,29 @@
         { text: 'Level', value: 'level', sortable: false },
         { text: 'Dealing Method', value: 'dealingMethod', sortable: false },
         { text: 'Detection Method', value: 'detectionMethod', sortable: false },
-        { text: 'Actions', value: 'name', sortable: false }
+        { text: 'Actions', value: 'action', sortable: false }
       ],
       behaviors: behaviors,
       editedIndex: -1,
       editedItem: {
+        id: "",
         name: '',
-        calories: 0,
-        fat: 0,
-        carbs: 0,
-        protein: 0
+        level: "",
+        dealingMethod: "",
+        detectionMethod: "",
+        goodExample: "",
+        badExample: "",
+        description: ""
       },
       defaultItem: {
-        name: '',
-        calories: 0,
-        fat: 0,
-        carbs: 0,
-        protein: 0
+        id: "",
+        name: "",
+        level: "",
+        dealingMethod: "",
+        detectionMethod: "",
+        goodExample: "",
+        badExample: "",
+        description: ""
       }
     }),
 
@@ -128,95 +127,22 @@
       }
     },
 
-    created () {
-      this.initialize()
-    },
-
     methods: {
-      initialize () {
-        this.desserts = [
-          {
-            name: 'Frozen Yogurt',
-            calories: 159,
-            fat: 6.0,
-            carbs: 24,
-            protein: 4.0
-          },
-          {
-            name: 'Ice cream sandwich',
-            calories: 237,
-            fat: 9.0,
-            carbs: 37,
-            protein: 4.3
-          },
-          {
-            name: 'Eclair',
-            calories: 262,
-            fat: 16.0,
-            carbs: 23,
-            protein: 6.0
-          },
-          {
-            name: 'Cupcake',
-            calories: 305,
-            fat: 3.7,
-            carbs: 67,
-            protein: 4.3
-          },
-          {
-            name: 'Gingerbread',
-            calories: 356,
-            fat: 16.0,
-            carbs: 49,
-            protein: 3.9
-          },
-          {
-            name: 'Jelly bean',
-            calories: 375,
-            fat: 0.0,
-            carbs: 94,
-            protein: 0.0
-          },
-          {
-            name: 'Lollipop',
-            calories: 392,
-            fat: 0.2,
-            carbs: 98,
-            protein: 0
-          },
-          {
-            name: 'Honeycomb',
-            calories: 408,
-            fat: 3.2,
-            carbs: 87,
-            protein: 6.5
-          },
-          {
-            name: 'Donut',
-            calories: 452,
-            fat: 25.0,
-            carbs: 51,
-            protein: 4.9
-          },
-          {
-            name: 'KitKat',
-            calories: 518,
-            fat: 26.0,
-            carbs: 65,
-            protein: 7
-          }
-        ]
-      },
-
       editItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.dialog = true
+        this.editedIndex = this.behaviors.findIndex((element) => (element.name == item.name));
+        this.editedItem = Object.assign({}, item);
+        this.dialog = true;
+        //this.editedIndex = this.behaviors.indexOf(item)
+        //this.editedItem = Object.assign({}, item)
+        //this.dialog = true
       },
 
       deleteItem (item) {
-        const index = this.desserts.indexOf(item)
-        confirm('Are you sure you want to delete this item?') && this.desserts.splice(index, 1)
+        const index = this.behaviors.findIndex((element) => (element.name == item.name));
+        this.behaviors.splice(index, 1);
+        this.$store.commit("project/setBehaviors", {
+          behaviors: behaviors
+        })
       },
 
       close () {
@@ -228,13 +154,17 @@
       },
 
       save () {
+        this.$store.commit("project/setBehaviors", {
+          behaviors: behaviors
+        })
         if (this.editedIndex > -1) {
-          Object.assign(this.desserts[this.editedIndex], this.editedItem)
+          Object.assign(this.behaviors[this.editedIndex], this.editedItem);
+          this.close();
         } else {
-          this.desserts.push(this.editedItem)
+          this.behaviors.push(this.editedItem)
+          this.close()
         }
-        this.close()
-      }
     }
+  }
   }
 </script>
