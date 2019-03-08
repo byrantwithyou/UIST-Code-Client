@@ -9,6 +9,6 @@ export default [
     dealingMethod: "Block",
     goodExample: "",
     badExample: "",
-    description: ""
+    description: "vvv"
   },
 ];

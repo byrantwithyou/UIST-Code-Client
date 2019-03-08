@@ -24,7 +24,11 @@
         this.$refs.upfile.click();
       },
       fileChange: function(file) {
-        console.log(typeof file);
+        let reader = new FileReader();
+        reader.onload = function() {
+          //data.target.result;
+        }
+        reader.readAsText(file);
       }
     }
   }

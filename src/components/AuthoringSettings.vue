@@ -5,7 +5,7 @@
     </v-toolbar>
     <v-container>
       <v-layout>
-        <v-flex md12>
+        <v-flex xs12>
             <v-select
               v-model="errorTime"
               :items="errorTimes"
@@ -16,7 +16,7 @@
         </v-flex>
       </v-layout>
       <v-layout>
-        <v-flex md12>
+        <v-flex xs12>
             <v-select
               v-model="punishmentPro"
               :items="punishmentPros"
@@ -27,22 +27,46 @@
         </v-flex>
       </v-layout>
       <v-layout>
-        <v-flex md12>
+        <v-flex xs12>
           <v-text-field label="Add Description of the project"></v-text-field>
         </v-flex>
       </v-layout>
+      <v-layout>
+        <v-flex xs6>
+          Upload the image of the project
+        </v-flex>
+        <v-flex offset-xs3 xs3>
+          <UploadButton :fileChangedCallback="uploadImg"></UploadButton>
+        </v-flex>
+      </v-layout>
+      <v-img :src="projectPic"></v-img>
     </v-container>
   </div>
 </template>
 <script>
+  import UploadButton from "vuetify-upload-button";
   export default {
     data: () => ({
       title: 'Step4: Authoring Other Settings',
       errorTimes: [1, 2, 3, 4],
       errorTime: 1,
       punishmentPro: 0.1,
-      punishmentPros: [0.1, 0.2, 0.3, 0.4]
-    })
+      punishmentPros: [0.1, 0.2, 0.3, 0.4],
+      projectPic: ""
+    }),
+    components: {
+      UploadButton
+    },
+    methods: {
+      uploadImg: function(img) {
+        let imgReader = new FileReader();
+        let that = this;
+        imgReader.onload = function(data) {
+          that.projectPic = data.target.result;
+        }
+        imgReader.readAsDataURL(img);
+      }
+    }
   }
 
 </script>

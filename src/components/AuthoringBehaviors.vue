@@ -2,15 +2,10 @@
   <div>
     <v-toolbar flat color="white">
       <v-toolbar-title>Step1: Authoring Behaviors</v-toolbar-title>
-      <v-divider
-        class="mx-2"
-        insetinset
-        vertical
-      ></v-divider>
       <v-spacer></v-spacer>
       <v-dialog v-model="dialog" max-width="500px">
         <template v-slot:activator="{ on }">
-          <v-btn color="primary" dark class="mb-2" v-on="on">New Item</v-btn>
+          <v-btn color="primary" dark class="mb-2" v-on="on">New Behavior</v-btn>
         </template>
         <v-card>
           <v-card-title>
@@ -20,17 +15,30 @@
           <v-card-text>
             <v-container grid-list-md>
               <v-layout wrap>
-                <v-flex xs12 sm6 md4>
+                <v-flex xs6>
                   <v-text-field v-model="editedItem.name" label="Behavior name"></v-text-field>
                 </v-flex>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedItem.description" label="Description"></v-text-field>
+                <v-flex xs6>
+                  <v-text-field v-model="editedItem.detectionMethod" label="Detection Method"></v-text-field>
                 </v-flex>
-                <v-flex xs12 sm6 md4>
+                <v-flex xs6>
                   <v-text-field v-model="editedItem.level" label="Behavior Level"></v-text-field>
                 </v-flex>
-                <v-flex xs12 sm6 md4>
+                <v-flex xs6>
                   <v-text-field v-model="editedItem.dealingMethod" label="Dealing Method"></v-text-field>
+                </v-flex>
+                <v-flex xs12>
+                  <v-text-field v-model="editedItem.description" label="Behavior Description"></v-text-field>
+                </v-flex>
+              </v-layout>
+              <v-layout>
+                <v-flex xs6>
+                  Good Examples
+                  <UploadButton :fileChangedCallback="goodExampleUpload"></UploadButton>
+                </v-flex>
+                <v-flex xs6>
+                  Bad Examples
+                  <UploadButton :fileChangedCallback="badExampleUpload"></UploadButton>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -76,6 +84,7 @@
 
 <script>
   import behaviors from "../behaviors";
+  import UploadButton from "vuetify-upload-button";
   export default {
     data: () => ({
       dialog: false,
@@ -117,7 +126,7 @@
 
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+        return this.editedIndex === -1 ? 'New Behavior' : 'Edit Behavior'
       }
     },
 
@@ -132,9 +141,6 @@
         this.editedIndex = this.behaviors.findIndex((element) => (element.name == item.name));
         this.editedItem = Object.assign({}, item);
         this.dialog = true;
-        //this.editedIndex = this.behaviors.indexOf(item)
-        //this.editedItem = Object.assign({}, item)
-        //this.dialog = true
       },
 
       deleteItem (item) {
@@ -164,7 +170,24 @@
           this.behaviors.push(this.editedItem)
           this.close()
         }
+    },
+    goodExampleUpload: function(goodExampleImg) {
+      let fileReader = new FileReader();
+      fileReader.onload = function(data) {
+        this.editedItem.goodExample = data.target.result;
+      }
+      fileReader.readAsDataURL(goodExampleImg);
+    },
+    badExampleUpload: function(badExampleImg) {
+      let fileReader = new FileReader();
+      fileReader.onload = function(data) {
+        this.editedItem.badExample = data.target.result;
+      }
+      fileReader.readAsDataURL(badExampleImg);
     }
+  },
+  components: {
+    UploadButton
   }
   }
 </script>
