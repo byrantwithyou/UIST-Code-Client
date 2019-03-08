@@ -4,6 +4,7 @@ import App from "./App.vue";
 import router from "./route";
 import store from "./store";
 import VueSocketIO from "vue-socket.io";
+import Notifications from "vue-notification";
 
 let host = "http://localhost";
 let port = 8089;
@@ -12,6 +13,7 @@ Vue.config.productionTip = false;
 Vue.use(new VueSocketIO({
   connection: host + ":" + port, 
 }));
+Vue.use(Notifications);
 
 new Vue({
   router,

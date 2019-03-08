@@ -7,6 +7,7 @@ import Sort from "@/components/Sort";
 import Step from "@/components/Step";
 import Result from "@/components/Result";
 import Teacher from "@/components/Teacher";
+import Question from "@/components/Question";
 
 Vue.use(Router);
 
@@ -38,6 +39,10 @@ const routes = [
   {
     path: "/teacher",
     component: Teacher
+  },
+  {
+    path: "/question",
+    component: Question
   }
 ];
 

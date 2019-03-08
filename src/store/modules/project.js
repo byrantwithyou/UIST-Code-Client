@@ -3,7 +3,8 @@ const state = {
   behaviors: behaviors,
   settings: {},
   subsections: [],
-  steps: []
+  steps: [],
+  disable: true
 };
 
 const getters = {}
@@ -20,6 +21,9 @@ const mutations = {
   },
   setSteps(state, payload) {
     state.steps = payload.steps;
+  },
+  setDisable(state, payload) {
+    state.disable = payload.disable
   }
 }
 

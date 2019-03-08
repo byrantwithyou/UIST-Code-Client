@@ -10,7 +10,7 @@
               v-model="errorTime"
               :items="errorTimes"
               :menu-props="{ maxHeight: '400' }"
-              hint="How many times can a student be deemed to have been familar with a behavior?"
+              hint="Goal number of correct behavior demenstrations for mastery?"
               persistent-hint
             ></v-select>
         </v-flex>
@@ -21,7 +21,7 @@
               v-model="punishmentPro"
               :items="punishmentPros"
               :menu-props="{ maxHeight: '400' }"
-              hint="How many times can a student be deemed to have been familar with a behavior?"
+              hint="Number of mistakes to demenstrate lack of mastery?"
               persistent-hint
             ></v-select>
         </v-flex>
@@ -51,7 +51,7 @@
       errorTimes: [1, 2, 3, 4],
       errorTime: 1,
       punishmentPro: 0.1,
-      punishmentPros: [0.1, 0.2, 0.3, 0.4],
+      punishmentPros: [1, 2, 3, 4],
       projectPic: ""
     }),
     components: {
