@@ -17,7 +17,7 @@
               <v-flex xs6 offset-xs3>
                 <v-card-actions class="pa-0">
                   <v-spacer></v-spacer>
-                  <v-btn primary dark color="#0277BD" @click="studentLogin">Next Step</v-btn>
+                  <v-btn primary outline color="#E53935" @click="studentLogin">Next Step</v-btn>
                 </v-card-actions>
               </v-flex>
             </v-layout>
