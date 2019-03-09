@@ -52,7 +52,7 @@
       </v-layout>
       <v-layout>
         <v-flex xs12>
-          <v-text-field prepend-icon="description" hint="Add description of the project" persistent-hint></v-text-field>
+          <v-text-field v-model="projectDescription" prepend-icon="description" hint="Add description of the project" persistent-hint></v-text-field>
         </v-flex>
       </v-layout>
       <v-card flat tile>
@@ -72,7 +72,8 @@
       errorTime: 1,
       goalNumber: 1,
       goalNumbers: [1, 2, 3, 4],
-      projectTutorial: ""
+      projectTutorial: "",
+      projectDescription: ""
     }),
     methods: {
       readFile: function(img) {
@@ -87,8 +88,26 @@
         this.$refs.inputFile.click();
       },
       nextStep: function() {
+        this.$socket.emit("authoring", this.behaviors, this.steps, this.subsections, {
+          errorTime: this.errorTime,
+          goalNumber: this.goalNumber,
+          projectTutorial: this.projectTutorial,
+          projectDescription: this.projectDescription
+        })
         this.$router.push("/teacherLogin");
       }
+    },
+    computed: {
+      behaviors: function() {
+        return this.$store.state.project.behaviors;
+      },
+      steps: function() {
+        return this.$store.state.project.steps;
+      },
+      subsections: function() {
+        return this.$store.state.project.subsections;
+      }
+
     }
   }
 
