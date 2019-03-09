@@ -25,7 +25,7 @@
 
 <script>
   export default {
-    name: "teacher log in",
+    name: "teacherLogin",
     methods: {
       jumpToAuthoring: function() {
         this.$router.push("/authoring");
