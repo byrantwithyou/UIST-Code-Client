@@ -37,6 +37,9 @@
     methods:{
       studentLogin: function() {
         this.$socket.emit("studentLogin", this.studentName);
+        this.$store.commit("student/setStudentName", {
+          studentName: this.studentName
+        })
       }
     },
     sockets: {
