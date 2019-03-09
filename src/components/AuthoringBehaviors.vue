@@ -19,13 +19,13 @@
                   <v-text-field v-model="editedItem.name" label="Behavior name"></v-text-field>
                 </v-flex>
                 <v-flex xs6>
-                  <v-text-field v-model="editedItem.detectionMethod" label="Detection Method"></v-text-field>
+                  <v-select v-model="editedItem.detectionMethod" label="Detection Method" :items="detectionMethod"></v-select>
                 </v-flex>
                 <v-flex xs6>
-                  <v-text-field v-model="editedItem.level" label="Behavior Level"></v-text-field>
+                  <v-select v-model="editedItem.level" label="Behavior Level" :items="behaviorLevel"></v-select>
                 </v-flex>
                 <v-flex xs6>
-                  <v-text-field v-model="editedItem.dealingMethod" label="Dealing Method"></v-text-field>
+                  <v-select v-model="editedItem.dealingMethod" :items="dealingMethod" label="Dealing Method"></v-select>
                 </v-flex>
                 <v-flex xs12>
                   <v-text-field v-model="editedItem.description" label="Behavior Description"></v-text-field>
@@ -33,12 +33,34 @@
               </v-layout>
               <v-layout>
                 <v-flex xs6>
-                  Good Examples
-                  <UploadButton :fileChangedCallback="goodExampleUpload"></UploadButton>
+                  <v-card-media contain height="70">
+                    <v-img :src="editedItem.goodExample" contain></v-img>
+                  </v-card-media>
                 </v-flex>
                 <v-flex xs6>
-                  Bad Examples
-                  <UploadButton :fileChangedCallback="badExampleUpload"></UploadButton>
+                  <v-card-media contain height="70">
+                    <v-img :src="editedItem.badExample" contain></v-img>
+                  </v-card-media>
+                </v-flex>
+              </v-layout>
+              <v-layout>
+                <v-flex xs6>
+                  <span class="grey--text">
+                    Good Examples
+                  </span>
+                  <span>
+                    <v-btn @click="clickGoodExample" small color="primary">Upload</v-btn>
+                    <input ref="goodInput" type="file" style="display: none" @change="goodExampleImg">
+                  </span>
+                </v-flex>
+                <v-flex xs6>
+                  <span class="grey--text">
+                    Bad Examples
+                  </span>
+                  <span>
+                    <v-btn small @click="clickBadExample" color="primary">Upload</v-btn>
+                    <input ref="badInput" type="file" style="display: none" @change="badExampleImg">
+                  </span>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -110,7 +132,6 @@
       behaviors: behaviors,
       editedIndex: -1,
       editedItem: {
-        id: "",
         name: '',
         level: "",
         dealingMethod: "",
@@ -120,7 +141,6 @@
         description: ""
       },
       defaultItem: {
-        id: "",
         name: "",
         level: "",
         dealingMethod: "",
@@ -128,7 +148,10 @@
         goodExample: "",
         badExample: "",
         description: ""
-      }
+      },
+      detectionMethod: ["Snapshot", "Quiz"],
+      behaviorLevel: ["High", "Middle", "Low"],
+      dealingMethod: ["Block", "Message", "Report"],
     }),
 
     computed: {
@@ -167,9 +190,6 @@
       },
 
       save () {
-        this.$store.commit("project/setBehaviors", {
-          behaviors: behaviors
-        })
         if (this.editedIndex > -1) {
           Object.assign(this.behaviors[this.editedIndex], this.editedItem);
           this.close();
@@ -178,23 +198,35 @@
           this.close()
         }
     },
-    goodExampleUpload: function(goodExampleImg) {
-      let fileReader = new FileReader();
-      fileReader.onload = function(data) {
-        this.editedItem.goodExample = data.target.result;
-      }
-      fileReader.readAsDataURL(goodExampleImg);
-    },
-    badExampleUpload: function(badExampleImg) {
-      let fileReader = new FileReader();
-      fileReader.onload = function(data) {
-        this.editedItem.badExample = data.target.result;
-      }
-      fileReader.readAsDataURL(badExampleImg);
-    },
     nextStep: function() {
-      
+      this.$store.commit("project/setBehaviors", {
+        behaviors: this.behaviors
+      })
       this.$store.commit("project/addAuthoringStep");
+    },
+    goodExampleImg: function(event) {
+      let file = event.target.files[0];
+      let fileReader = new FileReader();
+      let that = this;
+      fileReader.onload = function(data) {
+        that.editedItem.goodExample = data.target.result;
+      }
+      fileReader.readAsDataURL(file);
+    },
+    badExampleImg: function(event) {
+      let file = event.target.files[0];
+      let fileReader = new FileReader();
+      let that = this;
+      fileReader.onload = function(data) {
+        that.editedItem.badExample = data.target.result;
+      }
+      fileReader.readAsDataURL(file);
+    },
+    clickGoodExample: function() {
+      this.$refs.goodInput.click();
+    },
+    clickBadExample: function() {
+      this.$refs.badInput.click();
     }
   },
   components: {

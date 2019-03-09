@@ -1,14 +1,13 @@
 export default [
   {
-    id: 1,
     name: "Wire",
-    //Can be Either "Take Snapshot" or "Answer Quiz"
+    //Can be Either "Snapshot" or "Quiz"
     detectionMethod: "Snapshot",
     level: "High",
-    //Can be Either Block, Non-Block with Message Reminder, or Non-Block without Message Reminder
+    //Can be Either Block, Message, or Report
     dealingMethod: "Block",
     goodExample: "",
     badExample: "",
-    description: "vvv"
+    description: ""
   },
 ];
