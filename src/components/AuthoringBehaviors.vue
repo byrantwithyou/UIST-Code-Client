@@ -190,7 +190,6 @@
           Object.assign(this.behaviors[this.editedIndex], this.editedItem);
           this.close();
         } else {
-          console.log(this.editedItem);
           this.behaviors.push(this.editedItem)
           this.close()
         }
