@@ -82,7 +82,7 @@
     <v-card>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn outline color="#E53935">Next Step</v-btn>
+        <v-btn outline @click="nextStep" color="#E53935">Next Step</v-btn>
       </v-card-actions>
     </v-card>
   </div>
@@ -91,6 +91,7 @@
 <script>
   import behaviors from "../behaviors";
   import UploadButton from "vuetify-upload-button";
+
   export default {
     data: () => ({
       dialog: false,
@@ -190,6 +191,10 @@
         this.editedItem.badExample = data.target.result;
       }
       fileReader.readAsDataURL(badExampleImg);
+    },
+    nextStep: function() {
+      
+      this.$store.commit("project/addAuthoringStep");
     }
   },
   components: {

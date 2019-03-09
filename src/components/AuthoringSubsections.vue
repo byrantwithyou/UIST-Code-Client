@@ -3,19 +3,22 @@
     <v-toolbar flat color="white">
       <v-toolbar-title>{{title}}</v-toolbar-title>
     </v-toolbar>
+    <v-card>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn outline @click="nextStep" color="#E53935">Next Step</v-btn>
+      </v-card-actions>
+    </v-card>
   </div>
 </template>
 <script>
   export default {
     data: () => ({
       title: 'Step3: Authoring Subsections',
-      subsectionNumber: 0,
-      steps: [
-        ["Step1", "Step2", "Step3", "Step4"], ["Step3", "Step4"]]
     }),
     methods: {
-      addSubsec: function() {
-        this.subsectionNumber += 1;
+      nextStep: function() {
+        this.$store.commit("project/addAuthoringStep");
       }
     }
   }
