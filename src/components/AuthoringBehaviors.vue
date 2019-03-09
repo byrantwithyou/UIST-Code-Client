@@ -112,7 +112,6 @@
 
 <script>
   import behaviors from "../behaviors";
-  import UploadButton from "vuetify-upload-button";
 
   export default {
     data: () => ({
@@ -176,9 +175,6 @@
       deleteItem (item) {
         const index = this.behaviors.findIndex((element) => (element.name == item.name));
         this.behaviors.splice(index, 1);
-        this.$store.commit("project/setBehaviors", {
-          behaviors: behaviors
-        })
       },
 
       close () {
@@ -194,6 +190,7 @@
           Object.assign(this.behaviors[this.editedIndex], this.editedItem);
           this.close();
         } else {
+          console.log(this.editedItem);
           this.behaviors.push(this.editedItem)
           this.close()
         }
@@ -229,8 +226,5 @@
       this.$refs.badInput.click();
     }
   },
-  components: {
-    UploadButton
-  }
   }
 </script>
