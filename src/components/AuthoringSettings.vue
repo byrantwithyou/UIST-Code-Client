@@ -52,7 +52,6 @@
       errorTime: 1,
       punishmentPro: 0.1,
       punishmentPros: [1, 2, 3, 4],
-      projectPic: ""
     }),
     components: {
       UploadButton

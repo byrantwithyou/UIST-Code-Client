@@ -4,7 +4,7 @@ const state = {
   settings: {},
   subsections: [],
   steps: [],
-  disable: true
+  authoringStep: 1
 };
 
 const getters = {}
@@ -22,8 +22,8 @@ const mutations = {
   setSteps(state, payload) {
     state.steps = payload.steps;
   },
-  setDisable(state, payload) {
-    state.disable = payload.disable
+  addAuthoringStep(state) {
+    state.authoringStep += 1;
   }
 }
 

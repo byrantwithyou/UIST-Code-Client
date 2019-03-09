@@ -5,7 +5,7 @@
       <v-spacer></v-spacer>
       <v-dialog v-model="dialog" max-width="500px">
         <template v-slot:activator="{ on }">
-          <v-btn color="primary" dark class="mb-2" v-on="on">New Behavior</v-btn>
+          <v-btn color="amber" dark class="ma-0" v-on="on" icon><v-icon>add</v-icon></v-btn>
         </template>
         <v-card>
           <v-card-title>
@@ -59,10 +59,10 @@
     >
       <template v-slot:items="props">
         <td>{{ props.item.name }}</td>
-        <td class="text-xs-right">{{ props.item.level }}</td>
-        <td class="text-xs-right">{{ props.item.dealingMethod }}</td>
-        <td class="text-xs-right">{{ props.item.detectionMethod }}</td>
-        <td class="justify-center layout px-0">
+        <td>{{ props.item.level }}</td>
+        <td>{{ props.item.dealingMethod }}</td>
+        <td>{{ props.item.detectionMethod }}</td>
+        <td>
           <v-icon
             small
             class="mr-2"
@@ -79,6 +79,12 @@
         </td>
       </template>
     </v-data-table>
+    <v-card>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn outline color="#E53935">Next Step</v-btn>
+      </v-card-actions>
+    </v-card>
   </div>
 </template>
 

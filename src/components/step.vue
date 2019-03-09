@@ -1,15 +1,5 @@
 <template>
   <div>
-    <v-layout>
-      <v-flex xs6>
-        <v-img src="demo.jpg" contain></v-img>
-      </v-flex>
-      <v-flex xs6>
-        <v-subheader v-text="'Step1: Please add arduino_Uno_Rev3(fix)'"></v-subheader>
-        <v-subheader light v-text="'Behavior 1: Take a photo of your behavior. You must be approved of your behavior before you can carry on'"></v-subheader>
-        <v-btn @click="next" :disabled="disable">Next</v-btn>
-      </v-flex>
-    </v-layout>
     <!--ReviewResult 
       :img="reviewResultImage" 
       :comment="reviewResultComment" 
@@ -23,6 +13,7 @@
 <script>
   //import ReviewResult from "@/components/ReviewResult";
   export default {
+    
     name: "Step",
     data: () => ({
       currentStepBlockBehaviors: [],

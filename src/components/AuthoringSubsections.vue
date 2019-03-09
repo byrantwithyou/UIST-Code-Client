@@ -3,19 +3,6 @@
     <v-toolbar flat color="white">
       <v-toolbar-title>{{title}}</v-toolbar-title>
     </v-toolbar>
-    <v-btn @click="addSubsec" primary>Add Subsections</v-btn>
-    <div v-for="(i, index) in subsectionNumber">
-      <v-card>
-        <v-card-title primary-title>
-          Subsection
-        </v-card-title>
-        <v-layout wrap>
-          <v-flex xs6 offset-xs3>
-            <v-select multiple label="Select steps for subsection" :items="steps[index]"></v-select>
-          </v-flex>
-        </v-layout>
-      </v-card>
-    </div>
   </div>
 </template>
 <script>

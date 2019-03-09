@@ -28,11 +28,10 @@
         this.$router.push("/inputStudentName");
       },
       loginAsATeacher: function() {
-        this.$socket.emit("teacherLogin");
-        this.$router.push("/authoring");
+        this.$router.push("/teacherLogin");
       }
     }
-  }
+  } 
 </script>
 
 <style>
