@@ -92,6 +92,26 @@
 
       </v-card>
     </v-dialog>
+
+    <v-dialog width="500" v-model="reviewResultDialog">
+      <v-card>
+        <v-card-title>
+          <span class="font-italic font-weight-black blue-grey--text">
+            Review Result
+          </span>
+        </v-card-title>
+        <v-card-text>
+          {{reviewResultComment}}
+          <br>
+          {{reviewResultBehavior.name}} is {{reviewResultIcon}}approved!
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn v-if="reviewResult == 0">Send to teacher again</v-btn>
+          <v-btn @click="reviewResultDialog = false">Close</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
   </div>
 </template>
@@ -111,7 +131,9 @@
       reviewResult: "",
       reviewResultBehavior: "",
       reviewResultComment: "",
-      reviewResultImg: ""
+      reviewResultImg: "",
+      reviewResultDialog: false,
+      reviewResultIcon: ""
     }),
     methods: {
       nextStep: function() {
@@ -122,6 +144,7 @@
       sendReviewResult: function(reviewResult) {
         this.reviewDialog = false;
         this.$socket.emit("reviewResult", reviewResult, this.reviewStudentName, this.reviewBehavior, this.reviewComment, this.reviewImg);
+        this.reviewComment = "";
       }
     },
     computed: {
@@ -172,26 +195,14 @@
         this.reviewResultBehavior = data[2];
         this.reviewResultComment = data[3];
         this.reviewResultImg = data[4];
+        this.reviewResultDialog = true;
         if (data[0] == 1) {
           this.approved = true;
-          this.$notify({
-            title: "Review Result",
-            text: "Congratulations! Your " + data[2].name + "behavior is approved by others",
-            type: "success"
-          })
+        } else {
+          this.reviewResultIcon = "not ";
         }
-        else {
-          this.$notify({
-            title: "Review Result",
-            text: "Oops! Your" + data[2].name + "behavior is disapproved by others",
-            type: "error",
-            duration: -1
-          })
-        }
-        this.$notify({
-          title: data[2].name,
-
-        })
+        
+        
       }
     }
 
