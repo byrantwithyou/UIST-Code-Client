@@ -47,7 +47,7 @@
         <v-btn outline @click="nextStep" color="#E53935">Next Step</v-btn>
       </v-card-actions>
     </v-card>
-    <v-dialog v-model="addSubsectionDialog">
+    <v-dialog v-model="addSubsectionDialog" width="500">
       <v-card>
         <v-card-media height="20"></v-card-media>
         <v-card-text>

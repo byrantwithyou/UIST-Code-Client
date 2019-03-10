@@ -14,11 +14,15 @@ const state = {
 const getters = {}
 
 const mutations = {
+  init(state) {
+    state.behaviors = behaviors;
+    state.settings = {};
+    state.subsections = [];
+    state.steps = [];
+    state.authoringStep = 1;
+  },
   setBehaviors(state, payload) {
     state.behaviors = payload.behaviors
-  },
-  initAuthoringSteps(state) {
-    state.authoringStep = 1;
   },
   setSettings(state, payload) {
     state.settings = payload.settings
@@ -28,22 +32,8 @@ const mutations = {
     state.subsections = payload.subsections;
     state.currentStepContent = payload.subsections[0].steps[0];
     state.currentSubsection = 1;
-    let tempBehaviors = [];
-    if (state.steps) {
-      for (let step of state.steps) {
-        if (step.content == state.currentStepContent) {
-          tempBehaviors = step.behaviors;
-          break;
-        }
-      }
-    }
-    if (state.behaviors) {
-      for (let behavior of state.behaviors) {
-        if (tempBehaviors.findIndex((element) => (element == behavior.name)) >= 0) {
-          state.currentBehaviors.push(behavior);
-        }
-      }
-    }
+    let currentBehaviorName = state.steps[state.steps.findIndex((element) => (element.content == state.currentStepContent))].behaviors;
+    state.currentBehaviors.push(state.behaviors[state.behaviors.findIndex((element) => (element.name == currentBehaviorName))]);
   },
   setSteps(state, payload) {
     state.steps = payload.steps;
@@ -66,18 +56,8 @@ const mutations = {
     if (state.subsections[state.currentSubsection - 1].steps.findIndex((element) => (element == state.currentStepContent)) < 0) {
       state.currentSubsection += 1;
     }
-    let tempBehaviors = [];
-    for (let step of state.steps) {
-      if (step.content == state.currentStepContent) {
-        tempBehaviors = step.behaviors;
-        break;
-      }
-    }
-    for (let behavior of state.behaviors) {
-      if (tempBehaviors.findIndex((element) => (element == behavior.name)) >= 0) {
-        state.currentBehaviors.push(behavior);
-      }
-    }
+    let currentBehaviorName = state.steps[state.steps.findIndex((element) => (element.content == state.currentStepContent))].behaviors;
+    state.currentBehavios.push(state.behaviors[state.behaviors.findIndex((element) => (element.name == currentBehaviorName))]);
   },
 }
 

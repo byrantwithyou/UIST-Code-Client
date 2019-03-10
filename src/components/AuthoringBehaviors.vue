@@ -150,7 +150,7 @@
       },
       detectionMethod: ["Snapshot", "Quiz"],
       behaviorLevel: ["High", "Middle", "Low"],
-      dealingMethod: ["Block", "Message", "Report"],
+      dealingMethod: ["Block", "Message"],
     }),
 
     computed: {

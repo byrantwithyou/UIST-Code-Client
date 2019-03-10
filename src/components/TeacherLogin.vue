@@ -28,7 +28,7 @@
     name: "teacherLogin",
     methods: {
       jumpToAuthoring: function() {
-        this.$store.commit("project/initAuthoringSteps");
+        this.$store.commit("project/init");
         this.$router.push("/authoring");
       }
     }
