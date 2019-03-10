@@ -1,5 +1,6 @@
 const state = {
   studentName: "",
+  studentProfile: []
 };
 
 const getters = {};
@@ -7,6 +8,9 @@ const getters = {};
 const mutations = {
   setStudentName(state, payload) {
     state.studentName = payload.studentName;
+  },
+  setStudentProfile(state, payload) {
+    state.studentProfile = payload.studentProfile;
   }
 };
 

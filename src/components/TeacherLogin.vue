@@ -11,7 +11,7 @@
               Authoring Tool
             </v-btn>
             <v-spacer></v-spacer>
-            <v-btn dark round ripple>
+            <v-btn dark @click="jump2Teacher" round ripple>
               Classroom Management
               <v-icon>arrow_right</v-icon>
             </v-btn>
@@ -30,6 +30,17 @@
       jumpToAuthoring: function() {
         this.$store.commit("project/init");
         this.$router.push("/authoring");
+      },
+      jump2Teacher: function() {
+        this.$socket.emit("teacherLogin");
+        this.$router.push("/teacher");
+      }
+    },
+    sockets: {
+      studentProfile: function(studentProfile) {
+        this.$store.commit("setStudentProfile", {
+          studentProfile: studentProfile
+        })
       }
     }
   }

@@ -140,6 +140,7 @@
         this.retrievedBehavior = false;
         this.approved = false;
         this.$store.commit("project/addStep");
+        this.$socket.emit("addStep");
       },
       sendReviewResult: function(reviewResult) {
         this.reviewDialog = false;
