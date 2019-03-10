@@ -15,30 +15,34 @@
             <v-card-media height="30"></v-card-media>
             <span class="header font-weight-light black--text">{{currentStepContent}}</span>
             <v-card-media height="30"></v-card-media>
-            <div class="font-italic" v-for="(behavior, index) in currentBehaviors" :key="index">
-              Behavior {{index + 1}}: {{behavior.name}}
-              <br>
-              Detection Method: {{behavior.detectionMethod}}
-              <br>
-              Level: {{behavior.level}}
-              <br>
-              Dealing Method: {{behavior.dealingMethod}}
-              <br>
-              Behavior Description: {{behavior.description}}
-              <br>
-              <v-layout>
-                <v-flex xs6>
-                  <v-card-media contain height="50">
-                    <v-img contain height="50" :src="behavior.goodExample"></v-img>
-                  </v-card-media>
-                </v-flex>
-                <v-flex xs6>
-                  <v-card-media contain height="50">
-                    <v-img contain height="50" :src="behavior.badExample"></v-img>
-                  </v-card-media>
-                </v-flex>
-              </v-layout>
-              <v-card-media height="30"></v-card-media>
+            <div class="font-italic " v-for="(behavior, index) in currentBehaviors" :key="index">
+              <v-card outline>
+                <v-card-text>
+                  Behavior {{index + 1}}: {{behavior.name}}
+                  <br>
+                  Detection Method: {{behavior.detectionMethod}}
+                  <br>
+                  Level: {{behavior.level}}
+                  <br>
+                  Dealing Method: {{behavior.dealingMethod}}
+                  <br>
+                  Behavior Description: {{behavior.description}}
+                  <br>
+                  <v-layout>
+                    <v-flex xs6>
+                      <v-card-media contain height="50">
+                        <v-img contain height="50" :src="behavior.goodExample"></v-img>
+                      </v-card-media>
+                    </v-flex>
+                    <v-flex xs6>
+                      <v-card-media contain height="50">
+                        <v-img contain height="50" :src="behavior.badExample"></v-img>
+                      </v-card-media>
+                    </v-flex>
+                  </v-layout>
+                  <v-card-media height="30"></v-card-media>
+                </v-card-text>
+              </v-card>
             </div>
           </v-card-text>
           <v-card-actions>
