@@ -1,14 +1,10 @@
 const state = {
-  step: 1,
-  studentName: ""
+  studentName: "",
 };
 
 const getters = {};
 
 const mutations = {
-  addStep(state) {
-    state.step += 1;
-  },
   setStudentName(state, payload) {
     state.studentName = payload.studentName;
   }

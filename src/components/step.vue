@@ -1,5 +1,14 @@
 <template>
   <div>
+  <v-container>
+    <v-layout>
+      <v-flex xs8 offset-xs2>
+        <v-card>
+          <v-btn @click="test">test</v-btn>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
     <!--ReviewResult 
       :img="reviewResultImage" 
       :comment="reviewResultComment" 
@@ -24,37 +33,17 @@
       isReviewResultExisted: false
     }),
     methods: {
-      next: function() {
-        this.$router.push("/question");
-        // if (this.currentStep == this.$store.state.project.steps.length) {
-        //   this.$router.push("/result");
-        // }
-        // else {
-        //   this.$store.commit("student/addStep");
-        // }
+      test: function() {
+        this.$store.commit("project/addStep");
       }
     },
     computed: {
-      currentStep: function() {
-        return this.$store.state.project.steps[this.$store.state.student.state];
-      },
-      currentStepBehaviors: function() {
-        let currentStepBehaviors = [];
-        //for (let currentStepBehavior of this.currentStep.behaviors) {
-         // currentStepBehaviors.push(this.$store.state.project.behaviors[currentStepBehavior]);
-        //}
-        return currentStepBehaviors;
-      },
-      disable: function() {
-        return this.$store.state.project.disable;
+      currentStepNumber: function() {
+        return this.$store.state.project.step;
       }
     },
     created: function() {
-      for (let currentStepBehavior of this.currentStepBehaviors) {
-        if (currentStepBehavior.dealingMethod == "Block") {
-          this.currentStepBlockBehaviors.push(currentStepBehavior);
-        }
-      }
+      
     },
     components: {
      // ReviewResult
