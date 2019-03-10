@@ -57,39 +57,28 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn @click="nextStep" outline color="#E53935">Next Step</v-btn>
+            <v-btn @click="nextStep" v-if="currentBehaviors[0].dealingMethod == 'Block'" :disabled="!retrievedBehavior || !approved" outline color="#E53935">Next Step</v-btn>
+            <v-btn @click="nextStep" v-if="currentBehaviors[0].dealingMethod == 'Message'" :disabled="!retrievedBehavior" outline color="#E53935">Next Step</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
     </v-layout>
   </v-container>
-    <!--ReviewResult 
-      :img="reviewResultImage" 
-      :comment="reviewResultComment" 
-      :behavior="behaviorReviewed" 
-      :reviewResult="reviewResult"
-      v-if="isReviewResultExisted">
-    </ReviewResult-->
   </div>
 </template>
 
 <script>
-  //import ReviewResult from "@/components/ReviewResult";
   export default {
     
     name: "Step",
     data: () => ({
-      reviewResult: "",
-      reviewResultImage: "",
-      reviewResultComment: "",
-      behaviorReviewed: "",
-      isReviewResultExisted: false,
-      bcknotAuth: 0,
-      behaviorSentToMobile: false,
+      retrievedBehavior: false,
+      approved: false
     }),
     methods: {
       nextStep: function() {
-        this.behaviorSentToMobile = false;
+        this.retrievedBehavior = false;
+        this.approved = false;
         this.$store.commit("project/addStep");
       }
     },
@@ -116,32 +105,17 @@
           "Low": "#FFCDD2"
         }
         return mapping[this.currentBehaviors[0].level];
-      }
+      },
     },
     created: function() {
-      for (let currentBehavior of this.currentBehaviors) {
-        if (currentBehavior.dealingMethod == "Block") {
-          this.bcknotAuth += 1;
-        }
-      }
     },
     components: {
-     // ReviewResult
     },
     sockets: {
-      reviewResult: function(data) {
-        this.behaviorReviewed = data[0];
-        this.reviewResult = data[1];
-        this.reviewResultImage = data[2];
-        this.reviewResultComment = data[3];
-        this.isReviewResultExisted = true;
-        //TODO: 
-        //TODO:
-        //pop up the currentStepBlockBehaviors if any
-      },
       photo: function(data) {
-        this.behaviorSentToMobile = true;
-        this.$socket.emit("photo", data, "Behavior 1");
+        console.log("received photo");
+        this.retrievedBehavior = true;
+        this.$socket.emit("photo", data);
       }
     }
 
