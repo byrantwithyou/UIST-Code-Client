@@ -47,7 +47,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn @click="nextStep" :disabled="bcknotAuth != 0" outline color="#E53935">Next Step</v-btn>
+            <v-btn @click="nextStep" :disabled="(bcknotAuth != 0) || behaviorSentToMobile" outline color="#E53935">Next Step</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -74,10 +74,12 @@
       reviewResultComment: "",
       behaviorReviewed: "",
       isReviewResultExisted: false,
-      bcknotAuth: 0
+      bcknotAuth: 0,
+      behaviorSentToMobile: false,
     }),
     methods: {
       nextStep: function() {
+        this.behaviorSentToMobile = false;
         this.$store.commit("project/addStep");
       }
     },
@@ -120,6 +122,7 @@
         //pop up the currentStepBlockBehaviors if any
       },
       photo: function(data) {
+        this.behaviorSentToMobile = true;
         this.$socket.emit("photo", data, "Behavior 1");
       }
     }

@@ -17,6 +17,9 @@ const mutations = {
   setBehaviors(state, payload) {
     state.behaviors = payload.behaviors
   },
+  initAuthoringSteps(state) {
+    state.authoringStep = 1;
+  },
   setSettings(state, payload) {
     state.settings = payload.settings
   },
