@@ -57,7 +57,7 @@ const mutations = {
       state.currentSubsection += 1;
     }
     let currentBehaviorName = state.steps[state.steps.findIndex((element) => (element.content == state.currentStepContent))].behaviors;
-    state.currentBehavios.push(state.behaviors[state.behaviors.findIndex((element) => (element.name == currentBehaviorName))]);
+    state.currentBehaviors.push(state.behaviors[state.behaviors.findIndex((element) => (element.name == currentBehaviorName))]);
   },
 }
 

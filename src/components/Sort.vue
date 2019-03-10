@@ -4,7 +4,7 @@
       <v-flex xs8 offset-xs2>
         <v-card>
           <v-card-media height="50"></v-card-media>
-          <span class="font-weight-black grey--text display-1 ma-2">
+          <span class="font-weight-black grey--text display-1 ma-5">
             Decide your circuit prototyping orders
           </span>
           <v-card-text>
@@ -15,7 +15,7 @@
               </span>
               <draggable :list="subsection.steps">
                 <div v-for="(step, index) in subsection.steps" :key="index">
-                  <span class="font-italic">
+                  <span class="font-italic teal--text">
                     {{index + 1}}. {{step}}
                   </span>
                 </div>
