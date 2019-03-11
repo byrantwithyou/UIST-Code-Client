@@ -14,7 +14,7 @@
         </v-card>
       </v-flex>
       <v-flex xs3>
-        <v-card>
+        <v-card contain max-height="500">
           <v-card-title primary-title>
             <span class="body-2 blue-grey--text font-italic">
               Student Behavior History
