@@ -1,6 +1,7 @@
 const state = {
   studentName: "",
-  studentProfile: []
+  studentProfile: [],
+  studentReview: []
 };
 
 const getters = {};
@@ -15,6 +16,16 @@ const mutations = {
     if (payload.studentProfile.length == 0) {
       state.studentProfile = [];
     }
+  },
+  addStudentReview(state, payload) {
+    state.studentReview.push({
+      name: payload.name,
+      img: payload.img,
+      behavior: payload.behavior
+    })
+  },
+  deleteStudentReview(state, payload) {
+    state.studentReview.splice(state.studentReview.findIndex((element) => (element.name == payload.name)), 1);
   }
 };
 

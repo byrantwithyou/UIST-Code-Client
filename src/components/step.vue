@@ -107,7 +107,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn v-if="reviewResult == 0">Send to teacher again</v-btn>
+          <v-btn @click="sendReview2Teacher" v-if="reviewResult == 0">Send to teacher again</v-btn>
           <v-btn @click="sendFeedbackToTeacher">Close</v-btn>
         </v-card-actions>
       </v-card>
@@ -150,6 +150,14 @@
       sendFeedbackToTeacher: function() {
         this.reviewResultDialog = false;
         this.$socket.emit("teacherFeedback", this.reviewResultImg, this.reviewResultBehavior, this.reviewResult, this.$store.state.student.studentName);
+        this.reviewResultIcon = "";
+        this.reviewResultImg = "";
+        this.reviewResultComment = "";
+        this.reviewResultBehavior = "";
+        this.reviewResult = "";
+      },
+      sendReview2Teacher: function() {
+        this.$socket.emit("review2Teacher", this.reviewResultImg, this.reviewResultBehavior, this.$store.state.student.studentName);
         this.reviewResultIcon = "";
         this.reviewResultImg = "";
         this.reviewResultComment = "";

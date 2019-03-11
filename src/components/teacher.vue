@@ -75,6 +75,13 @@
         if (this.studentHistory.length > 25) {
           this.studentHistory.pop();
         }
+      },
+      review2Teacher: function(data) {
+        this.$store.commit("student/addStudentReview", {
+          name: data[2],
+          img: data[0],
+          behavior: data[1].name
+        })
       }
     },
     computed: {
