@@ -12,6 +12,11 @@
             <GChart type="ColumnChart" :data="stepData" :options="chartOptions"/>>
           </v-card-media>
         </v-card>
+        <v-card>
+          <v-card-title class="title blue-grey--text font-italic">
+            Student needs your help!
+          </v-card-title>
+        </v-card>
       </v-flex>
       <v-flex xs3>
         <v-card contain max-height="500">
@@ -20,6 +25,18 @@
               Student Behavior History
             </span>
           </v-card-title>
+          <v-card-text>
+            <div @click="feedBack2Student(index)" class="hover-hand" v-for="(history, index) in studentHistory" :key="index">
+              <span v-if="studentHistory" class="body-2 font-weight-thin grey--text">
+                {{history.name}} 
+                <span v-if="history.result == 1">passes</span>
+                <span v-if="history.result == 0">fails</span>
+                {{history.behavior.name}}
+              </span>
+              <v-btn @click="feedBack2Student(1, history.behavior.name, history.name)" v-if="history.result == 1" icon><v-icon>thumb_up</v-icon></v-btn>
+              <v-btn @click="feedBack2Student(0, history.behavior.name, history.name)" v-if="history.result == 0" icon><v-icon>thumb_down</v-icon></v-btn>
+            </div>
+          </v-card-text>
         </v-card>
       </v-flex>
     </v-layout>
@@ -40,12 +57,24 @@
           subtitle: ""
         }
       },
+      studentHistory: [],
     }),
     sockets: {
       studentProfile: function(studentProfile) {
         this.$store.commit("student/setStudentProfile", {
           studentProfile: studentProfile
         })
+      },
+      teacherFeedback: function(data) {
+        this.studentHistory.unshift({
+          img: data[0],
+          behavior: data[1],
+          result: data[2],
+          name: data[3]
+        });
+        if (this.studentHistory.length > 25) {
+          this.studentHistory.pop();
+        }
       }
     },
     computed: {
@@ -61,6 +90,17 @@
       }
     },
     created: function() {
+    },
+    methods: {
+      feedBack2Student(result, behaviorName, studentName) {
+        this.$socket.emit("feedBack2Stu", result, behaviorName, studentName);
+      }
     }
   }
 </script>
+
+<style scoped>
+  .hover-hand {
+    cursor: pointer
+  }
+</style>

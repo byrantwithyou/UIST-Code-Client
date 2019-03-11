@@ -6,6 +6,7 @@ import store from "./store";
 import VueSocketIO from "vue-socket.io";
 import vueg from "vueg";
 import VueGoogleCharts from "vue-google-charts";
+import Notifications from "vue-notification";
 
 let host = "http://localhost";
 let port = 8089;
@@ -16,6 +17,7 @@ Vue.use(new VueSocketIO({
 }));
 Vue.use(vueg, router);
 Vue.use(VueGoogleCharts);
+Vue.use(Notifications);
 
 new Vue({
   router,

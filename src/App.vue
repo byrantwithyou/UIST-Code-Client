@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <notifications group="foo" position="top right" />
     <v-content>
       <router-view v-transition></router-view>
     </v-content>

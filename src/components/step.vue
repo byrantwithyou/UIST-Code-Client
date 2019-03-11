@@ -108,7 +108,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn v-if="reviewResult == 0">Send to teacher again</v-btn>
-          <v-btn @click="reviewResultDialog = false">Close</v-btn>
+          <v-btn @click="sendFeedbackToTeacher">Close</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -146,6 +146,15 @@
         this.reviewDialog = false;
         this.$socket.emit("reviewResult", reviewResult, this.reviewStudentName, this.reviewBehavior, this.reviewComment, this.reviewImg);
         this.reviewComment = "";
+      },
+      sendFeedbackToTeacher: function() {
+        this.reviewResultDialog = false;
+        this.$socket.emit("teacherFeedback", this.reviewResultImg, this.reviewResultBehavior, this.reviewResult, this.$store.state.student.studentName);
+        this.reviewResultIcon = "";
+        this.reviewResultImg = "";
+        this.reviewResultComment = "";
+        this.reviewResultBehavior = "";
+        this.reviewResult = "";
       }
     },
     computed: {
@@ -202,8 +211,23 @@
         } else {
           this.reviewResultIcon = "not ";
         }
-        
-        
+      },
+      feedBack2Stu: function(data) {
+        if (data[0] == 1) {
+          this.$notify({
+            group: "foo",
+            type: "success",
+            title: "Feedback from teacher",
+            text: data[1] + " is wonderful!"
+          })
+        } else {
+          this.$notify({
+            group: "foo",
+            type: "warn",
+            title: "Feedback from teacher",
+            text: data[1] + " not doing well!"
+          })
+        }
       }
     }
 
