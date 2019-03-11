@@ -163,6 +163,7 @@
         this.reviewResultComment = "";
         this.reviewResultBehavior = "";
         this.reviewResult = "";
+        this.reviewResultDialog = false;
       }
     },
     computed: {
