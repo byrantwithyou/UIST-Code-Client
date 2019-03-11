@@ -30,6 +30,22 @@
                 <v-flex xs12>
                   <v-text-field v-model="editedItem.description" label="Behavior Description"></v-text-field>
                 </v-flex>
+                <v-flex xs11 v-if="editedItem.detectionMethod == 'Quiz'">
+                  <v-text-field v-model="editedItem.question" prepend-inner-icon="question_answer" color="blue" label="Input your quiz question"></v-text-field>
+                </v-flex>
+                <v-flex xs1 v-if="editedItem.detectionMethod == 'Quiz'">
+                  <v-btn small icon top @click="editedItem.answerSets.push(({
+                    question: 'Answer Choice' + (editedItem.answerSets.length + 1),
+                    check: true
+                  }))"><v-icon>add</v-icon></v-btn>
+                </v-flex>
+                <v-flex xs12 v-if="editedItem.detectionMethod == 'Quiz'">
+                  <v-card v-if="editedItem.answerSets.length" flat tile>
+                    <div class="font-italic font-weight-thin orange--text ma-2" v-for="(_, index) in editedItem.answerSets" :key="index">
+                      <v-text-field @click:prepend="editedItem.answerSets[index].check = !editedItem.answerSets[index].check" :prepend-icon="editedItem.answerSets[index].check? 'done': 'clear'" color="indigo" v-model="editedItem.answerSets[index].question"></v-text-field>
+                    </div>
+                  </v-card>
+                </v-flex>
               </v-layout>
               <v-layout>
                 <v-flex xs6>
@@ -137,7 +153,9 @@
         detectionMethod: "",
         goodExample: "",
         badExample: "",
-        description: ""
+        description: "",
+        question: null,
+        answerSets: []
       },
       defaultItem: {
         name: "",
@@ -146,7 +164,9 @@
         detectionMethod: "",
         goodExample: "",
         badExample: "",
-        description: ""
+        description: "",
+        question: null,
+        answerSets: []
       },
       detectionMethod: ["Snapshot", "Quiz"],
       behaviorLevel: ["High", "Middle", "Low"],

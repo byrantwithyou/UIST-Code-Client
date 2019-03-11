@@ -57,8 +57,9 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn @click="nextStep" v-if="currentBehaviors[0].dealingMethod == 'Block'" :disabled="!retrievedBehavior || !approved" outline color="#E53935">Next Step</v-btn>
-            <v-btn @click="nextStep" v-if="currentBehaviors[0].dealingMethod == 'Message'" :disabled="!retrievedBehavior" outline color="#E53935">Next Step</v-btn>
+            <v-btn @click="nextStep" v-if="(currentBehaviors[0].dealingMethod == 'Block') && (currentBehaviors[0].question === null)" :disabled="!retrievedBehavior || !approved" outline color="#E53935">Next Step</v-btn>
+            <v-btn @click="nextStep" v-if="(currentBehaviors[0].dealingMethod == 'Message') && (currentBehaviors[0].question === null)" :disabled="!retrievedBehavior" outline color="#E53935">Next Step</v-btn>
+            <v-btn @click="nextStep" v-if="currentBehaviors[0].question !== null" :disabled="!answerQuestionCorrect" outline color="#E53935">Next Step</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -133,7 +134,8 @@
       reviewResultComment: "",
       reviewResultImg: "",
       reviewResultDialog: false,
-      reviewResultIcon: ""
+      reviewResultIcon: "",
+      answerQuestionCorrect: false
     }),
     methods: {
       nextStep: function() {
