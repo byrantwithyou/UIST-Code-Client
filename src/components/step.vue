@@ -53,6 +53,23 @@
                   <v-card-media height="30"></v-card-media>
                 </v-card-text>
               </v-card>
+
+
+              <v-card tile hover elevation="13" :color="behaviorColor">
+                <v-card-text>
+                  <span class="header font-weight-black"></span>
+                  {{behavior.question}}
+                </v-card-text>
+                <v-card-text>
+                  <v-checkbox v-model="yourAnswer" v-for="(answer, index) in behavior.answerSets" :value="index" :key="answer.question" :label="answer.question"></v-checkbox>
+                </v-card-text>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn @click="submitAnswer" small>Submit answer</v-btn>
+                </v-card-actions>
+              </v-card>
+
+
             </div>
           </v-card-text>
           <v-card-actions>
@@ -135,7 +152,8 @@
       reviewResultImg: "",
       reviewResultDialog: false,
       reviewResultIcon: "",
-      answerQuestionCorrect: false
+      answerQuestionCorrect: false,
+      yourAnswer: []
     }),
     methods: {
       nextStep: function() {
@@ -166,6 +184,25 @@
         this.reviewResultBehavior = "";
         this.reviewResult = "";
         this.reviewResultDialog = false;
+      },
+      submitAnswer: function() {
+        let cmpAnswer = [];
+        for (let answerSet = 0; answerSet < this.currentBehaviors[0].answerSets.length; ++answerSet) {
+          if (this.currentBehaviors[0].answerSets[answerSet].check) {
+            cmpAnswer.push(answerSet);
+          }
+        }
+        console.log(cmpAnswer);
+        if ( this.yourAnswer.toString() == cmpAnswer.toString() ) {
+          this.answerQuestionCorrect = true;
+        } else {
+          this.answerQuestionCorrect = false;
+          this.$notify({
+            group: "foo",
+            type: "error",
+            title: "Wrong Answer!"
+          })
+        }
       }
     },
     computed: {
