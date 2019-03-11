@@ -36,12 +36,6 @@
         this.$router.push("/teacher");
       }
     },
-    sockets: {
-      studentProfile: function(studentProfile) {
-        this.$store.commit("setStudentProfile", {
-          studentProfile: studentProfile
-        })
-      }
-    }
+
   }
 </script>

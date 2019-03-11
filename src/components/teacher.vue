@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-layout>
-      <v-flex xs11>
+      <v-flex xs9>
         <v-card>
           <v-card-title primary-title>
             <span class="title blue-grey--text font-italic">
@@ -13,7 +13,7 @@
           </v-card-media>
         </v-card>
       </v-flex>
-      <v-flex xs1>
+      <v-flex xs3>
         <v-card>
           <v-card-title primary-title>
             <span class="body-2 blue-grey--text font-italic">
@@ -34,17 +34,33 @@
       //Trs
     },
     data: () => ({
-      stepData: [
-        ["year", "sales", "expenses", "profit"],
-        ['2014', 1000, 400, 20],
-        ['2015', 1000, 400, 20]
-      ],
       chartOptions: {
         chart:{
           title: "Overall Progress",
           subtitle: ""
         }
+      },
+    }),
+    sockets: {
+      studentProfile: function(studentProfile) {
+        this.$store.commit("student/setStudentProfile", {
+          studentProfile: studentProfile
+        })
       }
-    })
+    },
+    computed: {
+      stepTotNumber: function() {
+        let stepTotNumber = 0;
+        for (let subsection of this.$store.state.project.subsections) {
+          stepTotNumber += subsection.steps.length;
+        }
+        return stepTotNumber;
+      },
+      stepData: function() {
+        return this.$store.state.student.studentProfile;
+      }
+    },
+    created: function() {
+    }
   }
 </script>
