@@ -107,7 +107,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn @click="sendReview2Teacher" v-if="reviewResult == 0">Send to teacher again</v-btn>
+          <v-btn @click="sendReview2Teacher" v-if="(reviewResult == 0) && (reviewResultImg != 'teacher')">Send to teacher again</v-btn>
           <v-btn @click="sendFeedbackToTeacher">Close</v-btn>
         </v-card-actions>
       </v-card>

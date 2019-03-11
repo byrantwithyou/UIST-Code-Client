@@ -16,6 +16,33 @@
           <v-card-title class="title blue-grey--text font-italic">
             Student needs your help!
           </v-card-title>
+          <v-card-text>
+            <v-layout v-if="studentReview">
+              <v-flex xs4 v-for="(student, index) in studentReview" :key="index">
+                <v-card>
+                  <v-card-title primary-title>
+                    {{student.behavior.name}}
+                  </v-card-title>
+                  <v-card-media contain height="200">
+                    <v-img contain height="200" :src="student.img"></v-img>
+                  </v-card-media>
+                  <v-card-text>
+                    <v-text-field v-model="reviewComment" persistent-hint hint="Add some comment" background-color="#FCE4EC"></v-text-field>
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn small @click="reviewComment = 'Wire is wrong!'">Wire is wrong!</v-btn>
+                    <v-btn small @click="reviewComment = 'Mind Polarity'">Mind Polarity!</v-btn>
+                  </v-card-actions>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn icon @click="sendReviewResult(1, student.name, student.behavior)"><v-icon>done</v-icon></v-btn>
+                    <v-btn icon @click="sendReviewResult(0, student.name, student.behavior)"><v-icon>clear</v-icon></v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-flex>
+            </v-layout>
+          </v-card-text>
         </v-card>
       </v-flex>
       <v-flex xs3>
@@ -58,6 +85,7 @@
         }
       },
       studentHistory: [],
+      reviewComment: ""
     }),
     sockets: {
       studentProfile: function(studentProfile) {
@@ -80,7 +108,7 @@
         this.$store.commit("student/addStudentReview", {
           name: data[2],
           img: data[0],
-          behavior: data[1].name
+          behavior: data[1]
         })
       }
     },
@@ -94,6 +122,9 @@
       },
       stepData: function() {
         return this.$store.state.student.studentProfile;
+      },
+      studentReview: function() {
+        return this.$store.state.student.studentReview;
       }
     },
     created: function() {
@@ -101,6 +132,13 @@
     methods: {
       feedBack2Student(result, behaviorName, studentName) {
         this.$socket.emit("feedBack2Stu", result, behaviorName, studentName);
+      },
+      sendReviewResult(reviewResult, studentName, reviewResultBehavior) {
+        this.$store.commit("student/deleteStudentReview", {
+          name: studentName
+        });
+        this.$socket.emit("reviewResult", reviewResult, studentName, reviewResultBehavior, this.reviewComment, "teacher");
+        this.reviewComment = "";
       }
     }
   }
