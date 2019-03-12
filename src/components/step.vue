@@ -160,6 +160,14 @@
         <span class="font-italic font-weight-regular indigo--text display-1">{{feedback}}</span>
       </v-card>
     </modal>
+    <modal name="broadcast">
+      <v-card height="100" flat tile>
+        <v-card-media height="30"></v-card-media>
+      </v-card>
+      <v-card-text>
+        <p class="text-xs-center display-1 grey--text font-italic">{{broadcastMessage}}</p>
+      </v-card-text>
+    </modal>
   </v-container>
   </div>
 </template>
@@ -185,7 +193,8 @@
       answerQuestionCorrect: false,
       yourAnswer: [],
       stepTot: 0,
-      feedback: ""
+      feedback: "",
+      broadcastMessage: ""
     }),
     methods: {
       nextStep: function() {
@@ -307,6 +316,10 @@
           this.feedback = data[1] + " is bad!";
           this.$modal.show("tf");
         }
+      },
+      broadcast: function(message) {
+        this.broadcastMessage = message;
+        this.$modal.show("broadcast")
       }
     }
 
