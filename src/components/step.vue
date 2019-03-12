@@ -146,6 +146,12 @@
         <v-card-title class="font-italic font-weight-black red--text display-1">Wrong!</v-card-title>
       </v-card>
     </modal>
+    <modal name="over">
+      <v-card flat tile>
+        <v-card-media height="60"></v-card-media>
+        <v-card-title class="font-italic font-weight-black blue--text display-2">Congratulations! Your project is done!</v-card-title>
+      </v-card>
+    </modal>
   </v-container>
   </div>
 </template>
@@ -169,10 +175,15 @@
       reviewResultDialog: false,
       reviewResultIcon: "",
       answerQuestionCorrect: false,
-      yourAnswer: []
+      yourAnswer: [],
+      stepTot: 0
     }),
     methods: {
       nextStep: function() {
+        if (this.$store.state.project.step == this.stepTot)  {
+          this.$modal.show("over");
+          return;
+        }
         this.retrievedBehavior = false;
         this.approved = false;
         this.answerQuestionCorrect = false;
@@ -245,6 +256,9 @@
       },
     },
     created: function() {
+      for (let subsection of this.$store.state.project.subsections)  {
+        this.stepTot += subsection.steps.length;
+      }
     },
     components: {
     },
