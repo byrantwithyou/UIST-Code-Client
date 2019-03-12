@@ -95,16 +95,14 @@
         <v-card-title primary-title>
           {{reviewBehavior.name}}
         </v-card-title>
-        <v-card-media contain height="50">
+        <v-card-media contain height="200">
           <v-img contain :src="reviewImg" height="50"></v-img>
         </v-card-media>
         <v-card-text>
           <v-text-field persistent-hint hint="Add some comment" background-color="#FCE4EC" v-model="reviewComment"></v-text-field>
         </v-card-text>
         <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn small @click="reviewComment = 'Wire is wrong!'">Wire is wrong!</v-btn>
-          <v-btn small @click="reviewComment = 'Mind Polarity'">Mind Polarity!</v-btn>
+          <v-select label="Select Comment" v-model="reviewComment" :items="['Mind polarity', 'Wire is wrong']"></v-select>
         </v-card-actions>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -150,6 +148,12 @@
       <v-card flat tile>
         <v-card-media height="60"></v-card-media>
         <v-card-title class="font-italic font-weight-black blue--text display-2">Congratulations! Your project is done!</v-card-title>
+      </v-card>
+    </modal>
+    <modal height="100" name="tf">
+      <v-card flat tile>
+        <v-card-media height="60"></v-card-media>
+        <v-card-title class="font-italic font-weight-regular indigo--text">{{feedback}}</v-card-title>
       </v-card>
     </modal>
   </v-container>
@@ -292,19 +296,9 @@
       },
       feedBack2Stu: function(data) {
         if (data[0] == 1) {
-          this.$notify({
-            group: "foo",
-            type: "success",
-            title: "Feedback from teacher",
-            text: data[1] + " is wonderful!"
-          })
+          this.$modal.show("tf", {feedback: data[1] + "is good!"})
         } else {
-          this.$notify({
-            group: "foo",
-            type: "warn",
-            title: "Feedback from teacher",
-            text: data[1] + " not doing well!"
-          })
+          this.$modal.show("tf", {feedback: data[1] + "is bad!"})
         }
       }
     }

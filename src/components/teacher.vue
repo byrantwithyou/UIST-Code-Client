@@ -30,9 +30,7 @@
                     <v-text-field v-model="reviewComment" persistent-hint hint="Add some comment" background-color="#FCE4EC"></v-text-field>
                   </v-card-text>
                   <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn small @click="reviewComment = 'Wire is wrong!'">Wire is wrong!</v-btn>
-                    <v-btn small @click="reviewComment = 'Mind Polarity'">Mind Polarity!</v-btn>
+                    <v-select label="Select Comment" v-model="reviewComment" :items="['Mind polarity', 'Wire is wrong']"></v-select>
                   </v-card-actions>
                   <v-card-actions>
                     <v-spacer></v-spacer>
