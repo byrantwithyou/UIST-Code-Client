@@ -154,7 +154,7 @@
         goodExample: "",
         badExample: "",
         description: "",
-        question: null,
+        question: "",
         answerSets: []
       },
       defaultItem: {
@@ -165,7 +165,7 @@
         goodExample: "",
         badExample: "",
         description: "",
-        question: null,
+        question: "",
         answerSets: []
       },
       detectionMethod: ["Snapshot", "Quiz"],

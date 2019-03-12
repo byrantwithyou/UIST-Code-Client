@@ -55,7 +55,7 @@
               </v-card>
 
 
-              <v-card tile hover elevation="13" :color="behaviorColor">
+              <v-card tile v-if="currentBehaviors[0].question" hover elevation="13" :color="behaviorColor">
                 <v-card-text>
                   <span class="header font-weight-black"></span>
                   {{behavior.question}}
@@ -74,9 +74,9 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn @click="nextStep" v-if="(currentBehaviors[0].dealingMethod == 'Block') && (currentBehaviors[0].question === null)" :disabled="!retrievedBehavior || !approved" outline color="#E53935">Next Step</v-btn>
-            <v-btn @click="nextStep" v-if="(currentBehaviors[0].dealingMethod == 'Message') && (currentBehaviors[0].question === null)" :disabled="!retrievedBehavior" outline color="#E53935">Next Step</v-btn>
-            <v-btn @click="nextStep" v-if="currentBehaviors[0].question !== null" :disabled="!answerQuestionCorrect" outline color="#E53935">Next Step</v-btn>
+            <v-btn @click="nextStep" v-if="(currentBehaviors[0].dealingMethod == 'Block') && (!currentBehaviors[0].question)" :disabled="!retrievedBehavior || !approved" outline color="#E53935">Block</v-btn>
+            <v-btn @click="nextStep" v-if="(currentBehaviors[0].dealingMethod == 'Message') && (!currentBehaviors[0].question)" :disabled="!retrievedBehavior" outline color="#E53935">Message</v-btn>
+            <v-btn @click="nextStep" v-if="currentBehaviors[0].question" :disabled="!answerQuestionCorrect" outline color="#E53935">Next Step</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -192,7 +192,6 @@
             cmpAnswer.push(answerSet);
           }
         }
-        console.log(cmpAnswer);
         if ( this.yourAnswer.toString() == cmpAnswer.toString() ) {
           this.answerQuestionCorrect = true;
         } else {
