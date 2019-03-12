@@ -96,13 +96,17 @@
           {{reviewBehavior.name}}
         </v-card-title>
         <v-card-media contain height="200">
-          <v-img contain :src="reviewImg" height="50"></v-img>
+          <v-img contain :src="reviewImg" height="200"></v-img>
         </v-card-media>
         <v-card-text>
           <v-text-field persistent-hint hint="Add some comment" background-color="#FCE4EC" v-model="reviewComment"></v-text-field>
         </v-card-text>
         <v-card-actions>
-          <v-select label="Select Comment" v-model="reviewComment" :items="['Mind polarity', 'Wire is wrong']"></v-select>
+          <v-layout>
+            <v-flex xs10 offset-xs1>
+              <v-select label="Select Comment" v-model="reviewComment" :items="['Mind polarity', 'Wire is wrong']"></v-select>
+            </v-flex>
+          </v-layout>
         </v-card-actions>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -152,8 +156,8 @@
     </modal>
     <modal height="100" name="tf">
       <v-card flat tile>
-        <v-card-media height="60"></v-card-media>
-        <v-card-title class="font-italic font-weight-regular indigo--text">{{feedback}}</v-card-title>
+        <v-card-media height="10"></v-card-media>
+        <span class="font-italic font-weight-regular indigo--text display-1">{{feedback}}</span>
       </v-card>
     </modal>
   </v-container>
@@ -180,7 +184,8 @@
       reviewResultIcon: "",
       answerQuestionCorrect: false,
       yourAnswer: [],
-      stepTot: 0
+      stepTot: 0,
+      feedback: ""
     }),
     methods: {
       nextStep: function() {
@@ -296,9 +301,11 @@
       },
       feedBack2Stu: function(data) {
         if (data[0] == 1) {
-          this.$modal.show("tf", {feedback: data[1] + "is good!"})
+          this.feedback = data[1] + " is good!";
+          this.$modal.show("tf");
         } else {
-          this.$modal.show("tf", {feedback: data[1] + "is bad!"})
+          this.feedback = data[1] + " is bad!";
+          this.$modal.show("tf");
         }
       }
     }
