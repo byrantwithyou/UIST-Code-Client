@@ -18,7 +18,7 @@
             <span class="header font-weight-light black--text">{{$store.state.project.step}}. {{currentStepContent}}</span>
             <v-card-media height="30"></v-card-media>
             <div class="font-italic " v-for="(behavior, index) in currentBehaviors" :key="index">
-              <v-card tile hover elevation="13" :color="behaviorColor">
+              <v-card tile hover v-if="currentBehaviors" elevation="13" :color="behaviorColor">
                 <v-card-text>
                   Behavior {{index + 1}}: {{behavior.name}}
                   <br>
@@ -55,7 +55,7 @@
               </v-card>
 
 
-              <v-card tile v-if="currentBehaviors[0].question" hover elevation="13" :color="behaviorColor">
+              <v-card tile v-if="currentBehaviors && currentBehaviors[0].question" hover elevation="13" :color="behaviorColor">
                 <v-card-text>
                   <span class="header font-weight-black"></span>
                   {{behavior.question}}
@@ -72,11 +72,15 @@
 
             </div>
           </v-card-text>
-          <v-card-actions>
+          <v-card-actions v-if="currentBehaviors.length">
             <v-spacer></v-spacer>
-            <v-btn @click="nextStep" v-if="(currentBehaviors[0].dealingMethod == 'Block') && (!currentBehaviors[0].question)" :disabled="!retrievedBehavior || !approved" outline color="#E53935">Block</v-btn>
-            <v-btn @click="nextStep" v-if="(currentBehaviors[0].dealingMethod == 'Message') && (!currentBehaviors[0].question)" :disabled="!retrievedBehavior" outline color="#E53935">Message</v-btn>
+            <v-btn @click="nextStep" v-if="(currentBehaviors[0].dealingMethod) && (!currentBehaviors[0].question)" :disabled="!retrievedBehavior || !approved" outline color="#E53935">Next Step</v-btn>
+            <v-btn @click="nextStep" v-if="(!currentBehaviors[0].dealingMethod) && (!currentBehaviors[0].question)" :disabled="!retrievedBehavior" outline color="#E53935">Next Step</v-btn>
             <v-btn @click="nextStep" v-if="currentBehaviors[0].question" :disabled="!answerQuestionCorrect" outline color="#E53935">Next Step</v-btn>
+          </v-card-actions>
+          <v-card-actions v-if="currentBehaviors.length == 0">
+            <v-spacer></v-spacer>
+            <v-btn @click="nextStep" outline color="#E53935">Next Step</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -238,7 +242,9 @@
     sockets: {
       photo: function(data) {
         this.retrievedBehavior = true;
-        this.$socket.emit("photo", data, this.currentBehaviors[0]);
+        if (this.currentBehaviors) {
+          this.$socket.emit("photo", data, this.currentBehaviors[0]);
+        }
       },
       photoToJudge: function(data) {
         this.reviewDialog = true;

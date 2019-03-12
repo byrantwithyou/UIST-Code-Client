@@ -33,7 +33,17 @@ const mutations = {
     state.currentStepContent = payload.subsections[0].steps[0];
     state.currentSubsection = 1;
     let currentBehaviorName = state.steps[state.steps.findIndex((element) => (element.content == state.currentStepContent))].behaviors;
-    state.currentBehaviors.push(state.behaviors[state.behaviors.findIndex((element) => (element.name == currentBehaviorName))]);
+    let uist =
+      state.behaviors[
+        state.behaviors.findIndex(
+          element => element.name == currentBehaviorName
+        )
+      ];
+    if (uist) {
+
+      state.currentBehaviors.push();
+    }
+    
   },
   setSteps(state, payload) {
     state.steps = payload.steps;
@@ -57,7 +67,16 @@ const mutations = {
       state.currentSubsection += 1;
     }
     let currentBehaviorName = state.steps[state.steps.findIndex((element) => (element.content == state.currentStepContent))].behaviors;
-    state.currentBehaviors.push(state.behaviors[state.behaviors.findIndex((element) => (element.name == currentBehaviorName))]);
+    let uist =
+      state.behaviors[
+      state.behaviors.findIndex(
+        element => element.name == currentBehaviorName
+      )
+      ];
+
+    if (uist) {
+      state.currentBehaviors.push(state.behaviors[state.behaviors.findIndex((element) => (element.name == currentBehaviorName))]);
+    }
   },
 }
 

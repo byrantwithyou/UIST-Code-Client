@@ -25,7 +25,7 @@
                   <v-select v-model="editedItem.level" label="Style Level" :items="behaviorLevel"></v-select>
                 </v-flex>
                 <v-flex xs6>
-                  <v-select v-model="editedItem.dealingMethod" :items="dealingMethod" label="Dealing Method"></v-select>
+                  <v-checkbox v-model="editedItem.dealingMethod" label="Block or not"></v-checkbox>
                 </v-flex>
                 <v-flex xs12>
                   <v-text-field v-model="editedItem.description" label="Style Description"></v-text-field>
@@ -38,6 +38,12 @@
                     question: 'Answer Choice' + (editedItem.answerSets.length + 1),
                     check: true
                   }))"><v-icon>add</v-icon></v-btn>
+                </v-flex>
+                <v-flex xs6>
+                  <v-select :items="['1', '2', '3']" persistent-hint hint="Success times to consider not to validate the style "></v-select>
+                </v-flex>
+                <v-flex xs6>
+                  <v-select :items="['High', 'Middle', 'Low']" persistent-hint hint='Probability to validate the "formed" style'></v-select>
                 </v-flex>
                 <v-flex xs12 v-if="editedItem.detectionMethod == 'Quiz'">
                   <v-card v-if="editedItem.answerSets.length" flat tile>
@@ -140,7 +146,7 @@
           value: 'name'
         },
         { text: 'Level', value: 'level', sortable: false },
-        { text: 'Dealing Method', value: 'dealingMethod', sortable: false },
+        { text: 'Block or not?', value: 'dealingMethod', sortable: false },
         { text: 'Validation Method', value: 'detectionMethod', sortable: false },
         { text: 'Actions', value: 'action', sortable: false }
       ],
@@ -149,7 +155,7 @@
       editedItem: {
         name: '',
         level: "",
-        dealingMethod: "",
+        dealingMethod: true,
         detectionMethod: "",
         goodExample: "",
         badExample: "",
@@ -160,7 +166,7 @@
       defaultItem: {
         name: "",
         level: "",
-        dealingMethod: "",
+        dealingMethod: true,
         detectionMethod: "",
         goodExample: "",
         badExample: "",
@@ -170,7 +176,6 @@
       },
       detectionMethod: ["Snapshot", "Quiz"],
       behaviorLevel: ["High", "Middle", "Low"],
-      dealingMethod: ["Block", "Message"],
     }),
 
     computed: {

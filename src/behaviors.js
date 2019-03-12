@@ -5,7 +5,7 @@ export default [
     detectionMethod: "Snapshot",
     level: "High",
     //Can be Either Block, Message, or Report
-    dealingMethod: "Block",
+    dealingMethod: true,
     goodExample: "",
     badExample: "",
     description: "",

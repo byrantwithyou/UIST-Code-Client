@@ -16,7 +16,7 @@
         <v-card-media height="10"></v-card-media>
       </v-flex>
       <v-flex xs3 offset-xs1>
-        <v-select dense v-model="step.behaviors" color="green" hint="Choose the behaviors to detect for each step" persistent-hint :items="behaviors"></v-select>
+        <v-select dense v-model="step.behaviors" color="green" hint="Choose the styles to detect for each step" persistent-hint :items="behaviors"></v-select>
       </v-flex>
     </v-layout>
     <v-card>

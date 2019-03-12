@@ -4,36 +4,6 @@
       <v-toolbar-title>{{title}}</v-toolbar-title>
     </v-toolbar>
     <v-container>
-      <v-layout>
-        <v-flex xs5>
-            <v-select
-              solo
-              dense
-              flat
-              color="green"
-              background-color="#E8EAF6"
-              v-model="goalNumber"
-              :items="goalNumbers"
-              :menu-props="{ maxHeight: '400' }"
-              hint="Goal number of correct behavior demenstrations for mastery?"
-              persistent-hint
-            ></v-select>
-        </v-flex>
-        <v-flex xs5 offset-xs2>
-            <v-select
-              solo
-              dense
-              flat
-              color="green"
-              background-color="#E8EAF6"
-              v-model="errorTime"
-              :items="errorTimes"
-              :menu-props="{ maxHeight: '400' }"
-              hint="Number of mistakes to demenstrate lack of mastery?"
-              persistent-hint
-            ></v-select>
-        </v-flex>
-      </v-layout>
       <v-card-media height="30"></v-card-media>
       <v-card-media contain height="150">
         <v-img contain height="150" :src="projectTutorial"></v-img>
