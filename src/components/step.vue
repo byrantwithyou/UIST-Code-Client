@@ -159,6 +159,8 @@
       nextStep: function() {
         this.retrievedBehavior = false;
         this.approved = false;
+        this.answerQuestionCorrect = false;
+        this.yourAnswer = [];
         this.$store.commit("project/addStep");
         this.$socket.emit("addStep");
       },

@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-toolbar flat color="white">
-      <v-toolbar-title>Step1: Authoring Behaviors</v-toolbar-title>
+      <v-toolbar-title>Step1: Authoring Styles</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-dialog v-model="dialog" max-width="500px">
         <template v-slot:activator="{ on }">
@@ -16,19 +16,19 @@
             <v-container grid-list-md>
               <v-layout wrap>
                 <v-flex xs6>
-                  <v-text-field v-model="editedItem.name" label="Behavior name"></v-text-field>
+                  <v-text-field v-model="editedItem.name" label="Style name"></v-text-field>
                 </v-flex>
                 <v-flex xs6>
-                  <v-select v-model="editedItem.detectionMethod" label="Detection Method" :items="detectionMethod"></v-select>
+                  <v-select v-model="editedItem.detectionMethod" label="Validation Method" :items="detectionMethod"></v-select>
                 </v-flex>
                 <v-flex xs6>
-                  <v-select v-model="editedItem.level" label="Behavior Level" :items="behaviorLevel"></v-select>
+                  <v-select v-model="editedItem.level" label="Style Level" :items="behaviorLevel"></v-select>
                 </v-flex>
                 <v-flex xs6>
                   <v-select v-model="editedItem.dealingMethod" :items="dealingMethod" label="Dealing Method"></v-select>
                 </v-flex>
                 <v-flex xs12>
-                  <v-text-field v-model="editedItem.description" label="Behavior Description"></v-text-field>
+                  <v-text-field v-model="editedItem.description" label="Style Description"></v-text-field>
                 </v-flex>
                 <v-flex xs11 v-if="editedItem.detectionMethod == 'Quiz'">
                   <v-text-field v-model="editedItem.question" prepend-inner-icon="question_answer" color="blue" label="Input your quiz question"></v-text-field>
@@ -62,7 +62,7 @@
               <v-layout>
                 <v-flex xs6>
                   <span class="grey--text">
-                    Good Examples
+                    Example of good style
                   </span>
                   <span>
                     <v-btn @click="clickGoodExample" small color="primary">Upload</v-btn>
@@ -71,7 +71,7 @@
                 </v-flex>
                 <v-flex xs6>
                   <span class="grey--text">
-                    Bad Examples
+                    Example of bad style
                   </span>
                   <span>
                     <v-btn small @click="clickBadExample" color="primary">Upload</v-btn>
@@ -134,14 +134,14 @@
       dialog: false,
       headers: [
         {
-          text: 'Behavior Name',
+          text: 'Style Name',
           align: 'left',
           sortable: false,
           value: 'name'
         },
         { text: 'Level', value: 'level', sortable: false },
         { text: 'Dealing Method', value: 'dealingMethod', sortable: false },
-        { text: 'Detection Method', value: 'detectionMethod', sortable: false },
+        { text: 'Validation Method', value: 'detectionMethod', sortable: false },
         { text: 'Actions', value: 'action', sortable: false }
       ],
       behaviors: behaviors,
@@ -175,7 +175,7 @@
 
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? 'New Behavior' : 'Edit Behavior'
+        return this.editedIndex === -1 ? 'New Style' : 'Edit Style'
       }
     },
 
@@ -199,10 +199,10 @@
 
       close () {
         this.dialog = false
-        setTimeout(() => {
-          this.editedItem = Object.assign({}, this.defaultItem)
+          this.editedItem = Object.assign({}, this.defaultItem);
+          this.editedItem.answerSets = [];
           this.editedIndex = -1
-        }, 300)
+        
       },
 
       save () {
