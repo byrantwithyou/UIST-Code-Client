@@ -20,20 +20,20 @@
             <div class="font-italic " v-for="(behavior, index) in currentBehaviors" :key="index">
               <v-card tile hover v-if="currentBehaviors" elevation="13" :color="behaviorColor">
                 <v-card-text>
-                  Behavior {{index + 1}}: {{behavior.name}}
+                  Style: {{behavior.name}}
                   <br>
-                  Detection Method: {{behavior.detectionMethod}}
+                  Validation Method: {{behavior.detectionMethod}}
                   <br>
                   Level: {{behavior.level}}
                   <br>
-                  Dealing Method: {{behavior.dealingMethod}}
+                  Block or not? {{behavior.dealingMethod}}
                   <br>
-                  Behavior Description: {{behavior.description}}
+                  Style Description: {{behavior.description}}
                   <v-card-media height="10"></v-card-media>
                   <v-layout>
                     <v-flex xs6>
                       <div style="text-align: center">
-                        Good Example
+                        Good Example of the style
                       </div>
                       <v-card-media height="10"></v-card-media>
                       <v-card-media contain height="50">
@@ -42,7 +42,7 @@
                     </v-flex>
                     <v-flex xs6>
                       <div style="text-align: center">
-                        Bad Example
+                        Bad Example of the style
                       </div>
                       <v-card-media height="10"></v-card-media>
                       <v-card-media contain height="50">
@@ -89,7 +89,7 @@
       <v-card>
         <v-card-title>
           <span class="font-weight-black font-italic title">
-            Please review the following behavior
+            Please review the following style
           </span>
         </v-card-title>
         <v-card-title primary-title>
@@ -134,6 +134,18 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <modal name="right">
+      <v-card flat tile>
+        <v-card-media height="60"></v-card-media>
+        <v-card-title class="font-italic font-weight-black green--text display-1">Right!</v-card-title>
+      </v-card>
+    </modal>
+    <modal name="wrong">
+      <v-card flat tile>
+        <v-card-media height="60"></v-card-media>
+        <v-card-title class="font-italic font-weight-black red--text display-1">Wrong!</v-card-title>
+      </v-card>
+    </modal>
   </v-container>
   </div>
 </template>
@@ -200,13 +212,10 @@
         }
         if ( this.yourAnswer.toString() == cmpAnswer.toString() ) {
           this.answerQuestionCorrect = true;
+          this.$modal.show("right");
         } else {
           this.answerQuestionCorrect = false;
-          this.$notify({
-            group: "foo",
-            type: "error",
-            title: "Wrong Answer!"
-          })
+          this.$modal.show("wrong");
         }
       }
     },

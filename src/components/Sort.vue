@@ -7,6 +7,11 @@
           <span class="font-weight-black grey--text display-1 ma-5">
             Decide your circuit prototyping orders
           </span>
+          <v-card-media height="50"></v-card-media>
+          <v-card-media height="250">
+            <v-img :src="$store.state.project.settings.projectTutorial" contain height="250">
+            </v-img>
+          </v-card-media>
           <v-card-text>
           <draggable :list="subsections">
             <div v-for="(subsection, index) in subsections" :key="index">

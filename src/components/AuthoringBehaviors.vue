@@ -39,18 +39,18 @@
                     check: true
                   }))"><v-icon>add</v-icon></v-btn>
                 </v-flex>
-                <v-flex xs6>
-                  <v-select :items="['1', '2', '3']" persistent-hint hint="Success times to consider not to validate the style "></v-select>
-                </v-flex>
-                <v-flex xs6>
-                  <v-select :items="['High', 'Middle', 'Low']" persistent-hint hint='Probability to validate the "formed" style'></v-select>
-                </v-flex>
                 <v-flex xs12 v-if="editedItem.detectionMethod == 'Quiz'">
                   <v-card v-if="editedItem.answerSets.length" flat tile>
                     <div class="font-italic font-weight-thin orange--text ma-2" v-for="(_, index) in editedItem.answerSets" :key="index">
                       <v-text-field @click:prepend="editedItem.answerSets[index].check = !editedItem.answerSets[index].check" :prepend-icon="editedItem.answerSets[index].check? 'done': 'clear'" color="indigo" v-model="editedItem.answerSets[index].question"></v-text-field>
                     </div>
                   </v-card>
+                </v-flex>
+                <v-flex xs6>
+                  <v-select :items="['1', '2', '3']" persistent-hint hint="Success times to consider not to validate the style "></v-select>
+                </v-flex>
+                <v-flex xs6>
+                  <v-select :items="['High', 'Middle', 'Low']" persistent-hint hint='Probability to validate the "formed" style'></v-select>
                 </v-flex>
               </v-layout>
               <v-layout>

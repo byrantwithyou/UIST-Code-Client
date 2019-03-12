@@ -41,7 +41,7 @@ const mutations = {
       ];
     if (uist) {
 
-      state.currentBehaviors.push();
+      state.currentBehaviors.push(uist);
     }
     
   },
