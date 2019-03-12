@@ -14,6 +14,14 @@
         </v-card>
         <v-card>
           <v-card-title class="title blue-grey--text font-italic">
+            Broadcast to students
+          </v-card-title>
+          <v-card-text>
+            <v-text-field v-model="broadcastMessage" @click:append-outer="broadcast" label="Broadcast Message" append-outer-icon="send"></v-text-field>
+          </v-card-text>
+        </v-card>
+        <v-card>
+          <v-card-title class="title blue-grey--text font-italic">
             Student needs your help!
           </v-card-title>
           <v-card-text>
@@ -83,7 +91,8 @@
         }
       },
       studentHistory: [],
-      reviewComment: ""
+      reviewComment: "",
+      broadcastMessage: ""
     }),
     sockets: {
       studentProfile: function(studentProfile) {
@@ -137,6 +146,9 @@
         });
         this.$socket.emit("reviewResult", reviewResult, studentName, reviewResultBehavior, this.reviewComment, "teacher");
         this.reviewComment = "";
+      },
+      broadcast: function() {
+        this.$socket.emit("broadcast", this.broadcastMessage);
       }
     }
   }
