@@ -10,6 +10,8 @@ export default [
     badExample: "",
     description: "",
     answerSets: [],
-    question: ""
+    question: "",
+    successTimes: "1",
+    pvfs: "Low"
   },
 ];

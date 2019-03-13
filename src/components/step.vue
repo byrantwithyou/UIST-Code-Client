@@ -17,8 +17,8 @@
             <br>
             <span class="header font-weight-light black--text">{{$store.state.project.step}}. {{currentStepContent}}</span>
             <v-card-media height="30"></v-card-media>
-            <div class="font-italic " v-for="(behavior, index) in currentBehaviors" :key="index">
-              <v-card tile hover v-if="currentBehaviors" elevation="13" :color="behaviorColor">
+            <div class="font-italic " v-for="(behavior, index) in realCurrentBehaviors" :key="index">
+              <v-card tile hover v-if="realCurrentBehaviors" elevation="13" :color="behaviorColor">
                 <v-card-text>
                   Style: {{behavior.name}}
                   <br>
@@ -55,7 +55,7 @@
               </v-card>
 
 
-              <v-card tile v-if="currentBehaviors && currentBehaviors[0].question" hover elevation="13" :color="behaviorColor">
+              <v-card tile v-if="realCurrentBehaviors && realCurrentBehaviors[0].question" hover elevation="13" :color="behaviorColor">
                 <v-card-text>
                   <span class="header font-weight-black"></span>
                   {{behavior.question}}
@@ -72,13 +72,13 @@
 
             </div>
           </v-card-text>
-          <v-card-actions v-if="currentBehaviors.length">
+          <v-card-actions v-if="realCurrentBehaviors.length">
             <v-spacer></v-spacer>
-            <v-btn @click="nextStep" v-if="(currentBehaviors[0].dealingMethod) && (!currentBehaviors[0].question)" :disabled="!retrievedBehavior || !approved" outline color="#E53935">Next Step</v-btn>
-            <v-btn @click="nextStep" v-if="(!currentBehaviors[0].dealingMethod) && (!currentBehaviors[0].question)" :disabled="!retrievedBehavior" outline color="#E53935">Next Step</v-btn>
-            <v-btn @click="nextStep" v-if="currentBehaviors[0].question" :disabled="!answerQuestionCorrect" outline color="#E53935">Next Step</v-btn>
+            <v-btn @click="nextStep" v-if="(realCurrentBehaviors[0].dealingMethod) && (!realCurrentBehaviors[0].question)" :disabled="!retrievedBehavior || !approved" outline color="#E53935">Next Step</v-btn>
+            <v-btn @click="nextStep" v-if="(!realCurrentBehaviors[0].dealingMethod) && (!realCurrentBehaviors[0].question)" :disabled="!retrievedBehavior" outline color="#E53935">Next Step</v-btn>
+            <v-btn @click="nextStep" v-if="realCurrentBehaviors[0].question" :disabled="!answerQuestionCorrect" outline color="#E53935">Next Step</v-btn>
           </v-card-actions>
-          <v-card-actions v-if="currentBehaviors.length == 0">
+          <v-card-actions v-if="realCurrentBehaviors.length == 0">
             <v-spacer></v-spacer>
             <v-btn @click="nextStep" outline color="#E53935">Next Step</v-btn>
           </v-card-actions>
@@ -194,7 +194,9 @@
       yourAnswer: [],
       stepTot: 0,
       feedback: "",
-      broadcastMessage: ""
+      broadcastMessage: "",
+      behaviorProfile: {},
+      realCurrentBehaviors: []
     }),
     methods: {
       nextStep: function() {
@@ -207,8 +209,9 @@
         this.approved = false;
         this.answerQuestionCorrect = false;
         this.yourAnswer = [];
-        this.$socket.emit("stepAction", this.currentBehaviors[0]);
+        this.$socket.emit("stepAction", this.realCurrentBehaviors[0]);
         this.$store.commit("project/addStep");
+        this.realCurrentBehaviors = this.currentBehaviors;
         this.$socket.emit("addStep");
       },
       sendReviewResult: function(reviewResult) {
@@ -220,7 +223,7 @@
         this.reviewResultDialog = false;
         this.$socket.emit("teacherFeedback", this.reviewResultImg, this.reviewResultBehavior, this.reviewResult, this.$store.state.student.studentName);
         if ( 0 == this.reviewResult) {
-          this.$socket.emit("failureHistory", this.currentBehaviors[0]);
+          this.$socket.emit("failureHistory", this.realCurrentBehaviors[0]);
         }
         this.reviewResultIcon = "";
         this.reviewResultImg = "";
@@ -239,8 +242,8 @@
       },
       submitAnswer: function() {
         let cmpAnswer = [];
-        for (let answerSet = 0; answerSet < this.currentBehaviors[0].answerSets.length; ++answerSet) {
-          if (this.currentBehaviors[0].answerSets[answerSet].check) {
+        for (let answerSet = 0; answerSet < this.realCurrentBehaviors[0].answerSets.length; ++answerSet) {
+          if (this.realCurrentBehaviors[0].answerSets[answerSet].check) {
             cmpAnswer.push(answerSet);
           }
         }
@@ -250,7 +253,7 @@
         } else {
           this.answerQuestionCorrect = false;
           this.$modal.show("wrong");
-          this.$socket.emit("failureHistory", this.currentBehaviors[0]);
+          this.$socket.emit("failureHistory", this.realCurrentBehaviors[0]);
         }
       }
     },
@@ -267,8 +270,10 @@
       currentStepContent: function() {
         return this.$store.state.project.currentStepContent;
       },
-      currentBehaviors: function() {
-        return this.$store.state.project.currentBehaviors;
+      currentBehaviors: {
+        get: function() {
+          return this.$store.state.project.currentBehaviors;
+        }
       },
       behaviorColor: function() {
         const mapping = {
@@ -276,21 +281,22 @@
           "Middle": "#E57373",
           "Low": "#FFCDD2"
         }
-        return mapping[this.currentBehaviors[0].level];
+        return mapping[this.realCurrentBehaviors[0].level];
       },
     },
     created: function() {
       for (let subsection of this.$store.state.project.subsections)  {
         this.stepTot += subsection.steps.length;
       }
+      this.realCurrentBehaviors = this.currentBehaviors;
     },
     components: {
     },
     sockets: {
       photo: function(data) {
         this.retrievedBehavior = true;
-        if (this.currentBehaviors) {
-          this.$socket.emit("photo", data, this.currentBehaviors[0]);
+        if (this.realCurrentBehaviors) {
+          this.$socket.emit("photo", data, this.realCurrentBehaviors[0]);
         }
       },
       photoToJudge: function(data) {
@@ -326,6 +332,29 @@
       broadcast: function(message) {
         this.broadcastMessage = message;
         this.$modal.show("broadcast")
+      },
+      behaviorProfile: function(profile) {
+        console.log("profile");
+        this.behaviorProfile = profile;
+        if (this.realCurrentBehaviors ) {
+          if (this.behaviorProfile[this.realCurrentBehaviors[0].name])
+            if (this.behaviorProfile[this.realCurrentBehaviors[0].name] >= Number(this.realCurrentBehaviors[0].successTimes)) {
+              let random = Math.random();
+              if (this.realCurrentBehaviors[0].pvfs == "Low") {
+                if (random > 0.66) {
+                  this.realCurrentBehaviors = [];
+                }
+              }
+              else if (this.realCurrentBehaviors[0].pvfs == "Middle") {
+                if (randomm > 0.33) {
+                  this.realCurrentBehaviors = [];
+                }
+              }
+              else {
+                this.realCurrentBehaviors = [];
+              }
+            }
+        }
       }
     }
 

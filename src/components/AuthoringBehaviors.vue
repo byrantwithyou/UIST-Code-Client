@@ -47,10 +47,10 @@
                   </v-card>
                 </v-flex>
                 <v-flex xs6>
-                  <v-select :items="['1', '2', '3']" persistent-hint hint="Success times to consider not to validate the style "></v-select>
+                  <v-select v-model="editedItem.successTimes" :items="['1', '2', '3']" persistent-hint hint="Success times to consider not to validate the style "></v-select>
                 </v-flex>
                 <v-flex xs6>
-                  <v-select :items="['High', 'Middle', 'Low']" persistent-hint hint='Probability to validate the "formed" style'></v-select>
+                  <v-select v-model="editedItem.pvfs" :items="['High', 'Middle', 'Low']" persistent-hint hint='Probability to validate the "formed" style'></v-select>
                 </v-flex>
               </v-layout>
               <v-layout>
@@ -161,7 +161,9 @@
         badExample: "",
         description: "",
         question: "",
-        answerSets: []
+        answerSets: [],
+        successTimes: "1",
+        pvfs: "Low"
       },
       defaultItem: {
         name: "",
@@ -172,7 +174,9 @@
         badExample: "",
         description: "",
         question: "",
-        answerSets: []
+        answerSets: [],
+        successTimes: "1",
+        pvfs: "Low"
       },
       detectionMethod: ["Snapshot", "Quiz"],
       behaviorLevel: ["High", "Middle", "Low"],
