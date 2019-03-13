@@ -200,12 +200,14 @@
       nextStep: function() {
         if (this.$store.state.project.step == this.stepTot)  {
           this.$modal.show("over");
+          this.$socket.emit("stepAction", this.currentBehaviors[0]);         
           return;
         }
         this.retrievedBehavior = false;
         this.approved = false;
         this.answerQuestionCorrect = false;
         this.yourAnswer = [];
+        this.$socket.emit("stepAction", this.currentBehaviors[0]);
         this.$store.commit("project/addStep");
         this.$socket.emit("addStep");
       },
@@ -217,6 +219,9 @@
       sendFeedbackToTeacher: function() {
         this.reviewResultDialog = false;
         this.$socket.emit("teacherFeedback", this.reviewResultImg, this.reviewResultBehavior, this.reviewResult, this.$store.state.student.studentName);
+        if ( 0 == this.reviewResult) {
+          this.$socket.emit("failureHistory", this.currentBehaviors[0]);
+        }
         this.reviewResultIcon = "";
         this.reviewResultImg = "";
         this.reviewResultComment = "";
@@ -245,6 +250,7 @@
         } else {
           this.answerQuestionCorrect = false;
           this.$modal.show("wrong");
+          this.$socket.emit("failureHistory", this.currentBehaviors[0]);
         }
       }
     },

@@ -57,6 +57,7 @@
           settings: authored[3]
         });
         this.$router.push("/sort");
+        this.$socket.emit("sort");
       }
     }
   }

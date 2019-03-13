@@ -8,10 +8,17 @@
               Overview Statistics
             </span>
           </v-card-title>
-          <v-card-media contain height="200">
-            <GChart type="ColumnChart" :data="stepData" :options="chartOptions"/>>
-          </v-card-media>
         </v-card>
+        <v-container fluid>
+          <v-layout v-for="(student, index) in actionHistory" :key="index">
+            <span class="font-weight-thin font-italic ma-2 orange--text"> 
+              {{student[0].name}} :
+            </span>
+              <span class="ma-2" v-for="(action, index0) in student" :key="index0">
+                <v-icon>{{action.icon}}</v-icon>
+              </span>
+          </v-layout>
+        </v-container>
         <v-card>
           <v-card-title class="title blue-grey--text font-italic">
             Broadcast to students
@@ -59,8 +66,11 @@
             </span>
           </v-card-title>
           <v-card-text>
-            <div @click="feedBack2Student(index)" class="hover-hand" v-for="(history, index) in studentHistory" :key="index">
-              <span v-if="studentHistory" class="body-2 font-weight-thin grey--text">
+            <v-select v-model="interestedStudent" :items="studentHistory.map((element) => (element.name))" label="Select students you are interested in"></v-select>
+          </v-card-text>
+          <v-card-text>
+            <div @click="feedBack2Student(index)" class="hover-hand" v-if="history">
+              <span class="body-2 font-weight-thin grey--text">
                 {{history.name}} 
                 <span v-if="history.result == 1">passes</span>
                 <span v-if="history.result == 0">fails</span>
@@ -92,7 +102,9 @@
       },
       studentHistory: [],
       reviewComment: "",
-      broadcastMessage: ""
+      broadcastMessage: "",
+      actionHistory: [],
+      interestedStudent: ""
     }),
     sockets: {
       studentProfile: function(studentProfile) {
@@ -117,6 +129,35 @@
           img: data[0],
           behavior: data[1]
         })
+      },
+      sort: function(studentName) {
+        this.actionHistory.push([{
+          icon: "sort",
+          behavior: "",
+          name: studentName
+        }]);
+      },
+      stepAction: function(data) {
+        let behavior = "";
+        if (data[1]) {
+          behavior = data[1].name;
+        }
+        this.actionHistory.find((element) => (element[0].name == data[0])).push({
+          icon: "done",
+          behavior: behavior,
+          name: data[0]
+        })
+      },
+      failureHistory: function(data) {
+        let behavior = "";
+        if (data[1]) {
+          behavior = data[1].name;
+        }
+        this.actionHistory.find((element) => (element[0].name == data[0])).push({
+          icon: "clear",
+          behavior: behavior,
+          name: data[0]
+        })
       }
     },
     computed: {
@@ -132,6 +173,9 @@
       },
       studentReview: function() {
         return this.$store.state.student.studentReview;
+      },
+      history: function() {
+        return this.studentHistory.find((element) => (element.name == this.interestedStudent))
       }
     },
     created: function() {
