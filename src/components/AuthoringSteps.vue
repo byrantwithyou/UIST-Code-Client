@@ -29,6 +29,7 @@
 </template>
 
 <script>
+  import steps from "../steps";
   import xml2js from "xml2js";
   let parser = new xml2js.Parser();
   export default {
@@ -244,9 +245,11 @@
               behaviors: []
             });
           }
+          that.steps = steps;
         })
        }
        fileReader.readAsText(file);
+       
      },
     nextStep: function() {
       this.$store.commit("project/setSteps", {

@@ -7,8 +7,8 @@
           <v-card-title>
             <span class="display-1 font-weight-black font-italic blue-grey--text ma-2">Tutorial</span>
           </v-card-title>
-          <v-card-media contain height="100">
-            <v-img contain height="100" :src="tutorial"></v-img>
+          <v-card-media contain height="400">
+            <v-img contain height="400" :src="tutorial"></v-img>
           </v-card-media>
           <v-card-text>
             <span class="title font-weight-regular grey--text font-italic">{{currentSubsectionName}} Subsection</span>
@@ -214,7 +214,7 @@
         this.realCurrentBehaviors = this.currentBehaviors;
         this.$socket.emit("addStep");
       },
-      sendReviewResult: function(reviewResult) {
+      sendReviewResult: function( reviewResult ) {
         this.reviewDialog = false;
         this.$socket.emit("reviewResult", reviewResult, this.reviewStudentName, this.reviewBehavior, this.reviewComment, this.reviewImg);
         this.reviewComment = "";
@@ -334,7 +334,6 @@
         this.$modal.show("broadcast")
       },
       behaviorProfile: function(profile) {
-        console.log("profile");
         this.behaviorProfile = profile;
         if (this.realCurrentBehaviors ) {
           if (this.behaviorProfile[this.realCurrentBehaviors[0].name])
@@ -346,7 +345,7 @@
                 }
               }
               else if (this.realCurrentBehaviors[0].pvfs == "Middle") {
-                if (randomm > 0.33) {
+                if (random > 0.33) {
                   this.realCurrentBehaviors = [];
                 }
               }
