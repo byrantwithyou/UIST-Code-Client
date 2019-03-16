@@ -30,7 +30,7 @@
                   <br>
                   Style Description: {{behavior.description}}
                   <v-card-media height="10"></v-card-media>
-                  <v-layout>
+                  <v-layout>9
                     <v-flex xs6>
                       <div style="text-align: center">
                         Good Example of the style
