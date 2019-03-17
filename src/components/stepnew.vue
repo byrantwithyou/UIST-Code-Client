@@ -138,6 +138,39 @@
         <v-card-title class="font-italic font-weight-black orange--text display-1">Please take a photo of this section after this step!</v-card-title>
       </v-card>
     </modal>
+
+    <div v-for="(review, index) in photoReview" :key="index">
+      <modal @closed="console.log(index)" v-if="photoReview.length != 0" :name="index">
+        <v-card>
+          <v-card-title>
+            <span class="font-weight-black font-italic title">
+              Please review the following style
+            </span>
+          </v-card-title>
+          <v-card-title primary-title>
+            {{review.behavior.name}}
+          </v-card-title>
+          <v-card-media contain height="200">
+            <v-img contain :src="review.img" height="200"></v-img>
+          </v-card-media>
+          <v-card-text>
+            <v-text-field persistent-hint hint="Add some comment" background-color="#FCE4EC" v-model="photoToReview[index].comment"></v-text-field>
+          </v-card-text>
+          <v-card-actions>
+            <v-layout>
+              <v-flex xs10 offset-xs1>
+                <v-select label="Select Comment" v-model="photoToReview[index].comment" :items="['Mind polarity', 'Wire is wrong']"></v-select>
+              </v-flex>
+            </v-layout>
+          </v-card-actions>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn icon><v-icon>done</v-icon></v-btn>
+            <v-btn icon><v-icon>clear</v-icon></v-btn>
+          </v-card-actions>
+        </v-card>
+      </modal>
+    </div>
     
 
   </v-container>
@@ -159,15 +192,16 @@
     methods: {
       nextStep: function() {
         this.fetchedBehavior = false;
-        if (this.arrSectionEnd) {
-          //ask them to review
+        if (this.$store.state.project.currentStepContent == this.$store.state.project.subsections[this.$store.state.project.currentSubsection - 1].steps[0]) {
+          for (let i = 0; i < this.photoToReview.length; ++i) {
+            this.$modal.show(i.toString());    
+          }
+          this.photoToReview = [];
         }
         if (this.currentBehaviors.length != 0 && (this.currentBehaviors[0].question == '') && !this.sectionBehaviors.map((element) => (element.name)).includes(this.currentBehaviors[0].name)) {
           this.sectionBehaviors.push(this.currentBehaviors[0]);
         }
         if (this.$store.state.project.step == this.stepTot)  {
-          //this.$modal.show("sectionend");
-          //review something
           this.$modal.show("over");
           this.$socket.emit("stepAction", this.currentBehaviors[0]);         
           return;
@@ -257,7 +291,8 @@
         this.photoToReview.push({
           img: img,
           studentName: studentName,
-          behavior: behavior
+          behavior: behavior,
+          comment: ""
         })
       }
     }
