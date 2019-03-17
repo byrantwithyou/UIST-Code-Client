@@ -8,6 +8,7 @@ import vueg from "vueg";
 import VueGoogleCharts from "vue-google-charts";
 import Notifications from "vue-notification";
 import VModal from "vue-js-modal";
+import VTooltip from "v-tooltip";
 
 let host = "http://localhost";
 let port = 8089;
@@ -20,7 +21,8 @@ Vue.use(new VueSocketIO({
 Vue.use(vueg, router);
 Vue.use(VueGoogleCharts);
 Vue.use(Notifications);
-
+Vue.use(VTooltip);
+VTooltip.options.popover.defaultPlacement = 'top';
 new Vue({
   router,
   store,

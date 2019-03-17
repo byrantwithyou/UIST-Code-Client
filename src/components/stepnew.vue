@@ -4,64 +4,83 @@
     <v-layout>
       <v-flex xs8 offset-xs2>
         <v-card>
+          
+
+          <!--        This is the teaching stuff                                   -->
           <v-card-title>
             <span class="display-1 font-weight-black font-italic blue-grey--text ma-2">Tutorial</span>
           </v-card-title>
           <v-card-media contain height="400">
             <v-img contain height="400" :src="tutorial"></v-img>
           </v-card-media>
+          <v-card-media height="30"></v-card-media>
           <v-card-text>
-            <span class="title font-weight-regular grey--text font-italic">{{currentSubsectionName}} Subsection</span>
+            <div>
+              <span class="headline font-weight-regular grey--text font-italic">{{currentSubsectionName}} Subsection</span>
+            </div>
             <v-card-media height="30"></v-card-media>
-            <span class="title amber--text">Step Instruction</span>
-            <br>
-            <span class="header font-weight-light black--text">{{$store.state.project.step}}. {{currentStepContent}}</span>
+            <div>
+              <span class="title font-italic amber--text">Step Instruction</span>
+            </div>
             <v-card-media height="30"></v-card-media>
-            <div class="font-italic " v-for="(behavior, index) in realCurrentBehaviors" :key="index">
-              <v-card tile hover v-if="realCurrentBehaviors" elevation="13" :color="behaviorColor">
-                <v-card-text>
-                  Style: {{behavior.name}}
-                  <br>
-                  Validation Method: {{behavior.detectionMethod}}
-                  <br>
-                  Level: {{behavior.level}}
-                  <br>
-                  Block or not? {{behavior.dealingMethod}}
-                  <br>
-                  Style Description: {{behavior.description}}
-                  <v-card-media height="10"></v-card-media>
-                  <v-layout>9
-                    <v-flex xs6>
-                      <div style="text-align: center">
-                        Good Example of the style
-                      </div>
+            <div>
+              <span class="subheading font-weight-light black--text">{{$store.state.project.step}}. {{currentStepContent}}</span>
+            </div>
+          </v-card-text>
+           
+           <v-card-text>
+              <v-popover offset="16" v-if="currentBehaviors.length != 0">
+                <span class="tooltip-target">Mind the {{currentBehaviors[0].name}} style</span>
+                <template slot="popover">
+                  <v-card tile hover elevation="13" :color="behaviorColor">
+                    <v-card-text>
+                      Style: {{currentBehaviors[0].name}}
+                      <br>
+                      Validation Method: {{currentBehaviors[0].detectionMethod}}
+                      <br>
+                      Level: {{currentBehaviors[0].level}}
+                      <br>
+                      Block or not? {{currentBehaviors[0].dealingMethod}}
+                      <br>
+                      Style Description: {{currentBehaviors[0].description}}
                       <v-card-media height="10"></v-card-media>
-                      <v-card-media contain height="50">
-                        <v-img contain height="50" :src="behavior.goodExample"></v-img>
-                      </v-card-media>
-                    </v-flex>
-                    <v-flex xs6>
-                      <div style="text-align: center">
-                        Bad Example of the style
-                      </div>
-                      <v-card-media height="10"></v-card-media>
-                      <v-card-media contain height="50">
-                        <v-img contain height="50" :src="behavior.badExample"></v-img>
-                      </v-card-media>
-                    </v-flex>
-                  </v-layout>
-                  <v-card-media height="30"></v-card-media>
-                </v-card-text>
-              </v-card>
+                      <v-layout>
+                        <v-flex xs6>
+                          <div style="text-align: center">
+                            Good Example of the style
+                          </div>
+                          <v-card-media height="10"></v-card-media>
+                          <v-card-media contain height="50">
+                            <v-img contain height="50" :src="currentBehaviors[0].goodExample"></v-img>
+                          </v-card-media>
+                        </v-flex>
+                        <v-flex xs6>
+                          <div style="text-align: center">
+                            Bad Example of the style
+                          </div>
+                          <v-card-media height="10"></v-card-media>
+                          <v-card-media contain height="50">
+                            <v-img contain height="50" :src="currentBehaviors[0].badExample"></v-img>
+                          </v-card-media>
+                        </v-flex>
+                      </v-layout>
+                      <v-card-media height="30"></v-card-media>
+                  </v-card-text>
+                </v-card>
+                </template>
+              </v-popover>
+           </v-card-text>
+          
 
 
-              <v-card tile v-if="realCurrentBehaviors && realCurrentBehaviors[0].question" hover elevation="13" :color="behaviorColor">
+
+              <v-card tile v-if="currentBehaviors.length != 0 && currentBehaviors[0].question" hover elevation="13">
                 <v-card-text>
                   <span class="header font-weight-black"></span>
-                  {{behavior.question}}
+                  {{currentBehaviors[0].question}}
                 </v-card-text>
                 <v-card-text>
-                  <v-checkbox v-model="yourAnswer" v-for="(answer, index) in behavior.answerSets" :value="index" :key="answer.question" :label="answer.question"></v-checkbox>
+                  <v-checkbox v-model="yourAnswer" v-for="(answer, index) in currentBehaviors[0].answerSets" :value="index" :key="answer.question" :label="answer.question"></v-checkbox>
                 </v-card-text>
                 <v-card-actions>
                   <v-spacer></v-spacer>
@@ -70,72 +89,30 @@
               </v-card>
 
 
-            </div>
-          </v-card-text>
-          <v-card-actions v-if="realCurrentBehaviors.length">
+
+
+          <v-card-actions v-if="currentBehaviors.length != 0">
             <v-spacer></v-spacer>
-            <v-btn @click="nextStep" v-if="(realCurrentBehaviors[0].dealingMethod) && (!realCurrentBehaviors[0].question)" :disabled="!retrievedBehavior || !approved" outline color="#E53935">Next Step</v-btn>
-            <v-btn @click="nextStep" v-if="(!realCurrentBehaviors[0].dealingMethod) && (!realCurrentBehaviors[0].question)" :disabled="!retrievedBehavior" outline color="#E53935">Next Step</v-btn>
-            <v-btn @click="nextStep" v-if="realCurrentBehaviors[0].question" :disabled="!answerQuestionCorrect" outline color="#E53935">Next Step</v-btn>
+            <v-btn @click="nextStep" v-if="currentBehaviors[0].question && !arrSectionEnd" :disabled="!answerQuestionCorrect" outline color="#E53935">Next Step</v-btn>
+            <v-btn @click="nextStep" v-if="currentBehaviors[0].question == '' && !arrSectionEnd" outline color="#E53935">Next Step</v-btn>
+            <v-btn @click="nextStep" v-if="currentBehaviors[0].question && arrSectionEnd" :disabled="!answerQuestionCorrect || !fetchedBehavior" outline color="#E53935">Next Step</v-btn>
+            <v-btn @click="nextStep" v-if="currentBehaviors[0].question == '' && arrSectionEnd" :disabled="!fetchedBehavior" outline color="#E53935">Next Step</v-btn>
           </v-card-actions>
-          <v-card-actions v-if="realCurrentBehaviors.length == 0">
+         
+          <v-card-actions v-if="currentBehaviors.length == 0">
             <v-spacer></v-spacer>
-            <v-btn @click="nextStep" outline color="#E53935">Next Step</v-btn>
+            <v-btn @click="nextStep" v-if="!arrSectionEnd" outline color="#E53935">Next Step</v-btn>
+            <v-btn @click="nextStep" :disabled="!fetchedBehavior" v-if="arrSectionEnd" outline color="#E53935">Next Step</v-btn>
           </v-card-actions>
+        
         </v-card>
       </v-flex>
+
     </v-layout>
-    <v-dialog width="300" v-model="reviewDialog">
-      <v-card>
-        <v-card-title>
-          <span class="font-weight-black font-italic title">
-            Please review the following style
-          </span>
-        </v-card-title>
-        <v-card-title primary-title>
-          {{reviewBehavior.name}}
-        </v-card-title>
-        <v-card-media contain height="200">
-          <v-img contain :src="reviewImg" height="200"></v-img>
-        </v-card-media>
-        <v-card-text>
-          <v-text-field persistent-hint hint="Add some comment" background-color="#FCE4EC" v-model="reviewComment"></v-text-field>
-        </v-card-text>
-        <v-card-actions>
-          <v-layout>
-            <v-flex xs10 offset-xs1>
-              <v-select label="Select Comment" v-model="reviewComment" :items="['Mind polarity', 'Wire is wrong']"></v-select>
-            </v-flex>
-          </v-layout>
-        </v-card-actions>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn icon @click="sendReviewResult(1)"><v-icon>done</v-icon></v-btn>
-          <v-btn icon @click="sendReviewResult(0)"><v-icon>clear</v-icon></v-btn>
-        </v-card-actions>
+    
 
-      </v-card>
-    </v-dialog>
 
-    <v-dialog width="500" v-model="reviewResultDialog">
-      <v-card>
-        <v-card-title>
-          <span class="font-italic font-weight-black blue-grey--text">
-            Review Result
-          </span>
-        </v-card-title>
-        <v-card-text>
-          {{reviewResultComment}}
-          <br>
-          {{reviewResultBehavior.name}} is {{reviewResultIcon}}approved!
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn @click="sendReview2Teacher" v-if="(reviewResult == 0) && (reviewResultImg != 'teacher')">Send to teacher again</v-btn>
-          <v-btn @click="sendFeedbackToTeacher">Close</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+
     <modal name="right">
       <v-card flat tile>
         <v-card-media height="60"></v-card-media>
@@ -154,20 +131,15 @@
         <v-card-title class="font-italic font-weight-black blue--text display-2">Congratulations! Your project is done!</v-card-title>
       </v-card>
     </modal>
-    <modal height="100" name="tf">
+
+    <modal name="sectionend">
       <v-card flat tile>
-        <v-card-media height="10"></v-card-media>
-        <span class="font-italic font-weight-regular indigo--text display-1">{{feedback}}</span>
+        <v-card-media height="60"></v-card-media>
+        <v-card-title class="font-italic font-weight-black orange--text display-1">Please take a photo of this section after this step!</v-card-title>
       </v-card>
     </modal>
-    <modal name="broadcast">
-      <v-card height="100" flat tile>
-        <v-card-media height="30"></v-card-media>
-      </v-card>
-      <v-card-text>
-        <p class="text-xs-center display-1 grey--text font-italic">{{broadcastMessage}}</p>
-      </v-card-text>
-    </modal>
+    
+
   </v-container>
   </div>
 </template>
@@ -177,73 +149,45 @@
     
     name: "Step",
     data: () => ({
-      retrievedBehavior: false,
-      approved: false,
-      reviewDialog: false,
-      reviewImg: "",
-      reviewBehavior: "",
-      reviewStudentName: "",
-      reviewComment: "",
-      reviewResult: "",
-      reviewResultBehavior: "",
-      reviewResultComment: "",
-      reviewResultImg: "",
-      reviewResultDialog: false,
-      reviewResultIcon: "",
       answerQuestionCorrect: false,
       yourAnswer: [],
       stepTot: 0,
-      feedback: "",
-      broadcastMessage: "",
-      behaviorProfile: {},
-      realCurrentBehaviors: []
+      sectionBehaviors: [],
+      fetchedBehavior: false,
+      photoToReview: []
     }),
     methods: {
       nextStep: function() {
+        this.fetchedBehavior = false;
+        if (this.arrSectionEnd) {
+          //ask them to review
+        }
+        if (this.currentBehaviors.length != 0 && (this.currentBehaviors[0].question == '') && !this.sectionBehaviors.map((element) => (element.name)).includes(this.currentBehaviors[0].name)) {
+          this.sectionBehaviors.push(this.currentBehaviors[0]);
+        }
         if (this.$store.state.project.step == this.stepTot)  {
+          //this.$modal.show("sectionend");
+          //review something
           this.$modal.show("over");
           this.$socket.emit("stepAction", this.currentBehaviors[0]);         
           return;
         }
-        this.retrievedBehavior = false;
-        this.approved = false;
         this.answerQuestionCorrect = false;
         this.yourAnswer = [];
-        this.$socket.emit("stepAction", this.realCurrentBehaviors[0]);
+        this.$socket.emit("stepAction", this.currentBehaviors[0]);
         this.$store.commit("project/addStep");
-        this.realCurrentBehaviors = this.currentBehaviors;
         this.$socket.emit("addStep");
-      },
-      sendReviewResult: function( reviewResult ) {
-        this.reviewDialog = false;
-        this.$socket.emit("reviewResult", reviewResult, this.reviewStudentName, this.reviewBehavior, this.reviewComment, this.reviewImg);
-        this.reviewComment = "";
-      },
-      sendFeedbackToTeacher: function() {
-        this.reviewResultDialog = false;
-        this.$socket.emit("teacherFeedback", this.reviewResultImg, this.reviewResultBehavior, this.reviewResult, this.$store.state.student.studentName);
-        if ( 0 == this.reviewResult) {
-          this.$socket.emit("failureHistory", this.realCurrentBehaviors[0]);
+        let sectionStep = this.$store.state.project.subsections[this.$store.state.project.currentSubsection - 1].steps;
+        if ( this.$store.state.project.currentStepContent == sectionStep[sectionStep.length - 1] ) {
+          this.$modal.show("sectionend");
         }
-        this.reviewResultIcon = "";
-        this.reviewResultImg = "";
-        this.reviewResultComment = "";
-        this.reviewResultBehavior = "";
-        this.reviewResult = "";
       },
-      sendReview2Teacher: function() {
-        this.$socket.emit("review2Teacher", this.reviewResultImg, this.reviewResultBehavior, this.$store.state.student.studentName);
-        this.reviewResultIcon = "";
-        this.reviewResultImg = "";
-        this.reviewResultComment = "";
-        this.reviewResultBehavior = "";
-        this.reviewResult = "";
-        this.reviewResultDialog = false;
-      },
+      
+      
       submitAnswer: function() {
         let cmpAnswer = [];
-        for (let answerSet = 0; answerSet < this.realCurrentBehaviors[0].answerSets.length; ++answerSet) {
-          if (this.realCurrentBehaviors[0].answerSets[answerSet].check) {
+        for (let answerSet = 0; answerSet < this.currentBehaviors[0].answerSets.length; ++answerSet) {
+          if (this.currentBehaviors[0].answerSets[answerSet].check) {
             cmpAnswer.push(answerSet);
           }
         }
@@ -253,11 +197,19 @@
         } else {
           this.answerQuestionCorrect = false;
           this.$modal.show("wrong");
-          this.$socket.emit("failureHistory", this.realCurrentBehaviors[0]);
+          this.$socket.emit("failureHistory", this.currentBehaviors[0]);
         }
       }
     },
     computed: {
+      behaviorColor: function() {
+        const mapping = {
+          "High": "red",
+          "Middle": "yellow",
+          "Low": "green"
+        }
+        return mapping[this.currentBehaviors[0].level];
+      },
       currentStepNumber: function() {
         return this.$store.state.project.step;
       },
@@ -270,90 +222,43 @@
       currentStepContent: function() {
         return this.$store.state.project.currentStepContent;
       },
-      currentBehaviors: {
-        get: function() {
+      currentBehaviors: function() {
           return this.$store.state.project.currentBehaviors;
-        }
       },
-      behaviorColor: function() {
-        const mapping = {
-          "High": "#EF5350",
-          "Middle": "#E57373",
-          "Low": "#FFCDD2"
-        }
-        return mapping[this.realCurrentBehaviors[0].level];
-      },
+      arrSectionEnd: function() {
+        let sectionStep = this.$store.state.project.subsections[this.$store.state.project.currentSubsection - 1].steps;
+        return sectionStep[sectionStep.length - 1] == this.currentStepContent? true: false;
+      }
+      
     },
     created: function() {
       for (let subsection of this.$store.state.project.subsections)  {
         this.stepTot += subsection.steps.length;
       }
-      this.realCurrentBehaviors = this.currentBehaviors;
-    },
-    components: {
+      if (this.currentBehaviors.length != 0 && this.currentBehaviors[0].question == '') {
+        this.sectionBehaviors.push(this.currentBehaviors[0]);
+      }
     },
     sockets: {
       photo: function(data) {
-        this.retrievedBehavior = true;
-        if (this.realCurrentBehaviors) {
-          this.$socket.emit("photo", data, this.realCurrentBehaviors[0]);
+        this.fetchedBehavior = true;
+        if (this.sectionBehaviors.length != 0) {
+          for (let behavior of this.sectionBehaviors) {
+            this.$socket.emit("photo", data, behavior)
+          }
+          
         }
+        this.sectionBehaviors = [];
       },
       photoToJudge: function(data) {
-        this.reviewDialog = true;
         let img = data[0][0];
         let studentName = data[0][1];
         let behavior = data[1];
-        this.reviewImg = img;
-        this.reviewBehavior = behavior;
-        this.reviewStudentName = studentName;
-      },
-      reviewResult: function(data) {
-        this.reviewResult = data[0];
-        this.reviewResultBehavior = data[2];
-        this.reviewResultComment = data[3];
-        this.reviewResultImg = data[4];
-        this.reviewResultDialog = true;
-        if (data[0] == 1) {
-          this.approved = true;
-        } else {
-          this.reviewResultIcon = "not ";
-        }
-      },
-      feedBack2Stu: function(data) {
-        if (data[0] == 1) {
-          this.feedback = data[1] + " is good!";
-          this.$modal.show("tf");
-        } else {
-          this.feedback = data[1] + " is bad!";
-          this.$modal.show("tf");
-        }
-      },
-      broadcast: function(message) {
-        this.broadcastMessage = message;
-        this.$modal.show("broadcast")
-      },
-      behaviorProfile: function(profile) {
-        this.behaviorProfile = profile;
-        if (this.realCurrentBehaviors ) {
-          if (this.behaviorProfile[this.realCurrentBehaviors[0].name])
-            if (this.behaviorProfile[this.realCurrentBehaviors[0].name] >= Number(this.realCurrentBehaviors[0].successTimes)) {
-              let random = Math.random();
-              if (this.realCurrentBehaviors[0].pvfs == "Low") {
-                if (random > 0.66) {
-                  this.realCurrentBehaviors = [];
-                }
-              }
-              else if (this.realCurrentBehaviors[0].pvfs == "Middle") {
-                if (random > 0.33) {
-                  this.realCurrentBehaviors = [];
-                }
-              }
-              else {
-                this.realCurrentBehaviors = [];
-              }
-            }
-        }
+        this.photoToReview.push({
+          img: img,
+          studentName: studentName,
+          behavior: behavior
+        })
       }
     }
 
