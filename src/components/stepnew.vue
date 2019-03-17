@@ -1,5 +1,6 @@
 <template>
   <div>
+  
   <v-container>
     <v-layout>
       <v-flex xs8 offset-xs2>
@@ -95,8 +96,11 @@
             <v-spacer></v-spacer>
             <v-btn @click="nextStep" v-if="currentBehaviors[0].question && !arrSectionEnd" :disabled="!answerQuestionCorrect" outline color="#E53935">Next Step</v-btn>
             <v-btn @click="nextStep" v-if="currentBehaviors[0].question == '' && !arrSectionEnd" outline color="#E53935">Next Step</v-btn>
-            <v-btn @click="nextStep" v-if="currentBehaviors[0].question && arrSectionEnd" :disabled="!answerQuestionCorrect || !fetchedBehavior" outline color="#E53935">Next Step</v-btn>
-            <v-btn @click="nextStep" v-if="currentBehaviors[0].question == '' && arrSectionEnd" :disabled="!fetchedBehavior" outline color="#E53935">Next Step</v-btn>
+            <!--v-btn @click="nextStep" v-if="currentBehaviors[0].question && arrSectionEnd" :disabled="!answerQuestionCorrect || !fetchedBehavior" outline color="#E53935">Next Step</v-btn>
+            <v-btn @click="nextStep" v-if="currentBehaviors[0].question == '' && arrSectionEnd" :disabled="!fetchedBehavior" outline color="#E53935">Next Step</v-btn-->
+            <v-btn @click="nextStep" v-if="currentBehaviors[0].question && arrSectionEnd" :disabled="!answerQuestionCorrect" outline color="#E53935">Next Step</v-btn>
+            <v-btn @click="nextStep" v-if="currentBehaviors[0].question == '' && arrSectionEnd" outline color="#E53935">Next Step</v-btn>
+     
           </v-card-actions>
          
           <v-card-actions v-if="currentBehaviors.length == 0">
@@ -139,9 +143,8 @@
       </v-card>
     </modal>
 
-    <div v-for="(review, index) in photoReview" :key="index">
-      <modal @closed="console.log(index)" v-if="photoReview.length != 0" :name="index">
-        <v-card>
+      <modal :height="900" v-for="(review, index) in photoToReview" @closed="close(index)" :key="index" :name="index.toString()">
+        <v-card flat tile>
           <v-card-title>
             <span class="font-weight-black font-italic title">
               Please review the following style
@@ -165,12 +168,12 @@
           </v-card-actions>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn icon><v-icon>done</v-icon></v-btn>
-            <v-btn icon><v-icon>clear</v-icon></v-btn>
+            <v-btn icon @click="sendReviewResult(index, 1, review.studentName, review.behavior, review.comment, review.img)"><v-icon>done</v-icon></v-btn>
+            <v-btn icon @click="sendReviewResult(index, 1, review.studentName, review.behavior, review.comment, review.img)"><v-icon>clear</v-icon></v-btn>
           </v-card-actions>
         </v-card>
       </modal>
-    </div>
+    
     
 
   </v-container>
@@ -187,17 +190,11 @@
       stepTot: 0,
       sectionBehaviors: [],
       fetchedBehavior: false,
-      photoToReview: []
+      photoToReview: [],
     }),
     methods: {
       nextStep: function() {
         this.fetchedBehavior = false;
-        if (this.$store.state.project.currentStepContent == this.$store.state.project.subsections[this.$store.state.project.currentSubsection - 1].steps[0]) {
-          for (let i = 0; i < this.photoToReview.length; ++i) {
-            this.$modal.show(i.toString());    
-          }
-          this.photoToReview = [];
-        }
         if (this.currentBehaviors.length != 0 && (this.currentBehaviors[0].question == '') && !this.sectionBehaviors.map((element) => (element.name)).includes(this.currentBehaviors[0].name)) {
           this.sectionBehaviors.push(this.currentBehaviors[0]);
         }
@@ -211,12 +208,24 @@
         this.$socket.emit("stepAction", this.currentBehaviors[0]);
         this.$store.commit("project/addStep");
         this.$socket.emit("addStep");
+        if (this.$store.state.project.currentStepContent == this.$store.state.project.subsections[this.$store.state.project.currentSubsection - 1].steps[0]) {
+          for (let i = 0; i < this.photoToReview.length; ++i) {
+            this.$modal.show(i.toString());    
+          }
+        }
         let sectionStep = this.$store.state.project.subsections[this.$store.state.project.currentSubsection - 1].steps;
         if ( this.$store.state.project.currentStepContent == sectionStep[sectionStep.length - 1] ) {
           this.$modal.show("sectionend");
+          if (this.currentBehaviors.length != 0 && (this.currentBehaviors[0].question == '') && !this.sectionBehaviors.map((element) => (element.name)).includes(this.currentBehaviors[0].name)) {
+            this.sectionBehaviors.push(this.currentBehaviors[0]);
+          }
         }
       },
-      
+      close: function( index ) {
+        if (index == 0) {
+          this.photoToReview = [];
+        }
+      },
       
       submitAnswer: function() {
         let cmpAnswer = [];
@@ -233,6 +242,10 @@
           this.$modal.show("wrong");
           this.$socket.emit("failureHistory", this.currentBehaviors[0]);
         }
+      },
+      sendReviewResult: function(index, reviewResult, studentName, behavior, comment, img) {
+        this.$modal.hide(index.toString());
+        this.$socket.emit("reviewResult", reviewResult, studentName, behavior, comment, img);
       }
     },
     computed: {
@@ -266,6 +279,7 @@
       
     },
     created: function() {
+      console.log(this.$socket.id);
       for (let subsection of this.$store.state.project.subsections)  {
         this.stepTot += subsection.steps.length;
       }
@@ -275,10 +289,12 @@
     },
     sockets: {
       photo: function(data) {
+        console.log(data);
         this.fetchedBehavior = true;
         if (this.sectionBehaviors.length != 0) {
           for (let behavior of this.sectionBehaviors) {
-            this.$socket.emit("photo", data, behavior)
+            this.$socket.emit("photo", data, behavior);
+            console.log("send photo");
           }
           
         }
@@ -288,12 +304,17 @@
         let img = data[0][0];
         let studentName = data[0][1];
         let behavior = data[1];
+
+        console.log("photoToJudege");
         this.photoToReview.push({
           img: img,
           studentName: studentName,
           behavior: behavior,
           comment: ""
         })
+      },
+      reviewResult: function( data ) {
+        console.log(data);
       }
     }
 
