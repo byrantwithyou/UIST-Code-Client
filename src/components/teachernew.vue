@@ -14,8 +14,14 @@
                     <v-img contain :src="studentReview[0].img" height="300"></v-img>
                   </v-card-media>
                   <v-card-actions>
-                    <v-btn icon @click="good">done</v-btn>
-                    <v-btn icon @click="clear">clear</v-btn>
+                    <v-btn icon @click="sendReviewResult(1, studentReview[0].name, studentReview[0].behavior)">done</v-btn>
+                    <v-btn icon @click="sendReviewResult(0, studentReview[0].name, studentReview[0].behavior)">clear</v-btn>
+                  </v-card-actions>
+                  <v-card-text>
+                    <v-text-field v-model="reviewComment" persistent-hint hint="Add some comment" background-color="#FCE4EC"></v-text-field>
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-select label="Select Comment" v-model="reviewComment" :items="['Mind polarity', 'Wire is wrong']"></v-select>
                   </v-card-actions>
                 </div>
               </v-card>
@@ -44,8 +50,8 @@
     </v-card>
     <v-card min-height="500">
       <v-layout>
-        <v-flex xs4 v-for="(style ,index) in top4Style" :key="index">
-          <GChart type="PieChart" :data="style"/>
+        <v-flex xs4 >
+          <GChart type="PieChart" :data="top4Style"/>
         </v-flex>
       </v-layout>
     </v-card>
@@ -63,10 +69,17 @@
       steps: [],
       sections: [],
       settings: [],
-      stepProfile: []
+      stepProfile: [],
+      reviewComment: ""
     }),
     methods: {
-
+      sendReviewResult(reviewResult, studentName, reviewResultBehavior) {
+        this.$store.commit("student/deleteStudentReview", {
+          name: studentName
+        });
+        this.$socket.emit("reviewResult", reviewResult, studentName, reviewResultBehavior, this.reviewComment, "teacher");
+        this.reviewComment = "";
+      },
     },
     sockets: {
       review2Teacher: function(data) {
@@ -79,6 +92,10 @@
       },
       styleData: function(data) {
         this.styleData = data;
+        let style = this.styleData[0];
+        let right = this.styleData.filter((element) => (element.style == style && element.reviewResult == 1)).length;
+        let wrong = this.styleData.filter((element) => (element.style == style && element.reviewResult == 0)).length;
+        this.top4Style = [['', ''], ['Right', right], ['Wrong', wrong]]  
       },
       authoring: function(data) {
         this.behaviors = data[0];
