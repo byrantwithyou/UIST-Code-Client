@@ -206,6 +206,11 @@
     methods: {
       nextStep: function() {
         this.fetchedBehavior = false;
+        this.$socket.emit("stepProfile", this.$store.state.student.studentName, this.$store.state.project.currentSubsection, this.currentStepContent);
+        console.log("stepProfile");
+        console.log(this.$store.state.student.studentName);
+        console.log(this.$store.state.project.currentSubsection);
+        console.log(this.currentStepContent);
         if (this.currentBehaviors.length != 0 && (this.currentBehaviors[0].question == '') && !this.sectionBehaviors.map((element) => (element.name)).includes(this.currentBehaviors[0].name)) {
           this.sectionBehaviors.push(this.currentBehaviors[0]);
         }

@@ -30,7 +30,8 @@
       behaviors: [],
       steps: [],
       sections: [],
-      settings: []
+      settings: [],
+      stepProfile: []
     }),
     methods: {
 
@@ -52,6 +53,11 @@
         this.steps = data[1];
         this.sections = data[2];
         this.settings = data[3];
+      },
+      stepProfile: function(data) {
+        console.log("stepProfile");
+        console.log(data);
+        this.stepProfile = data;
       }
     },
     computed: {
