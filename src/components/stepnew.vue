@@ -1,13 +1,17 @@
 <template>
   <div>
-  <notifications :duration="5000" group="foo" position="top right" >
+  <notifications closeOnClick :duration="3000" group="foo" position="top right" >
       <template slot="body" slot-scope="props">
-        <div>{{props.item.data.number}}</div>
-        <v-btn @click="emit"></v-btn>
+        <div>
+          <span>{{props.item.data.behavior.name}} is </span>
+          <span v-if="props.item.data.result == 0">not</span>
+          <span>approved</span>
+        </div>
+        <div>Comment: {{props.item.data.comment}}</div>
+        <v-btn small @click="emit(props.item.data.img, props.item.data.behavior, props.item.data.name)">send to teacher again</v-btn>
       </template>
     </notifications>
 
-  <v-btn @click="test">Test</v-btn>
   <v-container>
     <v-layout>
       <v-flex xs8 offset-xs2>
@@ -242,9 +246,19 @@
           }
         }
         if ( this.yourAnswer.toString() == cmpAnswer.toString() ) {
+          this.$socket.emit("styleData", {
+            style: this.currentBehaviors[0].name,
+            name: this.$store.state.student.studentName,
+            reviewResult: 1
+          });
           this.answerQuestionCorrect = true;
           this.$modal.show("right");
         } else {
+          this.$socket.emit("styleData", {
+            style: this.currentBehaviors[0].name,
+            name: this.$store.state.student.studentName,
+            reviewResult: 0
+          });
           this.answerQuestionCorrect = false;
           this.$modal.show("wrong");
           this.$socket.emit("failureHistory", this.currentBehaviors[0]);
@@ -262,8 +276,9 @@
           }
         })
       },
-      emit: function() {
-        console.log("ttt");
+      emit: function(img, behavior, name) {
+        this.$socket.emit("review2Teacher", img, behavior, name);
+        console.log(behavior);
       }
     },
     computed: {
@@ -332,9 +347,49 @@
         })
       },
       reviewResult: function( data ) {
-        console.log(data);
+        
+        let reviewResult = data[0];
+        let name = data[1];
+        let behavior = data[2];
+        let comment = data[3];
+        let img = data[4];
+        this.$socket.emit("styleData", {
+          style: behavior.name,
+          name: name,
+          reviewResult: reviewResult
+        });
+        if (reviewResult == 1) {
+          this.$notify({
+            group: "foo",
+            data: {
+              behavior: behavior,
+              result: reviewResult,
+              comment: comment,
+              img: img,
+              name: name
+            },
+            type: "success",
+            close: function() {
+              console.log("close");
+            }
+          })
+        }
+        else {
+          this.$notify({
+            group: "foo",
+            data: {
+              behavior: behavior,
+              result: reviewResult,
+              comment: comment,
+              img: img,
+              name: name
+            },
+            type: "warn"
+          })
+        }
       }
     }
 
   }
 </script>
+

@@ -10,6 +10,7 @@ import Teacher from "@/components/Teacher";
 import TeacherLogin from "@/components/TeacherLogin";
 //import TeacherHardcode from "@/components/TeacherHardcode";
 import stepnew from "@/components/stepnew";
+import teachernew from "@/components/teachernew";
 
 Vue.use(Router);
 
@@ -40,7 +41,7 @@ const routes = [
   },
   {
     path: "/teacher",
-    component: Teacher
+    component: teachernew
   },
   {
     path: "/teacherLogin",
