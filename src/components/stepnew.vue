@@ -1,6 +1,13 @@
 <template>
   <div>
-  
+  <notifications :duration="5000" group="foo" position="top right" >
+      <template slot="body" slot-scope="props">
+        <div>{{props.item.data.number}}</div>
+        <v-btn @click="emit"></v-btn>
+      </template>
+    </notifications>
+
+  <v-btn @click="test">Test</v-btn>
   <v-container>
     <v-layout>
       <v-flex xs8 offset-xs2>
@@ -246,6 +253,17 @@
       sendReviewResult: function(index, reviewResult, studentName, behavior, comment, img) {
         this.$modal.hide(index.toString());
         this.$socket.emit("reviewResult", reviewResult, studentName, behavior, comment, img);
+      },
+      test: function() {
+        this.$notify({
+          group: "foo",
+          data: {
+            number: 1
+          }
+        })
+      },
+      emit: function() {
+        console.log("ttt");
       }
     },
     computed: {
