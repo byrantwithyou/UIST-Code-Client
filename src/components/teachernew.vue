@@ -26,7 +26,11 @@
     name: "teachernew",
     data: () => ({
       styleData: [],
-      top4Style: []
+      top4Style: [],
+      behaviors: [],
+      steps: [],
+      sections: [],
+      settings: []
     }),
     methods: {
 
@@ -42,12 +46,15 @@
       },
       styleData: function(data) {
         this.styleData = data;
+      },
+      authoring: function(data) {
+        this.behaviors = data[0];
+        this.steps = data[1];
+        this.sections = data[2];
+        this.settings = data[3];
       }
     },
     computed: {
-      steps: function() {
-        return this.$store.state.project.steps;
-      },
       studentReview: function() {
         return this.$store.state.student.studentReview;
       },
