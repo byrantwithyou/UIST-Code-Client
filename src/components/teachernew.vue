@@ -2,10 +2,42 @@
   <div>
     <v-card min-height="1000">
       <v-layout>
-        <v-flex xs10></v-flex>
+        <v-flex xs10>
+          <v-layout>
+            <v-flex xs6>
+              <v-card height="500">
+                <div v-if="studentReview.length">
+                  <v-card-title>
+                    {{studentReview[0].behavior.name}}
+                  </v-card-title>
+                  <v-card-media>
+                    <v-img contain :src="studentReview[0].img" height="300"></v-img>
+                  </v-card-media>
+                  <v-card-actions>
+                    <v-btn icon @click="good">done</v-btn>
+                    <v-btn icon @click="clear">clear</v-btn>
+                  </v-card-actions>
+                </div>
+              </v-card>
+            </v-flex>
+            <v-flex xs6>
+              <v-card height="500"></v-card>
+            </v-flex>
+            <v-flex xs6></v-flex>
+              <v-card height="500"></v-card>
+            <v-flex xs6>
+              <v-card height="500"></v-card>
+            </v-flex>
+          </v-layout>
+        </v-flex>
         <v-flex xs2>
           <div v-for="(step, index) in steps" :key="index">
-            {{step.content}}
+            {{index + 1}}. {{step.content}}
+            <br>
+            <span class="font-italic amber--text">
+              Number of students in this step: {{stepProfile.filter((element) => (element.stepContent)).length}}
+            </span>
+            <v-card-media height="15"></v-card-media>
           </div>
         </v-flex>
       </v-layout>
