@@ -74,6 +74,7 @@
           </v-layout>
         </v-flex>
         <v-flex xs2>
+          <v-treeview :items="treeItems"></v-treeview>
           <!--div v-for="(step, index) in steps" :key="index">
             {{index + 1}}. {{step.content}}
             <br>
@@ -83,6 +84,7 @@
           </div-->
         </v-flex>
       </v-layout>
+    
     </v-card>
     <v-card height="80"></v-card>
   </div>
@@ -147,18 +149,37 @@
         console.log("studentView");
         let img = data[0];
         let studentName = data[1];
-        if (this.studentView.length <= 2) {
-          this.studentView.push({
-            img: img,
-            studentName: studentName
-          })
-        }
+        this.studentView.unshift({
+          img: img,
+          studentName: studentName
+        });
+        
+        if (this.studentView.length > 3) {
+          this.studentView.pop();
+        };
+        
       }
     },
     computed: {
       studentReview: function() {
         return this.$store.state.student.studentReview;
       },
+      treeItems: function() {
+        return this.sections.map(function ( element ) {
+          let stepElement = [];
+          for (let stepNum = 0; stepNum < element.steps.length; ++stepNum ) {
+            stepElement.push({
+              id: element.steps[stepNum].content,
+              name: "Step" + (stepNum + 1)
+            })
+          }
+          return {
+            id: element.name,
+            name: "Section " + element.name,
+            children: stepElement
+          }
+        })
+      }
     }
   })
 </script>
