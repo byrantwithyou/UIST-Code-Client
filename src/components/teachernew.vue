@@ -48,6 +48,7 @@
                   <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn icon @click="thu(studentView[0].studentName)"><v-icon>thumb_up</v-icon></v-btn>
+                    <v-btn icon><v-icon>import_export</v-icon></v-btn>
                   </v-card-actions>
                 </div>
               </v-card>
