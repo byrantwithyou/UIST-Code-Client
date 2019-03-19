@@ -24,9 +24,9 @@
                 <v-flex xs6>
                   <v-select v-model="editedItem.level" label="Style Level" :items="behaviorLevel"></v-select>
                 </v-flex>
-                <v-flex xs6>
+                <!--v-flex xs6>
                   <v-checkbox v-model="editedItem.dealingMethod" label="Block or not"></v-checkbox>
-                </v-flex>
+                </v-flex-->
                 <v-flex xs12>
                   <v-text-field v-model="editedItem.description" label="Style Description"></v-text-field>
                 </v-flex>
@@ -44,7 +44,7 @@
                     <div class="font-italic font-weight-thin orange--text ma-2" v-for="(_, index) in editedItem.answerSets" :key="index">
                       <v-text-field @click:prepend="editedItem.answerSets[index].check = !editedItem.answerSets[index].check" :prepend-icon="editedItem.answerSets[index].check? 'done': 'clear'" color="indigo" v-model="editedItem.answerSets[index].question"></v-text-field>
                     </div>
-                  </v-card>
+                  </v-card>+
                 </v-flex>
                 <v-flex xs6>
                   <v-select v-model="editedItem.successTimes" :items="['1', '2', '3']" persistent-hint hint="Success times to consider not to validate the style "></v-select>

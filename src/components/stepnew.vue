@@ -117,7 +117,7 @@
           <v-card-actions v-if="currentBehaviors.length == 0">
             <v-spacer></v-spacer>
             <v-btn @click="nextStep" v-if="!arrSectionEnd" outline color="#E53935">Next Step</v-btn>
-            <v-btn @click="nextStep" :disabled="!fetchedBehavior" v-if="arrSectionEnd" outline color="#E53935">Next Step</v-btn>
+            <v-btn @click="nextStep"  v-if="arrSectionEnd" outline color="#E53935">Next Step</v-btn>
           </v-card-actions>
         
         </v-card>
@@ -150,7 +150,7 @@
     <modal name="sectionend">
       <v-card flat tile>
         <v-card-media height="60"></v-card-media>
-        <v-card-title class="font-italic font-weight-black orange--text display-1">Please take a photo of this section after this step!</v-card-title>
+        <v-card-title class="font-italic font-weight-black orange--text display-1">Please take a photo of your current breadboard using our app to continue!</v-card-title>
       </v-card>
     </modal>
 
@@ -183,6 +183,10 @@
             <v-btn icon @click="sendReviewResult(index, 1, review.studentName, review.behavior, review.comment, review.img)"><v-icon>clear</v-icon></v-btn>
           </v-card-actions>
         </v-card>
+      </modal>
+
+      <modal name="pr">
+        <v-icon large>thumb_up</v-icon>
       </modal>
     
     
@@ -284,6 +288,10 @@
       emit: function(img, behavior, name) {
         this.$socket.emit("review2Teacher", img, behavior, name);
         console.log(behavior);
+      },
+      pr: function() {
+        console.log("to student")
+        this.$modal.show("pr");
       }
     },
     computed: {

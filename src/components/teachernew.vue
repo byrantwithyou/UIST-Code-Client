@@ -7,15 +7,16 @@
             <v-flex xs6>
               <v-card height="500">
                 <div v-if="studentReview.length">
-                  <v-card-title>
+                  <v-card-title primary-title>
                     {{studentReview[0].behavior.name}}
                   </v-card-title>
                   <v-card-media>
                     <v-img contain :src="studentReview[0].img" height="300"></v-img>
                   </v-card-media>
                   <v-card-actions>
-                    <v-btn icon @click="sendReviewResult(1, studentReview[0].name, studentReview[0].behavior)">done</v-btn>
-                    <v-btn icon @click="sendReviewResult(0, studentReview[0].name, studentReview[0].behavior)">clear</v-btn>
+                    <v-spacer></v-spacer>
+                    <v-btn icon @click="sendReviewResult(1, studentReview[0].name, studentReview[0].behavior)"><v-icon>done</v-icon></v-btn>
+                    <v-btn icon @click="sendReviewResult(0, studentReview[0].name, studentReview[0].behavior)"><v-icon>clear</v-icon></v-btn>
                   </v-card-actions>
                   <v-card-text>
                     <v-text-field v-model="reviewComment" persistent-hint hint="Add some comment" background-color="#FCE4EC"></v-text-field>
@@ -27,12 +28,42 @@
               </v-card>
             </v-flex>
             <v-flex xs6>
-              <v-card height="500"></v-card>
+              <v-card height="500">
+                <div v-if="studentView.length == 1">
+                  <v-img :src="studentView[0].img" contain height="300"></v-img>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn icon @click="thu(studentView[0].studentName)"><v-icon>thumb_up</v-icon></v-btn>
+                  </v-card-actions>
+                </div>
+              </v-card>
             </v-flex>
-            <v-flex xs6></v-flex>
-              <v-card height="500"></v-card>
+            </v-layout>
+            <v-layout>
             <v-flex xs6>
-              <v-card height="500"></v-card>
+                      <GChart type="PieChart" :data="[['', ''], ['Right', 50], ['Wrong', 50]]"/>
+
+              <v-card height="500">
+                <div v-if="studentView.length == 2">
+                  <v-img :src="studentView[1].img" contain height="300"></v-img>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn icon @click="thu(studentView[1].studentName)"><v-icon>thumb_up</v-icon></v-btn>
+                  </v-card-actions>
+                </div>
+              </v-card>
+            </v-flex>
+            
+            <v-flex xs6>
+              <v-card height="500">
+                <div v-if="studentView.length == 3">
+                  <v-img :src="studnetView[2].img" contain height="300"></v-img>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn icon><v-icon @click="thu(studentView[2].studentName)">thumb_up</v-icon></v-btn>
+                  </v-card-actions>
+                </div>
+              </v-card>
             </v-flex>
           </v-layout>
         </v-flex>
@@ -41,7 +72,7 @@
             {{index + 1}}. {{step.content}}
             <br>
             <span class="font-italic amber--text">
-              Number of students in this step: {{stepProfile.filter((element) => (element.stepContent)).length}}
+              Number of students in this step: {{stepProfile.filter((element) => (step.content == element.stepContent)).length}}
             </span>
             <v-card-media height="15"></v-card-media>
           </div>
@@ -51,7 +82,7 @@
     <v-card min-height="500">
       <v-layout>
         <v-flex xs4 >
-          <GChart type="PieChart" :data="top4Style"/>
+          <GChart type="PieChart" :data="[['', ''], ['Right', 50], ['Wrong', 50]]"/>
         </v-flex>
       </v-layout>
     </v-card>
@@ -70,7 +101,8 @@
       sections: [],
       settings: [],
       stepProfile: [],
-      reviewComment: ""
+      reviewComment: "",
+      studentView: []
     }),
     methods: {
       sendReviewResult(reviewResult, studentName, reviewResultBehavior) {
@@ -80,6 +112,10 @@
         this.$socket.emit("reviewResult", reviewResult, studentName, reviewResultBehavior, this.reviewComment, "teacher");
         this.reviewComment = "";
       },
+      thu: function(studentName) {
+        this.$socket.emit("pr", studentName);
+        console.log("pr");
+      }
     },
     sockets: {
       review2Teacher: function(data) {
@@ -107,6 +143,17 @@
         console.log("stepProfile");
         console.log(data);
         this.stepProfile = data;
+      },
+      studentView: function( data ) {
+        console.log("studentView");
+        let img = data[0];
+        let studentName = data[1];
+        if (this.studentView.length <= 2) {
+          this.studentView.push({
+            img: img,
+            studentName: studentName
+          })
+        }
       }
     },
     computed: {
