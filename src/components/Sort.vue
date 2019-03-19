@@ -4,7 +4,7 @@
       <v-flex xs8 offset-xs2>
         <v-card>
           <v-card-media height="50"></v-card-media>
-          <span class="font-weight-black grey--text display-1 ma-5">
+          <span class="font-weight-black font-italic grey--text display-1 ma-5">
             Decide your circuit prototyping orders
           </span>
           <v-card-media height="50"></v-card-media>
@@ -14,7 +14,7 @@
           </v-card-media>
           <v-card-text>
           <!--draggable :list="subsections"-->
-            <div v-for="(subsection, index) in subsections" :key="index">
+            <div v-for="(subsection, index) in studentSections" :key="index">
               <span class="font-weight-bold headline font-italic indigo--text">
                 {{index + 1}}. {{subsection.name}} Subsection
               </span>
@@ -37,6 +37,18 @@
         </v-card>
       </v-flex>
     </v-layout>
+    <modal name="right">
+      <v-card flat tile>
+        <v-card-media height="60"></v-card-media>
+        <v-card-title class="font-italic font-weight-black green--text display-1">Right!</v-card-title>
+      </v-card>
+    </modal>
+    <modal name="wrong">
+      <v-card flat tile>
+        <v-card-media height="60"></v-card-media>
+        <v-card-title class="font-italic font-weight-black red--text display-1">Wrong!</v-card-title>
+      </v-card>
+    </modal>
   </v-container>
 </template>
 
@@ -44,12 +56,23 @@
   import draggable from "vuedraggable";
   export default {
     name: "Sort",
+    data: () => ({
+      studentSections: [],
+    }),
     methods: {
       nextStep: function() {
-        this.$store.commit("project/setSubsections", {
-          subsections: this.subsections
-        })
-        this.$router.push("/step");
+        if (JSON.stringify(this.studentSections) == JSON.stringify(this.subsections)) {
+          this.$modal.show("right");
+          let that = this;
+          setTimeout(function() {            
+            that.$store.commit("project/setSubsections", {
+              subsections: that.subsections
+            })
+            that.$router.push("/step");
+          }, 100);
+        } else {
+          this.$modal.show("wrong");
+        }
       }
     },
     components: {
@@ -58,6 +81,15 @@
     computed: {
       subsections: function() {
         return this.$store.state.project.subsections;
+      }
+    },
+    created: function() {
+      this.studentSections = JSON.parse(JSON.stringify(this.subsections));
+      function shuffle(array) {
+        array.sort(() => Math.random() - .5);
+      }
+      for (let section of this.studentSections) {
+        shuffle(section.steps);  
       }
     }
   }
