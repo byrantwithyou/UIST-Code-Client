@@ -185,8 +185,11 @@
         </v-card>
       </modal>
 
-      <modal name="pr">
-        <v-icon large>thumb_up</v-icon>
+      <modal name="pr" height="100">
+        <v-card-media height="30"></v-card-media>
+        <p class="text-xs-center">
+          <v-icon x-large>thumb_up</v-icon>
+        </p>
       </modal>
     
     
@@ -208,6 +211,9 @@
       photoToReview: [],
     }),
     methods: {
+      cc: function() {
+        this.$modal.show("pr");
+      },
       nextStep: function() {
         this.fetchedBehavior = false;
         this.$socket.emit("stepProfile", this.$store.state.student.studentName, this.$store.state.project.currentSubsection, this.currentStepContent);
@@ -289,10 +295,6 @@
         this.$socket.emit("review2Teacher", img, behavior, name);
         console.log(behavior);
       },
-      pr: function() {
-        console.log("to student")
-        this.$modal.show("pr");
-      }
     },
     computed: {
       behaviorColor: function() {
@@ -400,6 +402,13 @@
             type: "warn"
           })
         }
+      },
+      pr: function() {
+        this.$modal.show("pr");
+        let that = this;
+        setTimeout ( function () {
+          that.$modal.hide("pr");
+        }, 3000);
       }
     }
 

@@ -6,17 +6,17 @@
           <v-layout>
             <v-flex xs6>
               <v-card height="320">
-                <div v-if="studentReview.length">
+                <div >
                   <v-card-title primary-title>
-                    {{studentReview[0].behavior.name}} asdfavadfs
+                    asdfavadfs
                   </v-card-title>
                   <v-card-media>
-                    <v-img contain :src="studentReview[0].img" height="100"></v-img>
+                    <v-img contain src="hello.jpg" height="100"></v-img>
                   </v-card-media>
                   <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn icon @click="sendReviewResult(1, studentReview[0].name, studentReview[0].behavior)"><v-icon>done</v-icon></v-btn>
-                    <v-btn icon @click="sendReviewResult(0, studentReview[0].name, studentReview[0].behavior)"><v-icon>clear</v-icon></v-btn>
+                    <v-btn small icon @click="sendReviewResult(1, studentReview[0].name, studentReview[0].behavior)"><v-icon>done</v-icon></v-btn>
+                    <v-btn small icon @click="sendReviewResult(0, studentReview[0].name, studentReview[0].behavior)"><v-icon>clear</v-icon></v-btn>
                   </v-card-actions>
                   <v-card-text>
                     <v-layout>
@@ -33,9 +33,9 @@
             </v-flex>
             <v-flex xs6>
               <v-card height="320">
-                <div v-if="studentView.length == 1">
+                <div>
                   <v-card-media height="40"></v-card-media>
-                  <v-img :src="studentView[0].img" contain height="200"></v-img>
+                  <v-img src="hello.jpg" contain height="200"></v-img>
                   <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn icon @click="thu(studentView[0].studentName)"><v-icon>thumb_up</v-icon></v-btn>
@@ -48,9 +48,9 @@
             <v-flex xs6>
 
               <v-card height="320">
-                <div v-if="studentView.length == 2">
+                <div>
                   <v-card-media height="40"></v-card-media>
-                  <v-img :src="studentView[1].img" contain height="200"></v-img>
+                  <v-img src="hello.jpg" contain height="200"></v-img>
                   <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn icon @click="thu(studentView[1].studentName)"><v-icon>thumb_up</v-icon></v-btn>
@@ -61,9 +61,9 @@
             
             <v-flex xs6>
               <v-card height="320">
-                <div v-if="studentView.length == 3">
+                <div>
                   <v-card-media height="40"></v-card-media>
-                  <v-img :src="studnetView[2].img" contain height="200"></v-img>
+                  <v-img src="hello.jpg" contain height="200"></v-img>
                   <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn icon><v-icon @click="thu(studentView[2].studentName)">thumb_up</v-icon></v-btn>

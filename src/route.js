@@ -11,7 +11,7 @@ import TeacherLogin from "@/components/TeacherLogin";
 //import TeacherHardcode from "@/components/TeacherHardcode";
 import stepnew from "@/components/stepnew";
 import teachernew from "@/components/teachernew";
-
+//import tt from "@/components/tt.vue";
 Vue.use(Router);
 
 const routes = [

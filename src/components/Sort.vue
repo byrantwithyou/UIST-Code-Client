@@ -13,7 +13,7 @@
             </v-img>
           </v-card-media>
           <v-card-text>
-          <draggable :list="subsections">
+          <!--draggable :list="subsections"-->
             <div v-for="(subsection, index) in subsections" :key="index">
               <span class="font-weight-bold headline font-italic indigo--text">
                 {{index + 1}}. {{subsection.name}} Subsection
@@ -26,7 +26,7 @@
                 </div>
               </draggable>
             </div>
-          </draggable>
+          <!--/draggable-->
           </v-card-text>
           <v-card-media height="50"></v-card-media>
           <v-card-actions>
