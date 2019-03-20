@@ -209,7 +209,7 @@
           for (let stepNum = 0; stepNum < element.steps.length; ++stepNum ) {
             stepElement.push({
               id: element.steps[stepNum].content,
-              name: "Step" + (stepNum + 1)
+              name: element.steps[stepNum].content
             })
           }
           return {
