@@ -4,7 +4,7 @@
       <v-flex xs8 offset-xs2>
         <v-card>
           <v-card-media height="50"></v-card-media>
-          <span class="font-weight-black font-italic grey--text display-1 ma-5">
+          <span class="font-weight-black font-italic orange--text display-1 ma-5">
             Decide your circuit prototyping orders
           </span>
           <v-card-media height="50"></v-card-media>
@@ -65,9 +65,6 @@
           this.$modal.show("right");
           let that = this;
           setTimeout(function() {            
-            that.$store.commit("project/setSubsections", {
-              subsections: that.subsections
-            })
             that.$router.push("/step");
           }, 100);
         } else {
