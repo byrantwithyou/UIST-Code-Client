@@ -1,6 +1,6 @@
 <template>
   <div>
-  <notifications closeOnClick :duration="3000" group="foo" position="top right" >
+  <notifications :duration="3000" group="foo" position="top right" >
       <template slot="body" slot-scope="props">
         <div>
           <span>{{props.item.data.behavior.name}} is </span>
@@ -14,51 +14,31 @@
 
   <v-container>
     <v-layout>
-      <v-flex xs8 offset-xs2>
-        <v-card>
-          
-
-          <!--        This is the teaching stuff                                   -->
+      <v-flex xs3>
+        <v-card dark hover ripple :elevation="19">
           <v-card-title>
-            <span class="display-1 font-weight-black font-italic blue-grey--text ma-2">Tutorial</span>
+            <span class="font-italic title">
+              Best Practice Suggestion
+            </span>
           </v-card-title>
-          <v-card-media contain height="400">
-            <v-img contain height="400" :src="tutorial"></v-img>
-          </v-card-media>
-          <v-card-media height="30"></v-card-media>
-          <v-card-text>
-            <div>
-              <span class="headline font-weight-regular grey--text font-italic">{{currentSubsectionName}} Subsection</span>
-            </div>
-            <v-card-media height="30"></v-card-media>
-            <div>
-              <span class="title font-italic amber--text">Step Instruction</span>
-            </div>
-            <v-card-media height="30"></v-card-media>
-            <div>
-              <span class="subheading font-weight-light black--text">{{$store.state.project.step}}. {{currentStepContent}}</span>
-            </div>
-          </v-card-text>
-           
            <v-card-text>
               <v-popover offset="16" v-if="currentBehaviors.length != 0">
-                <span class="tooltip-target">Mind the {{currentBehaviors[0].name}} style</span>
+                <v-btn light class="tooltip-target font-italic">Mind the {{currentBehaviors[0].name}} style!</v-btn>
                 <template slot="popover">
                   <v-card tile hover elevation="13" :color="behaviorColor">
                     <v-card-text>
-                      Style: {{currentBehaviors[0].name}}
+                      Style Name: {{currentBehaviors[0].name}}
                       <br>
                       Validation Method: {{currentBehaviors[0].detectionMethod}}
                       <br>
                       Level: {{currentBehaviors[0].level}}
                       <br>
-                      Block or not? {{currentBehaviors[0].dealingMethod}}
                       <br>
                       Style Description: {{currentBehaviors[0].description}}
                       <v-card-media height="10"></v-card-media>
                       <v-layout>
                         <v-flex xs6>
-                          <div style="text-align: center">
+                          <div v-if="currentBehaviors[0].goodExample" style="text-align: center">
                             Good Example of the style
                           </div>
                           <v-card-media height="10"></v-card-media>
@@ -82,6 +62,36 @@
                 </template>
               </v-popover>
            </v-card-text>
+        </v-card>
+      </v-flex>
+
+
+      <v-flex xs8 offset-xs1>
+        <v-card>
+          
+
+          <!--        This is the teaching stuff                                   -->
+          <v-card-title>
+            <span class="display-1 font-weight-black font-italic blue-grey--text ma-2">Tutorial</span>
+          </v-card-title>
+          <v-card-media contain height="300">
+            <v-img contain height="300" :src="tutorial"></v-img>
+          </v-card-media>
+          <v-card-media height="30"></v-card-media>
+          <v-card-text>
+            <div>
+              <span class="headline font-weight-regular grey--text font-italic">{{currentSubsectionName}} Subsection</span>
+            </div>
+            <v-card-media height="30"></v-card-media>
+            <div>
+              <span class="title font-italic amber--text">Step Instruction</span>
+            </div>
+            <v-card-media height="30"></v-card-media>
+            <div>
+              <span class="subheading font-weight-light black--text">{{$store.state.project.step}}. {{currentStepContent}}</span>
+            </div>
+          </v-card-text>
+           
           
 
 

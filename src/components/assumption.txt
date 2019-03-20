@@ -5,9 +5,15 @@ TODO:
 传递好的style example
 add the choice of I'm not sure
 adaptive
-各种step
+大回环(包括style对不对)
 教师端
-
+正确地显示
+  调整style的位置
+  section结束有显示标识
+  整个结束有显示标识
+  一个section只有一个step
+  回答问题(正常的回答问题)(不包括最后的问题的部分))
+  
 
 notice:
 一旦study开始之后不能再authoring
