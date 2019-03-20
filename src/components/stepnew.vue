@@ -154,7 +154,7 @@
       </v-card>
     </modal>
 
-      <modal :height="900" v-for="(review, index) in photoToReview" @closed="close(index)" :key="index" :name="index.toString()">
+      <modal :clickToClose="false" :height="900" v-for="(review, index) in photoToReview" @closed="close(index)" :key="index" :name="index.toString()">
         <v-card flat tile>
           <v-card-title>
             <span class="font-weight-black font-italic title">

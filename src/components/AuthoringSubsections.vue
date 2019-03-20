@@ -8,7 +8,7 @@
       </v-toolbar-items>
     </v-toolbar>
     <v-layout>
-      <v-flex xs6 offset-xs1>
+      <v-flex xs4 offset-xs1>
         <div>
         <draggable group="circuit" :list="steps">
           <v-layout v-for="(step, index) in steps" :key="index">
@@ -22,7 +22,7 @@
         </draggable>
         </div>
       </v-flex>
-      <v-flex xs5>
+      <v-flex xs5 offset-xs1>
         
         <div v-for="(subsectionName, index) in subsectionNames" :key="index">
           <span class="font-weight-black headline font-italic">

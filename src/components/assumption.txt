@@ -5,8 +5,6 @@ TODO:
 传递好的style example
 add the choice of I'm not sure
 adaptive
-review dialog改成强制性
-authoring subsections 间隔变大
 各种step
 教师端
 
