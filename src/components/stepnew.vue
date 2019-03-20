@@ -23,33 +23,47 @@
           </v-card-title>
            <v-card-text>
               <v-popover offset="16" v-if="currentBehaviors.length != 0">
-                <v-btn light class="tooltip-target font-italic">Mind the {{currentBehaviors[0].name}} style!</v-btn>
+                <v-btn light :color="behaviorColor" class="tooltip-target font-italic">Mind the {{currentBehaviors[0].name}} style!</v-btn>
                 <template slot="popover">
-                  <v-card tile hover elevation="13" :color="behaviorColor">
+                  <v-card min-height="400" min-width="400" tile hover elevation="13" :color="behaviorColor">
                     <v-card-text>
-                      Style Name: {{currentBehaviors[0].name}}
-                      <br>
-                      Validation Method: {{currentBehaviors[0].detectionMethod}}
-                      <br>
-                      Level: {{currentBehaviors[0].level}}
-                      <br>
-                      <br>
-                      Style Description: {{currentBehaviors[0].description}}
-                      <v-card-media height="10"></v-card-media>
+                      <div class="text-xs-center headline font-weight-bold font-italic">
+                        Style Card
+                      </div>
+                      <v-card-media height="20"></v-card-media>
+                        <span class="font-weight-medium subheading font-italic">
+                          <code>Style Name: {{currentBehaviors[0].name}}</code>
+                        </span>
+                      <v-card-media height="20"></v-card-media>
+                        <span class="font-weight-medium subheading font-italic">
+                          <code>Validation Method: {{currentBehaviors[0].detectionMethod}}</code>
+                        </span>
+                      <v-card-media height="20"></v-card-media>
+                        <span class="font-weight-medium subheading font-italic">
+                          <code>Level: {{currentBehaviors[0].level}}</code>
+                        </span>
+                      <v-card-media height="20"></v-card-media>
+                        <span class="font-weight-medium subheading font-italic">
+                          <code>Style Description: {{currentBehaviors[0].description}}</code>
+                        </span>
+                      <v-card-media height="20"></v-card-media>
                       <v-layout>
-                        <v-flex xs6>
-                          <div v-if="currentBehaviors[0].goodExample" style="text-align: center">
-                            Good Example of the style
-                          </div>
+                        <v-flex xs12>
+                          <span v-if="currentBehaviors[0].goodExample" class="font-weight-medium subheading font-italic">
+                            <code>Good Example of the style:</code>
+                          </span>
                           <v-card-media height="10"></v-card-media>
                           <v-card-media contain height="50">
                             <v-img contain height="50" :src="currentBehaviors[0].goodExample"></v-img>
                           </v-card-media>
                         </v-flex>
-                        <v-flex xs6>
-                          <div style="text-align: center">
-                            Bad Example of the style
-                          </div>
+                      </v-layout>
+                      <v-card-media height="20"></v-card-media>
+                      <v-layout>
+                        <v-flex xs12>
+                          <span v-if="currentBehaviors[0].badExample" class="font-weight-medium subheading font-italic">
+                            <code>Bad Example of the style:</code>
+                          </span>
                           <v-card-media height="10"></v-card-media>
                           <v-card-media contain height="50">
                             <v-img contain height="50" :src="currentBehaviors[0].badExample"></v-img>
@@ -309,9 +323,9 @@
     computed: {
       behaviorColor: function() {
         const mapping = {
-          "High": "red",
-          "Middle": "yellow",
-          "Low": "green"
+          "High": "#E57373",
+          "Middle": "#F9A825",
+          "Low": "#A5D6A7"
         }
         return mapping[this.currentBehaviors[0].level];
       },
