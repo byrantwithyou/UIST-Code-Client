@@ -22,7 +22,7 @@ Vue.use(vueg, router);
 Vue.use(VueGoogleCharts);
 Vue.use(Notifications);
 Vue.use(VTooltip);
-VTooltip.options.popover.defaultPlacement = 'top';
+VTooltip.options.popover.defaultPlacement = 'bottom';
 new Vue({
   router,
   store,

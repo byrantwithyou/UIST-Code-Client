@@ -28,10 +28,17 @@
       <v-card flat tile>
       <v-card-actions>
         <v-spacer></v-spacer>
+        <v-btn outline @click="save" color="indigo">Save All</v-btn>
         <v-btn outline @click="nextStep" color="#E53935">Back to Teacher Homepage</v-btn>
       </v-card-actions>
     </v-card>
     </v-container>
+    <modal name="succ">
+      <v-card flat tile>
+        <v-card-media height="60"></v-card-media>
+        <v-card-title class="font-italic font-weight-black green--text display-1">Save Success!</v-card-title>
+      </v-card>
+    </modal>
   </div>
 </template>
 <script>
@@ -65,6 +72,15 @@
           projectDescription: this.projectDescription
         })
         this.$router.push("/teacherLogin");
+      },
+      save: function() {
+        this.$socket.emit("authoring", this.behaviors, this.steps, this.subsections, {
+          errorTime: this.errorTime,
+          goalNumber: this.goalNumber,
+          projectTutorial: this.projectTutorial,
+          projectDescription: this.projectDescription
+        });
+        this.$modal.show("succ");
       }
     },
     computed: {

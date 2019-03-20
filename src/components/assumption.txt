@@ -1,0 +1,21 @@
+TODO:
+教师必须先登录classroom management
+如果没有其他reviewer,学生的style传给老师
+默认behavior,全集behavior
+分配算法
+传递好的style example
+I'm not sure
+adaptive
+authoring settings 
+review dialog改成强制性
+subsection为空
+sort的问题
+
+notice:
+一旦study开始之后不能再authoring
+每个学生的姓名要unique
+必须在学生输入姓名之前authoring
+老师先于学生登录,这样才能接受到学生的信息
+
+
+

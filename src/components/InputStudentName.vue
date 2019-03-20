@@ -26,13 +26,14 @@
         </v-card>
       </v-flex>
     </v-layout>
+
   </v-container>
 </template>
 
 <script>
   export default {
     data: () => ({
-      studentName: ""
+      studentName: "",
     }),
     methods:{
       studentLogin: function() {
@@ -44,20 +45,21 @@
     },
     sockets: {
       authoring: function(authored) {
-        this.$store.commit("project/setBehaviors", {
-          behaviors: authored[0]
-        });
-        this.$store.commit("project/setSteps", {
-          steps: authored[1]
-        });
-        this.$store.commit("project/setSubsections", {
-          subsections: authored[2]
-        });
-        this.$store.commit("project/setSettings", {
-          settings: authored[3]
-        });
-        this.$router.push("/sort");
-        this.$socket.emit("sort");
+        if (authored[1]) {
+          this.$store.commit("project/setBehaviors", {
+            behaviors: authored[0]
+          });
+          this.$store.commit("project/setSteps", {
+            steps: authored[1]
+          });
+          this.$store.commit("project/setSubsections", {
+            subsections: authored[2]
+          });
+          this.$store.commit("project/setSettings", {
+            settings: authored[3]
+          });
+          this.$router.push("/sort");
+        } 
       }
     }
   }
