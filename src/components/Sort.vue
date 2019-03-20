@@ -29,7 +29,7 @@
           <!--/draggable-->
           </v-card-text>
           <v-card-media height="50"></v-card-media>
-          <v-card-actions>
+          <v-card-actions> 
             <v-spacer></v-spacer>
             <v-btn @click="nextStep" outline color="#E53935">Next Step</v-btn>
           </v-card-actions>
@@ -55,7 +55,7 @@
 <script>
   import draggable from "vuedraggable";
   export default {
-    name: "Sort",
+    name: "Sort", 
     data: () => ({
       studentSections: [],
     }),
