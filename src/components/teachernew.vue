@@ -201,6 +201,7 @@
       vvif1: false,
       vvif2: false,
       vvif3: false,
+      studentProfile: []
     }),
     methods: {
       sendReviewResult(reviewResult, studentName, reviewResultBehavior) {
