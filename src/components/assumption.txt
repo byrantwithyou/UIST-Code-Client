@@ -1,15 +1,12 @@
 TODO:
 authoring behaviors edit 无法传图片
-传递好的style example
-随机分配
-add the choice of I'm not sure
-
-大回环(包括style对不对)  //特殊情况：第一个section只有一个step
+大回环 (传递好的style example) (add the choice of not sure)
 教师端
 
 
 
 TODO:
+随机分配
 如果没有其他reviewer,学生的style传给老师
 默认behavior,全集behavior
 分配算法
