@@ -53,8 +53,8 @@
                             <code>Good Example of the style:</code>
                           </span>
                           <v-card-media height="10"></v-card-media>
-                          <v-card-media contain height="50">
-                            <v-img contain height="50" :src="currentBehaviors[0].goodExample"></v-img>
+                          <v-card-media contain height="200">
+                            <v-img contain height="200" :src="currentBehaviors[0].goodExample"></v-img>
                           </v-card-media>
                         </v-flex>
                       </v-layout>
@@ -65,8 +65,8 @@
                             <code>Bad Example of the style:</code>
                           </span>
                           <v-card-media height="10"></v-card-media>
-                          <v-card-media contain height="50">
-                            <v-img contain height="50" :src="currentBehaviors[0].badExample"></v-img>
+                          <v-card-media contain height="200">
+                            <v-img contain height="200" :src="currentBehaviors[0].badExample"></v-img>
                           </v-card-media>
                         </v-flex>
                       </v-layout>
@@ -110,18 +110,13 @@
 
 
 
-              <v-card tile v-if="currentBehaviors.length != 0 && currentBehaviors[0].question" hover elevation="13">
+              <v-card tile flat v-if="currentBehaviors.length != 0 && currentBehaviors[0].question">
                 <v-card-text>
-                  <span class="header font-weight-black"></span>
-                  {{currentBehaviors[0].question}}
-                </v-card-text>
-                <v-card-text>
+                  <span class="ma-1 font-italic">
+                    Answer the following questions about the style!
+                  </span>
                   <v-checkbox v-model="yourAnswer" v-for="(answer, index) in currentBehaviors[0].answerSets" :value="index" :key="answer.question" :label="answer.question"></v-checkbox>
                 </v-card-text>
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn @click="submitAnswer" small>Submit answer</v-btn>
-                </v-card-actions>
               </v-card>
 
 
@@ -141,7 +136,7 @@
           <v-card-actions v-if="currentBehaviors.length == 0">
             <v-spacer></v-spacer>
             <v-btn @click="nextStep" v-if="!arrSectionEnd" outline color="#E53935">Next Step</v-btn>
-            <v-btn @click="nextStep"  v-if="arrSectionEnd" outline color="#E53935">Next Step</v-btn>
+            <v-btn @click="nextStep" :disabled="!fetchedBehavior" v-if="arrSectionEnd" outline color="#E53935">Next Step</v-btn>
           </v-card-actions>
         
         </v-card>
@@ -239,8 +234,14 @@
         this.$modal.show("pr");
       },
       nextStep: function() {
+        if (this.$store.state.project.step == this.stepTot)  {
+          this.$modal.show("over");
+          return;
+        }
         this.fetchedBehavior = false;
         this.$socket.emit("stepProfile", this.$store.state.student.studentName, this.$store.state.project.currentSubsection, this.currentStepContent);
+        this.answerQuestionCorrect = false;
+        this.yourAnswer = [];
         console.log("stepProfile");
         console.log(this.$store.state.student.studentName);
         console.log(this.$store.state.project.currentSubsection);
@@ -248,26 +249,19 @@
         if (this.currentBehaviors.length != 0 && (this.currentBehaviors[0].question == '') && !this.sectionBehaviors.map((element) => (element.name)).includes(this.currentBehaviors[0].name)) {
           this.sectionBehaviors.push(this.currentBehaviors[0]);
         }
-        if (this.$store.state.project.step == this.stepTot)  {
-          this.$modal.show("over");
-          this.$socket.emit("stepAction", this.currentBehaviors[0]);         
-          return;
-        }
-        this.answerQuestionCorrect = false;
-        this.yourAnswer = [];
         this.$socket.emit("stepAction", this.currentBehaviors[0]);
         this.$store.commit("project/addStep");
         this.$socket.emit("addStep");
-        if (this.$store.state.project.currentStepContent == this.$store.state.project.subsections[this.$store.state.project.currentSubsection - 1].steps[0]) {
-          for (let i = 0; i < this.photoToReview.length; ++i) {
-            this.$modal.show(i.toString());    
-          }
-        }
         let sectionStep = this.$store.state.project.subsections[this.$store.state.project.currentSubsection - 1].steps;
         if ( this.$store.state.project.currentStepContent == sectionStep[sectionStep.length - 1] ) {
           this.$modal.show("sectionend");
           if (this.currentBehaviors.length != 0 && (this.currentBehaviors[0].question == '') && !this.sectionBehaviors.map((element) => (element.name)).includes(this.currentBehaviors[0].name)) {
             this.sectionBehaviors.push(this.currentBehaviors[0]);
+          }  
+        }
+        if (this.$store.state.project.currentStepContent == this.$store.state.project.subsections[this.$store.state.project.currentSubsection - 1].steps[0]) {
+          for (let i = 0; i < this.photoToReview.length; ++i) {
+            this.$modal.show(i.toString());    
           }
         }
       },
@@ -358,11 +352,19 @@
       if (this.currentBehaviors.length != 0 && this.currentBehaviors[0].question == '') {
         this.sectionBehaviors.push(this.currentBehaviors[0]);
       }
+      if (this.$store.state.project.subsections[0].steps.length == 1) {
+        console.log("run here");
+        let that = this;
+        setTimeout(function() {
+          that.$modal.show("sectionend");
+        }, 1000);
+      }
     },
     sockets: {
       photo: function(data) {
         console.log(data);
         this.fetchedBehavior = true;
+        this.sectionBehaviors = [];
         if (this.sectionBehaviors.length != 0) {
           for (let behavior of this.sectionBehaviors) {
             this.$socket.emit("photo", data, behavior);
@@ -370,7 +372,6 @@
           }
           
         }
-        this.sectionBehaviors = [];
       },
       photoToJudge: function(data) {
         let img = data[0][0];

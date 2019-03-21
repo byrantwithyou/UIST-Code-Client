@@ -1,19 +1,22 @@
 TODO:
 如果没有其他reviewer,学生的style传给老师
-默认behavior,全集behavior
 authoring behaviors edit 无法传图片
-分配算法
 传递好的style example
+随机分配
+
 add the choice of I'm not sure
-adaptive
-大回环(包括style对不对)
+大回环(包括style对不对)  //特殊情况：第一个section只有一个step
 教师端
 正确地显示
-  section结束有显示标识
-  整个结束有显示标识
-  一个section只有一个step
   回答问题(正常的回答问题)(不包括最后的问题的部分))
   quiz的问题放在哪儿以及quiz单步的逻辑(不答对题目)
+
+
+TODO:
+默认behavior,全集behavior
+分配算法
+adaptive
+
 
 notice:
 一旦study开始之后不能再authoring
