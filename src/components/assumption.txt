@@ -12,6 +12,7 @@ authoring behaviors edit 无法传图片
 adaptive
 add the choice of i'm not sure的逻辑
 服务端以前有东西?
+部署
 
 notice:
 一旦study开始之后不能再authoring
