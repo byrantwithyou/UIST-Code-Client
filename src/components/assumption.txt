@@ -1,21 +1,20 @@
 TODO:
-如果没有其他reviewer,学生的style传给老师
 authoring behaviors edit 无法传图片
 传递好的style example
 随机分配
-
 add the choice of I'm not sure
+
 大回环(包括style对不对)  //特殊情况：第一个section只有一个step
 教师端
-正确地显示
-  回答问题(正常的回答问题)(不包括最后的问题的部分))
-  quiz的问题放在哪儿以及quiz单步的逻辑(不答对题目)
+
 
 
 TODO:
+如果没有其他reviewer,学生的style传给老师
 默认behavior,全集behavior
 分配算法
 adaptive
+add the choice of i'm not sure的逻辑
 
 
 notice:

@@ -124,11 +124,12 @@
 
           <v-card-actions v-if="currentBehaviors.length != 0">
             <v-spacer></v-spacer>
-            <v-btn @click="nextStep" v-if="currentBehaviors[0].question && !arrSectionEnd" :disabled="!answerQuestionCorrect" outline color="#E53935">Next Step</v-btn>
+            <v-btn @click="submitAnswer" v-if="currentBehaviors[0].question && !answerQuestionCorrect" outline color="#E53935">Submit Answer</v-btn>
+            <v-btn @click="nextStep" v-if="currentBehaviors[0].question && !arrSectionEnd && answerQuestionCorrect" outline color="#E53935">Next Step</v-btn>
             <v-btn @click="nextStep" v-if="currentBehaviors[0].question == '' && !arrSectionEnd" outline color="#E53935">Next Step</v-btn>
-            <!--v-btn @click="nextStep" v-if="currentBehaviors[0].question && arrSectionEnd" :disabled="!answerQuestionCorrect || !fetchedBehavior" outline color="#E53935">Next Step</v-btn>
+            <!--v-btn @click="nextStep" v-if="currentBehaviors[0].question && arrSectionEnd" :disabled="!fetchedBehavior" outline color="#E53935">Next Step</v-btn>
             <v-btn @click="nextStep" v-if="currentBehaviors[0].question == '' && arrSectionEnd" :disabled="!fetchedBehavior" outline color="#E53935">Next Step</v-btn-->
-            <v-btn @click="nextStep" v-if="currentBehaviors[0].question && arrSectionEnd" :disabled="!answerQuestionCorrect" outline color="#E53935">Next Step</v-btn>
+            <v-btn @click="nextStep" v-if="currentBehaviors[0].question && arrSectionEnd && answerQuestionCorrect" outline color="#E53935">Next Step</v-btn>
             <v-btn @click="nextStep" v-if="currentBehaviors[0].question == '' && arrSectionEnd" outline color="#E53935">Next Step</v-btn>
      
           </v-card-actions>
