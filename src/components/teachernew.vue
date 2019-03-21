@@ -149,10 +149,10 @@
       </v-layout>
 
     </v-card>
-    <v-card height="100">
+    <v-card height="100" flat tile>
       <v-layout>
-        <v-flex xs3 v-for="index in 4" :key="index">
-          <GChart type="PieChart" :data="chartData[index]" :options="options[index]"></GChart>
+        <v-flex xs3 v-for="index in smallLength" :key="index">
+          <GChart type="PieChart" :data="chartData[index - 1]" :options="options[index - 1]"></GChart>
         </v-flex>
       </v-layout>
     </v-card>
@@ -166,14 +166,13 @@
     data: () => ({
       styleData: [],
       top4Style: [],
-      behaviors: [],
       steps: [],
       sections: [],
       settings: [],
       stepProfile: [],
       reviewComment: "",
       studentView: [],
-      chartData: [[['', ''], ["Right", 0], ["Wrong", 0]], [['', ''], ["Right", 0], ["Wrong", 0]], [['', ''], ["Right", 0], ["Wrong", 0]], [['', ''], ["Right", 0], ["Wrong", 0]]],
+      chartData: [[['Right', 'Wrong'], ["Right", 0], ["Wrong", 0]], [['Right', 'Wrong'], ["Right", 0], ["Wrong", 0]], [['Right', 'Wrong'], ["Right", 0], ["Wrong", 0]], [['Right', 'Wrong'], ["Right", 0], ["Wrong", 0]]],
       options: [{
         title: "",
         height: 100,
@@ -202,7 +201,6 @@
       vvif1: false,
       vvif2: false,
       vvif3: false,
-      styleProfile: []
     }),
     methods: {
       sendReviewResult(reviewResult, studentName, reviewResultBehavior) {
@@ -265,12 +263,7 @@
         this.top4Style = [['', ''], ['Right', right], ['Wrong', wrong]]  
       },
       authoring: function(data) {
-        this.behaviors = data[0];
-        this.styleProfile = this.behaviors.map((element) => ({
-          name: element.name,
-          good: 0,
-          bad: 0
-        }))
+        
         this.steps = data[1];
         this.sections = data[2];
         this.settings = data[3];
@@ -294,7 +287,13 @@
         };
         
       },
-      styleLog: function(style, studentName, result) {
+      styleLog: function(data) {
+        let style = data[0];
+        let studentName = data[1];
+        let result = data[2];
+        console.log("receive style lg");
+        console.log(result);
+        console.log(this.styleProfile);
         if ( 1 == result) {
           this.styleProfile[this.styleProfile.findIndex((element) => (element.name == style))].good += 1;
         } else {
@@ -310,14 +309,17 @@
           let e1 = element1.good / ( element1.good + element1.bad);
           let e2 = element2.good / ( element2.good + element2.bad);
           if (e1 < e2) {
-            return 1;
+            return -1;
           }
           if (e1 > e2) {
-            return -1;
+            return 1;
           } 
+          if (element1.good > element2.good) {
+            return -1;
+          }
           return 0;
         });
-        for (let i = 0; i < 4; ++i) {
+        for (let i = 0; i < this.smallLength; ++i) {
           this.chartData[i][1][1] = this.styleProfile[i].good;
           this.chartData[i][2][1] = this.styleProfile[i].bad; 
           this.options[i].title = this.styleProfile[i].name;
@@ -343,7 +345,21 @@
             children: stepElement
           }
         })
+      },
+      behaviors: function() {
+        return this.$store.state.project.behaviors;
+      },
+      styleProfile: function() {
+        return this.behaviors.map((element) => ({
+          name: element.name,
+          good: 0,
+          bad: 0
+        }))
+      },
+      smallLength: function() {
+        return this.behaviors.length > 4? 4: this.behaviors.length;
       }
+      
     },
     created: function() {
       console.log("created");

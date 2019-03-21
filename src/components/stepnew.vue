@@ -290,19 +290,12 @@
           }
         }
         if ( this.yourAnswer.toString() == cmpAnswer.toString() ) {
-          this.$socket.emit("styleData", {
-            style: this.currentBehaviors[0].name,
-            name: this.$store.state.student.studentName,
-            reviewResult: 1
-          });
+          this.$socket.emit("styleData", this.currentBehaviors[0].name, this.$store.state.student.studentName, 1);
           this.answerQuestionCorrect = true;
+          console.log("you are absolutely right");
           this.$modal.show("right");
         } else {
-          this.$socket.emit("styleData", {
-            style: this.currentBehaviors[0].name,
-            name: this.$store.state.student.studentName,
-            reviewResult: 0
-          });
+          this.$socket.emit("styleData", this.currentBehaviors[0].name, this.$store.state.student.studentName, 0);
           this.answerQuestionCorrect = false;
           this.$modal.show("wrong");
           this.$socket.emit("failureHistory", this.currentBehaviors[0]);
