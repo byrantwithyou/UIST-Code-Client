@@ -13,6 +13,7 @@ adaptive
 add the choice of i'm not sure的逻辑
 服务端以前有东西?
 部署
+系统崩了以后走到之前的步骤
 
 notice:
 一旦study开始之后不能再authoring

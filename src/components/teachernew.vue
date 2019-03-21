@@ -149,12 +149,9 @@
       </v-layout>
 
     </v-card>
-    <v-card height="75">
+    <v-card height="100">
       <v-layout>
         <v-flex xs3 v-for="index in 4" :key="index">
-          <div>
-            Wire
-          </div>
           <GChart type="PieChart" :data="chartData" :options="options"></GChart>
         </v-flex>
       </v-layout>
@@ -178,9 +175,10 @@
       studentView: [],
       chartData: [ ['Right', 'Wrong'], ["Right", 50], ["Wrong", 50]],
       options: {
-        'title': "Wire",
-        height: 60,
-        colors: ['green', 'red']
+        title: "Wire",
+        height: 100,
+        colors: ['green', 'red'],
+        legend: "none"
       },
       btnWord: "Style",
       comments: ["", "", "", ""],
