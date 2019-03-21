@@ -1,11 +1,13 @@
 TODO:
-authoring behaviors edit 无法传图片
-大回环 (传递好的style example) (add the choice of not sure)
+改大回环的外观(传递好的style example) (add the choice of not sure)
 教师端
 
 
-
 TODO:
+检查大回环的逻辑
+教师端大于四个
+教师端逻辑
+authoring behaviors edit 无法传图片
 随机分配
 如果没有其他reviewer,学生的style传给老师
 默认behavior,全集behavior
