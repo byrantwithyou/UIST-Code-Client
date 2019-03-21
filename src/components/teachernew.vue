@@ -152,7 +152,7 @@
     <v-card height="100">
       <v-layout>
         <v-flex xs3 v-for="index in 4" :key="index">
-          <GChart type="PieChart" :data="chartData" :options="options"></GChart>
+          <GChart type="PieChart" :data="chartData[index]" :options="options[index]"></GChart>
         </v-flex>
       </v-layout>
     </v-card>
@@ -173,19 +173,36 @@
       stepProfile: [],
       reviewComment: "",
       studentView: [],
-      chartData: [ ['Right', 'Wrong'], ["Right", 50], ["Wrong", 50]],
-      options: {
-        title: "Wire",
+      chartData: [[['', ''], ["Right", 0], ["Wrong", 0]], [['', ''], ["Right", 0], ["Wrong", 0]], [['', ''], ["Right", 0], ["Wrong", 0]], [['', ''], ["Right", 0], ["Wrong", 0]]],
+      options: [{
+        title: "",
+        height: 100,
+        colors: ['green', 'red'],
+        legend: "none"
+      },{
+        title: "",
+        height: 100,
+        colors: ['green', 'red'],
+        legend: "none"
+      },{
+        title: "",
         height: 100,
         colors: ['green', 'red'],
         legend: "none"
       },
+      {
+        title: "",
+        height: 100,
+        colors: ['green', 'red'],
+        legend: "none"
+      }],
       btnWord: "Style",
       comments: ["", "", "", ""],
       vvif0: false,
       vvif1: false,
       vvif2: false,
-      vvif3: false
+      vvif3: false,
+      styleProfile: []
     }),
     methods: {
       sendReviewResult(reviewResult, studentName, reviewResultBehavior) {
@@ -249,6 +266,11 @@
       },
       authoring: function(data) {
         this.behaviors = data[0];
+        this.styleProfile = this.behaviors.map((element) => ({
+          name: element.name,
+          good: 0,
+          bad: 0
+        }))
         this.steps = data[1];
         this.sections = data[2];
         this.settings = data[3];
@@ -271,6 +293,35 @@
           this.studentView.pop();
         };
         
+      },
+      styleLog: function(style, studentName, result) {
+        if ( 1 == result) {
+          this.styleProfile[this.styleProfile.findIndex((element) => (element.name == style))].good += 1;
+        } else {
+          this.styleProfile[this.styleProfile.findIndex((element) => (element.name == style))].bad += 1;
+        }
+        this.styleProfile.sort( function (element1, element2) {
+          if ((element1.good + element1.bad) == 0) {
+            return 1;
+          }
+          if ((element2.good + element2.bad) == 0) {
+            return -1;
+          }
+          let e1 = element1.good / ( element1.good + element1.bad);
+          let e2 = element2.good / ( element2.good + element2.bad);
+          if (e1 < e2) {
+            return 1;
+          }
+          if (e1 > e2) {
+            return -1;
+          } 
+          return 0;
+        });
+        for (let i = 0; i < 4; ++i) {
+          this.chartData[i][1][1] = this.styleProfile[i].good;
+          this.chartData[i][2][1] = this.styleProfile[i].bad; 
+          this.options[i].title = this.styleProfile[i].name;
+        }
       }
     },
     computed: {
@@ -293,6 +344,10 @@
           }
         })
       }
+    },
+    created: function() {
+      console.log("created");
+      console.log(this.behaviors);
     }
   })
 </script>
