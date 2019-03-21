@@ -1,5 +1,6 @@
 <template>
   <div>
+  <notifications group="bar" position="top right"></notifications>
   <notifications :duration="3000" group="foo" position="top right" >
       <template slot="body" slot-scope="props">
         <div>
@@ -8,7 +9,7 @@
           <span>approved</span>
         </div>
         <div>Comment: {{props.item.data.comment}}</div>
-        <v-btn small @click="emit(props.item.data.img, props.item.data.behavior, props.item.data.name)">send to teacher again</v-btn>
+        <v-btn v-if="(props.item.data.result == 0) && (props.item.data.img != 'teacher')" small @click="emit(props.item.data.img, props.item.data.behavior, props.item.data.name)">send to teacher again</v-btn>
       </template>
     </notifications>
 
@@ -178,12 +179,20 @@
         <v-card flat tile>
           <v-card-title>
             <span class="font-weight-black font-italic title">
-              Please review the following style
+              Please review the {{review.behavior.name}} style
+            </span>
+            <span class="font-weight-bold headline amber--text">
+              The good example of the style is as follow:
             </span>
           </v-card-title>
-          <v-card-title primary-title>
-            {{review.behavior.name}}
-          </v-card-title>
+          <v-card-media contain height="150">
+            <v-img contain :src="review.behavior.goodExample" height="150"></v-img>
+          </v-card-media>
+          <v-card-text>
+            <span class="font-italic blue--text">
+              This is the student's snapshot
+            </span>
+          </v-card-text>
           <v-card-media contain height="200">
             <v-img contain :src="review.img" height="200"></v-img>
           </v-card-media>
@@ -199,8 +208,9 @@
           </v-card-actions>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn icon @click="sendReviewResult(index, 1, review.studentName, review.behavior, review.comment, review.img)"><v-icon>done</v-icon></v-btn>
-            <v-btn icon @click="sendReviewResult(index, 1, review.studentName, review.behavior, review.comment, review.img)"><v-icon>clear</v-icon></v-btn>
+            <v-btn @click="sendReviewResult(index, 1, review.studentName, review.behavior, review.comment, review.img)">Right</v-btn>
+            <v-btn @click="sendReviewResult(index, 0, review.studentName, review.behavior, review.comment, review.img)">Wrong</v-btn>
+            <v-btn @click="closeDialog(index)">Not Sure</v-btn>
           </v-card-actions>
         </v-card>
       </modal>
@@ -302,6 +312,9 @@
         this.$modal.hide(index.toString());
         this.$socket.emit("reviewResult", reviewResult, studentName, behavior, comment, img);
       },
+      closeDialog: function(index) {
+        this.$modal.hide(index.toString());
+      },
       test: function() {
         this.$notify({
           group: "foo",
@@ -362,17 +375,25 @@
       }
     },
     sockets: {
+      sendFeedback: function(data) {
+        console.log("send again");
+        console.log(data);
+        this.$notify({
+          group: "bar",
+          title: "A feedback from teacher",
+          text: data
+        })
+      },
       photo: function(data) {
         console.log(data);
         this.fetchedBehavior = true;
-        this.sectionBehaviors = [];
         if (this.sectionBehaviors.length != 0) {
           for (let behavior of this.sectionBehaviors) {
             this.$socket.emit("photo", data, behavior);
             console.log("send photo");
           }
-          
         }
+        this.sectionBehaviors = [];
       },
       photoToJudge: function(data) {
         let img = data[0][0];

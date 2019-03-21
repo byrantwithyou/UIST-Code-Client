@@ -1,9 +1,6 @@
 TODO:
-改大回环的外观(传递好的style example) (add the choice of not sure)
-教师端
-
-
-TODO:
+教师端三个
+notification的外观
 检查大回环的逻辑
 教师端大于四个
 教师端逻辑
@@ -14,7 +11,7 @@ authoring behaviors edit 无法传图片
 分配算法
 adaptive
 add the choice of i'm not sure的逻辑
-
+服务端以前有东西?
 
 notice:
 一旦study开始之后不能再authoring
