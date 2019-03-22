@@ -225,7 +225,6 @@
       },
       thu: function(studentName) {
         this.$socket.emit("pr", studentName);
-        console.log("pr");
       },
       change: function() {
         if (this.btnWord == "Style") {
@@ -237,31 +236,26 @@
       sendFeedback0: function(name) {
         this.vvif0 = false;
         this.$socket.emit("sendFeedback", this.comments[0], name);
-        console.log("send okay");
         this.comments[0] = "";
       },
       sendFeedback1: function(name) {
         this.vvif1 = false;
         this.$socket.emit("sendFeedback", this.comments[1], name);
-        console.log("send okay");
         this.comments[1] = "";
       },
       sendFeedback2: function(name) {
         this.vvif2 = false;
         this.$socket.emit("sendFeedback", this.comments[2], name);
-        console.log("send okay");
         this.comments[2] = "";
       },
       sendFeedback3: function(name) {
         this.vvif3 = false;
         this.$socket.emit("sendFeedback", this.comments[3], name);
-        console.log("send okay");
         this.comments[3] = "";
       }
     },
     sockets: {
       review2Teacher: function(data) {
-        console.log(data);
         this.$store.commit("student/addStudentReview", {
           name: data[2],
           img: data[0],
@@ -282,12 +276,9 @@
         this.settings = data[3];
       },
       stepProfile: function(data) {
-        console.log("stepProfile");
-        console.log(data);
         this.stepProfile = data;
       },
       studentView: function( data ) {
-        console.log("studentView");
         let img = data[0];
         let studentName = data[1];
         this.studentView.unshift({
@@ -297,16 +288,13 @@
         
         if (this.studentView.length > 4) {
           this.studentView.pop();
-        };
+        }
         
       },
       styleLog: function(data) {
         let style = data[0];
         let studentName = data[1];
         let result = data[2];
-        console.log("receive style lg");
-        console.log(result);
-        console.log(this.styleProfile);
         if ( 1 == result) {
           this.styleProfile[this.styleProfile.findIndex((element) => (element.name == style))].good += 1;
           this.studentProfile[this.studentProfile.findIndex((element) => (element.name == studentName))].good += 1;
@@ -400,10 +388,6 @@
         return this.behaviors.length > 4? 4: this.behaviors.length;
       }
       
-    },
-    created: function() {
-      console.log("created");
-      console.log(this.behaviors);
     }
   })
 </script>

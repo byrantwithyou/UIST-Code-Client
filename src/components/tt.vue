@@ -113,12 +113,10 @@
       },
       thu: function(studentName) {
         this.$socket.emit("pr", studentName);
-        console.log("pr");
       }
     },
     sockets: {
       review2Teacher: function(data) {
-        console.log(data);
         this.$store.commit("student/addStudentReview", {
           name: data[2],
           img: data[0],
@@ -139,12 +137,9 @@
         this.settings = data[3];
       },
       stepProfile: function(data) {
-        console.log("stepProfile");
-        console.log(data);
         this.stepProfile = data;
       },
       studentView: function( data ) {
-        console.log("studentView");
         let img = data[0];
         let studentName = data[1];
         if (this.studentView.length <= 2) {

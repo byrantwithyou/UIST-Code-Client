@@ -1,18 +1,22 @@
 TODO:
+打log
+默认behavior,全集behavior
+authoring behaviors edit 无法传图片
+notification的外观
 教师端一个
 resume
-notification的外观
-检查大回环的逻辑
-教师端逻辑
-authoring behaviors edit 无法传图片
-photo not appearing for peer review
+部署 
+
 如果没有其他reviewer,学生的style传给老师
-默认behavior,全集behavior
 分配算法
 adaptive
 add the choice of i'm not sure的逻辑
-部署 
-persistent the dialog of taking the photo of the section
+
+
+TODO:
+photo not appearing for peer review
+检查大回环的逻辑
+教师端逻辑
 
 
 notice:

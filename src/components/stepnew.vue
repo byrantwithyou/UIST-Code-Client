@@ -253,10 +253,6 @@
         this.$socket.emit("stepProfile", this.$store.state.student.studentName, this.$store.state.project.currentSubsection, this.currentStepContent);
         this.answerQuestionCorrect = false;
         this.yourAnswer = [];
-        console.log("stepProfile");
-        console.log(this.$store.state.student.studentName);
-        console.log(this.$store.state.project.currentSubsection);
-        console.log(this.currentStepContent);
         if (this.currentBehaviors.length != 0 && (this.currentBehaviors[0].question == '') && !this.sectionBehaviors.map((element) => (element.name)).includes(this.currentBehaviors[0].name)) {
           this.sectionBehaviors.push(this.currentBehaviors[0]);
         }
@@ -292,7 +288,6 @@
         if ( this.yourAnswer.toString() == cmpAnswer.toString() ) {
           this.$socket.emit("styleData", this.currentBehaviors[0].name, this.$store.state.student.studentName, 1);
           this.answerQuestionCorrect = true;
-          console.log("you are absolutely right");
           this.$modal.show("right");
         } else {
           this.$socket.emit("styleData", this.currentBehaviors[0].name, this.$store.state.student.studentName, 0);
@@ -318,7 +313,6 @@
       },
       emit: function(img, behavior, name) {
         this.$socket.emit("review2Teacher", img, behavior, name);
-        console.log(behavior);
       },
     },
     computed: {
@@ -352,7 +346,6 @@
       
     },
     created: function() {
-      console.log(this.$socket.id);
       for (let subsection of this.$store.state.project.subsections)  {
         this.stepTot += subsection.steps.length;
       }
@@ -360,7 +353,6 @@
         this.sectionBehaviors.push(this.currentBehaviors[0]);
       }
       if (this.$store.state.project.subsections[0].steps.length == 1) {
-        console.log("run here");
         let that = this;
         setTimeout(function() {
           that.$modal.show("sectionend");
@@ -369,8 +361,6 @@
     },
     sockets: {
       sendFeedback: function(data) {
-        console.log("send again");
-        console.log(data);
         this.$notify({
           group: "bar",
           title: "A feedback from teacher",
@@ -378,13 +368,11 @@
         })
       },
       photo: function(data) {
-        console.log(data);
         this.fetchedBehavior = true;
         this.$modal.hide("sectionend");
         if (this.sectionBehaviors.length != 0) {
           for (let behavior of this.sectionBehaviors) {
             this.$socket.emit("photo", data, behavior);
-            console.log("send photo");
           }
         }
         this.sectionBehaviors = [];
@@ -394,7 +382,6 @@
         let studentName = data[0][1];
         let behavior = data[1];
 
-        console.log("photoToJudege");
         this.photoToReview.push({
           img: img,
           studentName: studentName,
@@ -426,7 +413,6 @@
             },
             type: "success",
             close: function() {
-              console.log("close");
             }
           })
         }
