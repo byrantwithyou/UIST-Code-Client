@@ -1,26 +1,27 @@
 TODO:
-教师端三个
+教师端一个
 notification的外观
 检查大回环的逻辑
-教师端大于四个
 教师端逻辑
 authoring behaviors edit 无法传图片
-随机分配
 如果没有其他reviewer,学生的style传给老师
 默认behavior,全集behavior
 分配算法
 adaptive
 add the choice of i'm not sure的逻辑
-服务端以前有东西?
-部署
+服务端以前有东西? bug
+部署 resume
 系统崩了以后走到之前的步骤
 persistent the dialog of taking the photo of the section
+photo not appearing for peer review
+
 
 notice:
 一旦study开始之后不能再authoring
 每个学生的姓名要unique
 必须在学生输入姓名之前authoring
 老师先于学生登录,这样才能接受到学生的信息
+拍照前必须登录
 
 
 

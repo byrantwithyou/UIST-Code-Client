@@ -24,8 +24,11 @@
                     <code>{{studentView[0].studentName}}'s recent progess:</code>
                   </v-card-text>
                   <v-img :src="studentView[0].img" contain height="200"></v-img>
+
                   <v-card-actions>
+                    
                     <v-spacer></v-spacer>
+                    <GChart type="PieChart" :data="fake0" :options="nooption"></GChart>
                     <v-btn icon @click="thu(studentView[0].studentName)"><v-icon>thumb_up</v-icon></v-btn>
                     <v-btn @click="vvif0 = !vvif0" icon><v-icon>reply</v-icon></v-btn>
                     <v-text-field @click:append-outer="sendFeedback0(studentView[0].studentName)" v-model="comments[0]" v-if="vvif0" type="text" label="message" append-outer-icon="send"></v-text-field>
@@ -201,7 +204,13 @@
       vvif1: false,
       vvif2: false,
       vvif3: false,
-      studentProfile: []
+      studentProfile: [],
+      nooption: {
+        legend: "none",
+        height: 50,
+        width: 50,
+        colors: ['green', 'red']
+      },
     }),
     methods: {
       sendReviewResult(reviewResult, studentName, reviewResultBehavior) {
@@ -297,8 +306,10 @@
         console.log(this.styleProfile);
         if ( 1 == result) {
           this.styleProfile[this.styleProfile.findIndex((element) => (element.name == style))].good += 1;
+          this.studentProfile[this.studentProfile.findIndex((element) => (element.name == studentName))].good += 1;
         } else {
           this.styleProfile[this.styleProfile.findIndex((element) => (element.name == style))].bad += 1;
+          this.studentProfile[this.studentProfile.findIndex((element) => (element.name == studentName))].bad += 1;
         }
         this.styleProfile.sort( function (element1, element2) {
           if ((element1.good + element1.bad) == 0) {
@@ -325,9 +336,23 @@
           this.chartData[i][2][1] = this.styleProfile[i].bad; 
           this.options[i].title = this.styleProfile[i].name;
         }
+      },
+      studentLogin: function(studentName) {
+        if (!this.studentProfile.map((element) => (element.name)).includes(studentName)) {
+          this.studentProfile.push({
+            name: studentName,
+            good: 0,
+            bad: 0
+          });    
+        }
       }
     },
     computed: {
+      fake0: function() {
+        let name = this.studentProfile[0].name;
+        return [['', ''], ['Right', this.studentProfile.find((element) => (element.name == name)).good], ['', this.studentProfile.find((element) => (element.name == name)).bad]]
+      },
+      
       studentReview: function() {
         return this.$store.state.student.studentReview;
       },
