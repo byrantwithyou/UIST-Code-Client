@@ -138,7 +138,7 @@
           <v-card-actions v-if="currentBehaviors.length == 0">
             <v-spacer></v-spacer>
             <v-btn @click="nextStep" v-if="!arrSectionEnd" outline color="#E53935">Next Step</v-btn>
-            <v-btn @click="nextStep" :disabled="!fetchedBehavior" v-if="arrSectionEnd" outline color="#E53935">Next Step</v-btn>
+            <v-btn @click="nextStep" v-if="arrSectionEnd" outline color="#E53935">Next Step</v-btn>
           </v-card-actions>
         
         </v-card>
@@ -168,7 +168,7 @@
       </v-card>
     </modal>
 
-    <modal name="sectionend">
+    <modal :clickToClose="false" name="sectionend">
       <v-card flat tile>
         <v-card-media height="60"></v-card-media>
         <v-card-title class="font-italic font-weight-black orange--text display-1">Please take a photo of your current breadboard using our app to continue!</v-card-title>
@@ -380,6 +380,7 @@
       photo: function(data) {
         console.log(data);
         this.fetchedBehavior = true;
+        this.$modal.hide("sectionend");
         if (this.sectionBehaviors.length != 0) {
           for (let behavior of this.sectionBehaviors) {
             this.$socket.emit("photo", data, behavior);
