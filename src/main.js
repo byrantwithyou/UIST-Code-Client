@@ -10,13 +10,12 @@ import Notifications from "vue-notification";
 import VModal from "vue-js-modal";
 import VTooltip from "v-tooltip";
 
-let host = "http://localhost";
-let port = 8089;
+let host = "https://polar-ravine-24711.herokuapp.com";
 
 Vue.use(VModal, { dialog: false});
 Vue.config.productionTip = false;
 Vue.use(new VueSocketIO({
-  connection: host + ":" + port, 
+  connection: "" 
 }));
 Vue.use(vueg, router);
 Vue.use(VueGoogleCharts);

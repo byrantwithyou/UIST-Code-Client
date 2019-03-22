@@ -1,6 +1,5 @@
 TODO:
-部署
-app
+部署(app)
 data log 
 TODO:
 notification的外观
@@ -10,7 +9,6 @@ authoring behaviors edit 无法传图片
 用id判断的都改
 disconnect 有问题 传名字
 取代重新登录的id
-adaptive
 分配算法
 photo not appearing for peer review bug
 检查大回环的逻辑

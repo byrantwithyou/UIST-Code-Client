@@ -6,10 +6,10 @@
           <v-card-media height="400">
             <v-layout>
               <v-flex xs6>
-                <v-img @click="loginAsAStudent" class="hover-hand" src="student.png"></v-img>
+                <v-img @click="loginAsAStudent" class="hover-hand" src="static/student.png"></v-img>
               </v-flex>
               <v-flex xs6>
-                <v-img @click="loginAsATeacher" class="hover-hand" src="teacher.png"></v-img>
+                <v-img @click="loginAsATeacher" class="hover-hand" src="static/teacher.png"></v-img>
               </v-flex>
             </v-layout>
           </v-card-media>
