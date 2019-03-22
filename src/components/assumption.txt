@@ -1,12 +1,12 @@
-notification的外观
 TODO:
-如果没有其他reviewer,学生的style传给老师
-add the choice of i'm not sure的逻辑
 部署
 app
 data log 
-authoring behaviors edit 无法传图片
 TODO:
+notification的外观
+如果没有其他reviewer,学生的style传给老师
+add the choice of i'm not sure的逻辑
+authoring behaviors edit 无法传图片
 用id判断的都改
 disconnect 有问题 传名字
 取代重新登录的id
