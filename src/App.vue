@@ -10,6 +10,7 @@
 export default {
   name: 'App',
   created: function() {
+    console.log(this.$socket.id);
     this.$router.push("/");
   },
 }

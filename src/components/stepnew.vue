@@ -370,14 +370,19 @@
       photo: function(data) {
         this.fetchedBehavior = true;
         this.$modal.hide("sectionend");
+        console.log("original student received");
+        console.log(data);
         if (this.sectionBehaviors.length != 0) {
           for (let behavior of this.sectionBehaviors) {
+            console.log("emit to reviewing students");
+            console.log(behavior.name);
             this.$socket.emit("photo", data, behavior);
           }
         }
         this.sectionBehaviors = [];
       },
       photoToJudge: function(data) {
+        console.log("photo to judge");
         let img = data[0][0];
         let studentName = data[0][1];
         let behavior = data[1];
