@@ -58,7 +58,15 @@
           this.$store.commit("project/setSettings", {
             settings: authored[3]
           });
-          this.$router.push("/sort");
+          if (authored[4] > 1) {
+            for (let i = 0; i < authored[4] - 1; ++i) {
+              this.$store.commit("project/addStep");
+            }
+            this.$router.push("/step");
+          } else {
+
+            this.$router.push("/sort");
+          }
         } 
       }
     }

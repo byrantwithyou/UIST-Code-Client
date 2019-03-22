@@ -441,7 +441,10 @@
         setTimeout ( function () {
           that.$modal.hide("pr");
         }, 3000);
-      }
+      },
+          
+      
+    
     }
 
   }

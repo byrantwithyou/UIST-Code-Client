@@ -88,7 +88,8 @@
       for (let section of this.studentSections) {
         shuffle(section.steps);  
       }
-    }
+    },
+
   }
 
 </script>
