@@ -29,7 +29,7 @@
       },
       loginAsATeacher: function() {
         this.$router.push("/teacherLogin");
-      }
+      },
     }
   } 
 </script>

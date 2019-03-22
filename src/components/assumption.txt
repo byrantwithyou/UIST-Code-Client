@@ -1,5 +1,6 @@
 TODO:
 教师端一个
+resume
 notification的外观
 检查大回环的逻辑
 教师端逻辑
@@ -10,7 +11,6 @@ authoring behaviors edit 无法传图片
 adaptive
 add the choice of i'm not sure的逻辑
 部署 
-resume
 persistent the dialog of taking the photo of the section
 photo not appearing for peer review
 
