@@ -4,7 +4,6 @@ TODO:
 add the choice of i'm not sure的逻辑
 
 教师端一个
-resume
 部署
 
 app
