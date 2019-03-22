@@ -9,15 +9,18 @@
       </v-toolbar-items>
     </v-toolbar>
     <v-layout v-for="(step, index) in steps" :key=index>
-      <v-flex xs6 offset-xs1>
+      <v-flex xs4 offset-xs1>
         <span class="ma-1 font-weight-thin font-italic">
           {{index + 1}}. {{step.content}}
         </span>
         <v-card-media height="100"></v-card-media>
       </v-flex>
-      <v-flex xs3 offset-xs1>
-        <v-select height="20" dense v-model="step.behaviors" color="green" hint="Choose the styles to detect for each step" persistent-hint :items="behaviors"></v-select>
+      <v-flex xs4 offset-xs1>
+        <v-select height="20" dense v-model="step.behaviors" color="green" hint="Choose the styles to detect for each step" persistent-hint :items="aa[index]"></v-select>
       </v-flex>
+      <v-flex xs1 offset-xs1>
+        <v-btn @click="change(index)" icon><v-icon>all_inclusive</v-icon></v-btn>
+      </v-flex> 
     </v-layout>
     <v-card>
       <v-card-actions>
@@ -31,12 +34,15 @@
 <script>
   import steps from "../steps";
   import xml2js from "xml2js";
+  import deors from "../defaultbehaviors";
   let parser = new xml2js.Parser();
   export default {
     data: () => ({
       components: [],
       steps: [],
-      
+      deors: JSON.parse(JSON.stringify(deors)),
+      aa: deors,
+      isde: [true, true, true, true, true, true, true, true, true, true, true]
     }),
 
     computed: {
@@ -44,8 +50,22 @@
         return this.$store.state.project.behaviors.map((element) => (element.name));
       }
     },
+    created: function() {
+      for (let a = 0; a < this.aa.length; ++a) {
+        this.aa[a] = this.aa[a].map((element) => (element.name));
+      } 
+    },
 
     methods: {
+     change: function(index) {
+       if (this.isde[index]) {
+        this.isde[index] = false;
+        this.$set(this.aa, index, this.behaviors);
+       } else {
+         this.isde[index] = true;
+         this.$set(this.aa, index, this.deors[index])
+       }
+     },
      readFile: function(event) {
        let file = event.target.files[0];
        let fileReader = new FileReader();
