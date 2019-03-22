@@ -9,9 +9,8 @@ authoring behaviors edit 无法传图片
 分配算法
 adaptive
 add the choice of i'm not sure的逻辑
-服务端以前有东西? bug
-部署 resume
-系统崩了以后走到之前的步骤
+部署 
+resume
 persistent the dialog of taking the photo of the section
 photo not appearing for peer review
 

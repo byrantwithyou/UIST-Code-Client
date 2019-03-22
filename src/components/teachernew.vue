@@ -46,6 +46,7 @@
                   <v-img :src="studentView[1].img" contain height="200"></v-img>
                   <v-card-actions>
                     <v-spacer></v-spacer>
+                    <GChart type="PieChart" :data="fake1" :options="nooption"></GChart>
                     <v-btn icon @click="thu(studentView[1].studentName)"><v-icon>thumb_up</v-icon></v-btn>
                     <v-btn @click="vvif1 = !vvif1" icon><v-icon>reply</v-icon></v-btn>
                     <v-text-field @click:append-outer="sendFeedback1(studentView[1].studentName)" v-model="comments[1]" v-if="vvif1" type="text" label="message" append-outer-icon="send"></v-text-field>
@@ -72,6 +73,7 @@
                   <v-img :src="studentView[2].img" contain height="200"></v-img>
                   <v-card-actions>
                     <v-spacer></v-spacer>
+                    <GChart type="PieChart" :data="fake2" :options="nooption"></GChart>
                     <v-btn icon><v-icon @click="thu(studentView[2].studentName)">thumb_up</v-icon></v-btn>
                     <v-btn @click="vvif2 = !vvif2" icon><v-icon>reply</v-icon></v-btn>
                     <v-text-field @click:append-outer="sendFeedback2(studentView[2].studentName)" v-model="comments[2]" v-if="vvif2" type="text" label="message" append-outer-icon="send"></v-text-field>
@@ -116,6 +118,7 @@
                   <v-img :src="studentView[3].img" contain height="200"></v-img>
                   <v-card-actions>
                     <v-spacer></v-spacer>
+                    <GChart type="PieChart" :data="fake3" :options="nooption"></GChart>
                     <v-btn icon><v-icon @click="thu(studentView[3].studentName)">thumb_up</v-icon></v-btn>
                     <v-btn @click="vvif3 = !vvif3" icon><v-icon>reply</v-icon></v-btn>
                     <v-text-field @click:append-outer="sendFeedback3(studentView[3].studentName)" v-model="comments[3]" v-if="vvif3" type="text" label="message" append-outer-icon="send"></v-text-field>
@@ -352,7 +355,18 @@
         let name = this.studentProfile[0].name;
         return [['', ''], ['Right', this.studentProfile.find((element) => (element.name == name)).good], ['', this.studentProfile.find((element) => (element.name == name)).bad]]
       },
-      
+      fake1: function() {
+        let name = this.studentProfile[1].name;
+        return [['', ''], ['Right', this.studentProfile.find((element) => (element.name == name)).good], ['', this.studentProfile.find((element) => (element.name == name)).bad]]
+      },
+      fake2: function() {
+        let name = this.studentProfile[2].name;
+        return [['', ''], ['Right', this.studentProfile.find((element) => (element.name == name)).good], ['', this.studentProfile.find((element) => (element.name == name)).bad]]
+      },
+      fake3: function() {
+        let name = this.studentProfile[3].name;
+        return [['', ''], ['Right', this.studentProfile.find((element) => (element.name == name)).good], ['', this.studentProfile.find((element) => (element.name == name)).bad]]
+      },
       studentReview: function() {
         return this.$store.state.student.studentReview;
       },
