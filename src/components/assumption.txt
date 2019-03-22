@@ -1,5 +1,4 @@
 TODO:
-打log
 默认behavior,全集behavior
 authoring behaviors edit 无法传图片
 notification的外观
