@@ -143,7 +143,8 @@
             </template>
             <v-btn @click="change" absolute right>{{btnWord}}</v-btn>
           </v-badge>
-          <v-treeview :items="treeItems"></v-treeview>
+          <!--v-treeview :items="treeItems"></v-treeview-->
+          
           <!--div v-for="(step, index) in steps" :key="index">
             {{index + 1}}. {{step.content}}
             <br>
@@ -151,6 +152,28 @@
               Number of students in this step: {{stepProfile.filter((element) => (step.content == element.stepContent)).length}}
             </span>
           </div-->
+        
+          <div v-for="(section, index) in sections">
+            <v-btn small @click="changeSpan(index)" icon><v-icon>trending_flat</v-icon></v-btn>
+            <div :style="color(studentStepProfile.filter((element) => (element.currentSection == (index + 1))).length)">
+              <span>
+                {{section.name}}
+              </span>
+              <div class="font-weight-bold text-xs-right">
+                Number of people: {{studentStepProfile.filter((element) => (element.currentSection == (index + 1))).length}}
+              </div>
+            </div>
+            <div v-for="(step, index1) in section.steps" color="red">
+              <div :style="color(studentStepProfile.filter((element) => (element.stepContent == (step))).length)">
+                <span v-if="span[index]" >
+                  {{step}}
+                </span>
+                <div v-if="span[index]" class="font-weight-bold text-xs-right">
+                  Number of people: {{studentStepProfile.filter((element) => (element.stepContent == (step))).length}}
+                </div>
+              </div>
+            </div>
+          </div>
         </v-flex>
       </v-layout>
 
@@ -170,6 +193,7 @@
   export default ({
     name: "teachernew",
     data: () => ({
+      span: [],
       styleData: [],
       top4Style: [],
       steps: [],
@@ -214,8 +238,34 @@
         width: 50,
         colors: ['green', 'red']
       },
+      studentStepProfile: []
     }),
+    created: function() {
+      for (let i = 0; i < this.sections.length; ++i) {
+        this.span.push(false);  
+      }
+    },
     methods: {
+      color: function(number) {
+        let percentage = number / this.studentStepProfile.length;
+        if (0 == percentage) return {
+          color: "grey"
+        }
+        if (percentage < .3) return {
+          color: "red"
+        }
+        return {
+          color: "green"
+        }
+      },
+      changeSpan: function(index) {
+        console.log(index);
+        if (this.span[index]) {
+          this.$set(this.span, index, false);
+        } else {
+          this.$set(this.span, index, true);
+        }
+      },
       sendReviewResult(reviewResult, studentName, reviewResultBehavior) {
         this.$store.commit("student/deleteStudentReview", {
           name: studentName
@@ -270,7 +320,7 @@
         this.top4Style = [['', ''], ['Right', right], ['Wrong', wrong]]  
       },
       authoring: function(data) {
-        
+        console.log(data);
         this.steps = data[1];
         this.sections = data[2];
         this.settings = data[3];
@@ -336,6 +386,9 @@
             bad: 0
           });    
         }
+      },
+      studentStepProfile: function(data) {
+        this.studentStepProfile = data;
       }
     },
     computed: {

@@ -1,24 +1,21 @@
+notification的外观
 TODO:
-随机分配
 如果没有其他reviewer,学生的style传给老师
 add the choice of i'm not sure的逻辑
-
-教师端一个
 部署
-
 app
 data log 
 authoring behaviors edit 无法传图片
-notification的外观
-
-
-
 TODO:
+用id判断的都改
+disconnect 有问题 传名字
+取代重新登录的id
 adaptive
 分配算法
 photo not appearing for peer review bug
 检查大回环的逻辑
 教师端逻辑
+教师端直接从vue文件自己数据那authoring
 
 
 notice:

@@ -258,7 +258,7 @@
         }
         this.$socket.emit("stepAction", this.currentBehaviors[0]);
         this.$store.commit("project/addStep");
-        this.$socket.emit("addStep");
+        this.$socket.emit("addStep", this.$store.state.student.studentName, this.$store.state.project.currentSubsection, this.$store.state.project.currentStepContent);
         let sectionStep = this.$store.state.project.subsections[this.$store.state.project.currentSubsection - 1].steps;
         if ( this.$store.state.project.currentStepContent == sectionStep[sectionStep.length - 1] ) {
           this.$modal.show("sectionend");
