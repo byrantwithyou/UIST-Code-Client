@@ -145,8 +145,8 @@
           </v-badge>
         
           <div v-for="(section, index) in sections">
-            <v-btn small @click="changeSpan(index)" icon><v-icon>trending_flat</v-icon></v-btn>
             <div :style="color(studentStepProfile.filter((element) => (element.currentSection == (index + 1))).length)">
+              <v-btn small @click="changeSpan(index)" icon><v-icon>trending_flat</v-icon></v-btn>
               <span>
                 {{section.name}}
               </span>
@@ -236,6 +236,9 @@
     },
     methods: {
       color: function(number) {
+        if ( 0 == this.studentStepProfile.length) {
+          return "grey";
+        }
         let percentage = number / this.studentStepProfile.length;
         if (0 == percentage) return {
           color: "grey"
@@ -248,7 +251,6 @@
         }
       },
       changeSpan: function(index) {
-        console.log(index);
         if (this.span[index]) {
           this.$set(this.span, index, false);
         } else {
