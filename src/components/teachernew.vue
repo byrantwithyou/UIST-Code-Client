@@ -326,10 +326,14 @@
         let result = data[2];
         if ( 1 == result) {
           this.styleProfile[this.styleProfile.findIndex((element) => (element.name == style))].good += 1;
-          this.studentProfile[this.studentProfile.findIndex((element) => (element.name == studentName))].good += 1;
+          if (this.studentProfile.find((element) => (element.name == studentName))) {
+            this.studentProfile[this.studentProfile.findIndex((element) => (element.name == studentName))].good += 1;
+          }
         } else {
           this.styleProfile[this.styleProfile.findIndex((element) => (element.name == style))].bad += 1;
-          this.studentProfile[this.studentProfile.findIndex((element) => (element.name == studentName))].bad += 1;
+          if (this.studentProfile.find((element) => (element.name == studentName))) {
+            this.studentProfile[this.studentProfile.findIndex((element) => (element.name == studentName))].bad += 1;
+          }
         }
         this.styleProfile.sort( function (element1, element2) {
           if ((element1.good + element1.bad) == 0) {
@@ -372,20 +376,36 @@
     },
     computed: {
       fake0: function() {
-        let name = this.studentProfile[0].name;
-        return [['', ''], ['Right', this.studentProfile.find((element) => (element.name == name)).good], ['', this.studentProfile.find((element) => (element.name == name)).bad]]
+        if (this.studentView[0]) {
+          let name = this.studentView[0].studentName;
+          if (this.studentProfile.find((element) => (element.name == name))) {
+            return [['', ''], ['Right', this.studentProfile.find((element) => (element.name == name)).good], ['', this.studentProfile.find((element) => (element.name == name)).bad]]
+          }
+        }
       },
       fake1: function() {
-        let name = this.studentProfile[1].name;
-        return [['', ''], ['Right', this.studentProfile.find((element) => (element.name == name)).good], ['', this.studentProfile.find((element) => (element.name == name)).bad]]
+        if (this.studentView[1]) {
+          let name = this.studentView[1].studentName;
+          if (this.studentProfile.find((element) => (element.name == name))) {
+            return [['', ''], ['Right', this.studentProfile.find((element) => (element.name == name)).good], ['', this.studentProfile.find((element) => (element.name == name)).bad]]
+          }
+        }
       },
       fake2: function() {
-        let name = this.studentProfile[2].name;
-        return [['', ''], ['Right', this.studentProfile.find((element) => (element.name == name)).good], ['', this.studentProfile.find((element) => (element.name == name)).bad]]
+        if (this.studentView[2]) {
+          let name = this.studentView[2].studentName;
+          if (this.studentProfile.find((element) => (element.name == name))) {
+            return [['', ''], ['Right', this.studentProfile.find((element) => (element.name == name)).good], ['', this.studentProfile.find((element) => (element.name == name)).bad]]
+          }
+        }
       },
       fake3: function() {
-        let name = this.studentProfile[3].name;
-        return [['', ''], ['Right', this.studentProfile.find((element) => (element.name == name)).good], ['', this.studentProfile.find((element) => (element.name == name)).bad]]
+        if (this.studentView[3]) {
+          let name = this.studentView[3].studentName;
+          if (this.studentProfile.find((element) => (element.name == name))) {
+            return [['', ''], ['Right', this.studentProfile.find((element) => (element.name == name)).good], ['', this.studentProfile.find((element) => (element.name == name)).bad]]
+          }
+        }
       },
       studentReview: function() {
         return this.$store.state.student.studentReview;
