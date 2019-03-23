@@ -325,12 +325,16 @@
         let studentName = data[1];
         let result = data[2];
         if ( 1 == result) {
-          this.styleProfile[this.styleProfile.findIndex((element) => (element.name == style))].good += 1;
+          if (this.styleProfile.find((element) => (element.name == style))) {
+            this.styleProfile[this.styleProfile.findIndex((element) => (element.name == style))].good += 1;
+          }
           if (this.studentProfile.find((element) => (element.name == studentName))) {
             this.studentProfile[this.studentProfile.findIndex((element) => (element.name == studentName))].good += 1;
           }
         } else {
-          this.styleProfile[this.styleProfile.findIndex((element) => (element.name == style))].bad += 1;
+          if (this.styleProfile.find((element) => (element.name == style))) {
+            this.styleProfile[this.styleProfile.findIndex((element) => (element.name == style))].bad += 1;
+          }
           if (this.studentProfile.find((element) => (element.name == studentName))) {
             this.studentProfile[this.studentProfile.findIndex((element) => (element.name == studentName))].bad += 1;
           }
