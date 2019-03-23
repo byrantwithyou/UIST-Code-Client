@@ -3,16 +3,22 @@
   <notifications group="bar" position="top right"></notifications>
   <notifications :duration="3000" group="foo" position="top right" >
       <template slot="body" slot-scope="props">
-        <div>
-          <span>{{props.item.data.behavior.name}} is </span>
-          <span v-if="props.item.data.result == 0">not</span>
-          <span>approved</span>
-        </div>
-        <div>Comment: {{props.item.data.comment}}</div>
-        <v-btn v-if="(props.item.data.result == 0) && (props.item.data.img != 'teacher')" small @click="emit(props.item.data.img, props.item.data.behavior, props.item.data.name)">send to teacher again</v-btn>
+      <v-card color="#CCFF90">
+        <v-card-text>
+          <div>
+            <span class="font-italic">{{props.item.data.behavior.name}} is </span>
+            <span class="font-italic" v-if="props.item.data.result == 0">not</span>
+            <span class="font-italic">approved</span>
+          </div>
+          <div class="font-italic">Comment: {{props.item.data.comment}}</div>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn v-if="(props.item.data.result == 0) && (props.item.data.img != 'teacher')" small @click="emit(props.item.data.img, props.item.data.behavior, props.item.data.name)">send to teacher again</v-btn>
+        </v-card-actions>
+      </v-card>
       </template>
     </notifications>
-
   <v-container>
     <v-layout>
       <v-flex xs3>
@@ -301,14 +307,6 @@
         this.$modal.hide(index.toString());
         this.$socket.emit("photo", [img, studentName], behavior);
       },
-      test: function() {
-        this.$notify({
-          group: "foo",
-          data: {
-            number: 1
-          }
-        })
-      },
       emit: function(img, behavior, name) {
         this.$socket.emit("review2Teacher", img, behavior, name);
       },
@@ -447,4 +445,12 @@
 
   }
 </script>
+
+<style scoped>
+.notifications {
+  background-color: grey;
+  border-left: 4px solid blue;
+}
+
+</style>
 
