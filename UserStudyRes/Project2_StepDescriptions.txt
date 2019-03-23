@@ -1,0 +1,153 @@
+Button Input Section:
+Step – Connect the jumper wire from the power rail (red line) on the breadboard to A5 (you'll want to select a place on the power rail for your wire near A5)
+
+Color code your wires
+Avoid Crossing Wires
+Trim Long-Leg Components
+
+
+
+Step – Place the pushbutton switch into E5, F5, E7 and F7 on the breadboard
+
+
+Step – Place one leg of a 10k Ohm resistor in J7 and the other leg on the GND rail near J7
+
+Trim Long-Leg Components
+Check Component’s Value
+
+
+
+Step – Connect the jumper wire from pin 13 on Arduino to A7 on the breadboard
+
+Color code your wires
+Avoid Crossing Wires
+Trim Long-Leg Components
+
+
+
+
+Potentiometer Section:
+Step – Place the potentiometer into E11, D12, and E13 on the breadboard
+
+
+Step – Connect the jumper wire from the power rail (red line) on the breadboard to A11 (you'll want to select a place on the power rail for your wire near A11)
+
+Color code your wires
+Avoid Crossing Wires
+Trim Long-Leg Components
+
+
+
+Step – Connect the jumper wire from A0 on Arduino to A12 on the breadboard
+
+Color code your wires
+Avoid Crossing Wires
+Trim Long-Leg Components
+
+
+
+Step – Connect the jumper wire from the GND rail (blue line) on the breadboard to A13 (you'll want to select a place on the GND rail for your wire near A14)
+
+Color code your wires
+Avoid Crossing Wires
+Trim Long-Leg Components
+
+
+
+
+Output Section:
+Step – Place the L293D motor driver IC into the breadboard
+
+Check IC’s Direction
+Check IC Part Number
+
+
+Step – Connect the jumper wire from 9 on Arduino to A20 on the breadboard
+
+
+Color code your wires
+Avoid Crossing Wires
+Trim Long-Leg Components
+
+
+
+Step – Connect the jumper wire from 3 on Arduino to A21 on the breadboard
+
+Color code your wires
+Avoid Crossing Wires
+Trim Long-Leg Components
+
+
+Step – Connect the jumper wire from 2 on Arduino to A26 on the breadboard
+
+Color code your wires
+Avoid Crossing Wires
+Trim Long-Leg Components
+
+
+
+Step – Connect the jumper wire from the GND rail (blue line) on the breadboard to A23 (you'll want to select a place on the GND rail for your wire near A23)
+
+Color code your wires
+Avoid Crossing Wires
+Trim Long-Leg Components
+
+
+Step – Connect the jumper wire from the GND rail (blue line) on the breadboard to A24 (you'll want to select a place on the GND rail for your wire near A25)
+
+Color code your wires
+Avoid Crossing Wires
+Trim Long-Leg Components
+
+
+Step – Connect the jumper wire from the power rail (red line) on the breadboard to D27 (you'll want to select a place on the power rail for your wire near J28)
+
+Don't Wire Over ICs
+Minimal Wire Use
+
+
+
+
+Step – Connect the DC motor to B22 and C25 on the breadboard
+
+Avoid Crossing Wires
+
+
+
+Power Section:
+
+Step – Connect the jumper wire from the GND rail (blue line) to the GND rail on the other side on the breadboard 
+
+Color code your wires
+Avoid Crossing Wires
+Trim Long-Leg Components
+
+
+
+Step – Connect the jumper wire from the GND on the Arduino to the GND rail (blue line) on the breadboard near A1
+
+Color code your wires
+Avoid Crossing Wires
+Trim Long-Leg Components
+Connect to Power Rails
+
+
+
+Step – Connect the jumper wire from the 5V on the Arduino to the power rail (red line) on the breadboard near A3
+
+
+Color code your wires
+Avoid Crossing Wires
+Trim Long-Leg Components
+Connect to Power Rails
+
+
+Step – Connect Battery box to the power rail and GND rail on the breadboard
+
+Check Component’s Polarity
+Verify Power Supply
+Connect to Power Rails
+
+
+
+Step – Connect the Arduino Uno to your computer via USB cable
