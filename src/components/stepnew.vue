@@ -181,11 +181,11 @@
             <span class="font-weight-black font-italic title">
               Please review the {{review.behavior.name}} style
             </span>
-            <span class="font-weight-bold headline amber--text">
+            <span class="font-weight-bold headline amber--text" v-if="review.behavior.goodExample">
               The good example of the style is as follow:
             </span>
           </v-card-title>
-          <v-card-media contain height="150">
+          <v-card-media contain height="150" v-if="review.behavior.goodExample">
             <v-img contain :src="review.behavior.goodExample" height="150"></v-img>
           </v-card-media>
           <v-card-text>
@@ -210,7 +210,7 @@
             <v-spacer></v-spacer>
             <v-btn @click="sendReviewResult(index, 1, review.studentName, review.behavior, review.comment, review.img)">Right</v-btn>
             <v-btn @click="sendReviewResult(index, 0, review.studentName, review.behavior, review.comment, review.img)">Wrong</v-btn>
-            <v-btn @click="closeDialog(index)">Not Sure</v-btn>
+            <v-btn @click="closeDialog(index, review.img, review.studentName, review.behavior)">Not Sure</v-btn>
           </v-card-actions>
         </v-card>
       </modal>
@@ -297,8 +297,9 @@
         this.$modal.hide(index.toString());
         this.$socket.emit("reviewResult", reviewResult, studentName, behavior, comment, img);
       },
-      closeDialog: function(index) {
+      closeDialog: function(index, img, studentName, behavior) {
         this.$modal.hide(index.toString());
+        this.$socket.emit("photo", [img, studentName], behavior);
       },
       test: function() {
         this.$notify({
