@@ -5,10 +5,7 @@ TODO:
   disconnect 有问题 传名字
   二次登陆
   disconnect的各种情况
-
-删代码看代码
-  看服务端代码
-
+  
 小bug
   authoring steps 默认behavior
   authoring behaviors edit 无法传图片
