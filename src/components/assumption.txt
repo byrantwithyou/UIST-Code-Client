@@ -1,10 +1,5 @@
 TODO:
-教师端逻辑
-
-二次登陆
-  disconnect 有问题 传名字
-  二次登陆
-  disconnect的各种情况
+教师端两个追踪
   
 小bug
   authoring steps 默认behavior
@@ -12,6 +7,7 @@ TODO:
   notification的外观  
   如果没有其他reviewer,学生的style传给老师
   add the choice of i'm not sure的逻辑
+  给在线的人传
 
 跑一遍
 

@@ -255,7 +255,6 @@
         if (this.currentBehaviors.length != 0 && (this.currentBehaviors[0].question == '') && !this.sectionBehaviors.map((element) => (element.name)).includes(this.currentBehaviors[0].name)) {
           this.sectionBehaviors.push(this.currentBehaviors[0]);
         }
-        this.$socket.emit("stepAction", this.currentBehaviors[0]);
         this.$store.commit("project/addStep");
         this.$socket.emit("addStep", this.$store.state.student.studentName, this.$store.state.project.currentSubsection, this.$store.state.project.currentStepContent);
         let sectionStep = this.$store.state.project.subsections[this.$store.state.project.currentSubsection - 1].steps;
@@ -292,7 +291,6 @@
           this.$socket.emit("styleData", this.currentBehaviors[0].name, this.$store.state.student.studentName, 0);
           this.answerQuestionCorrect = false;
           this.$modal.show("wrong");
-          this.$socket.emit("failureHistory", this.currentBehaviors[0]);
         }
       },
       sendReviewResult: function(index, reviewResult, studentName, behavior, comment, img) {
