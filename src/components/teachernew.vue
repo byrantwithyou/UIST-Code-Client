@@ -302,7 +302,6 @@
         })
       },
       authoring: function(data) {
-        console.log(data);
         this.behaviors = data[0]
         this.steps = data[1];
         this.sections = data[2];

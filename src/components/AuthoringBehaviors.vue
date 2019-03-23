@@ -219,31 +219,29 @@
       this.$store.commit("project/addAuthoringStep");
     },
     goodExampleImg: function(event) {
-      console.log("run good");
       let file = event.target.files[0];
       let fileReader = new FileReader();
       let that = this;
       fileReader.onload = function(data) {
         that.editedItem.goodExample = data.target.result;
+        that.$refs.goodInput.value = "";
       }
       fileReader.readAsDataURL(file);
     },
     badExampleImg: function(event) {
-      console.log("run bad");
       let file = event.target.files[0];
       let fileReader = new FileReader();
       let that = this;
       fileReader.onload = function(data) {
         that.editedItem.badExample = data.target.result;
+        that.$refs.badInput.value = "";
       }
       fileReader.readAsDataURL(file);
     },
     clickGoodExample: function() {
-      console.log(this.editedItem);
       this.$refs.goodInput.click();
     },
     clickBadExample: function() {
-      console.log("click bad");
       this.$refs.badInput.click();
 
     }
