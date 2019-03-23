@@ -6,30 +6,19 @@ authoring steps 默认behavior
 add the choice of i'm not sure的逻辑
 disconnect 有问题 传名字
 随机分配
-photo not appearing for peer review bug
 检查大回环的逻辑
-教师端逻辑
-教师端直接从vue文件自己数据那authoring
+教师端逻辑 teacher.vue文件删除多余的
 二次登陆
 disconnect的各种情况
 服务端大规模测试
 看服务端代码
-看客户端代码
-
-
-authoring sections 验证behavior
-
-
-
-
-
-
-
-
 
 TODO:
-部署(app)
-data log 
+android app
+hard code(加sequenze style的提醒)
+log
+
+
 notice:
 一旦study开始之后不能再authoring
 每个学生的姓名要unique
