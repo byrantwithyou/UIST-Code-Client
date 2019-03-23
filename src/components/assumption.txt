@@ -1,5 +1,5 @@
 TODO:
-教师端两个追踪
+教师端一个追踪
 TODO:
 hard code(加sequenze style的提醒)
 data log
