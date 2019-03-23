@@ -13,14 +13,5 @@ export default {
     console.log(this.$socket);
     this.$router.push("/");
   },
-  sockets: {
-    stepInit: function(data) {
-        for (let i = 0; i < data - 1; ++i) {
-
-        this.$store.commit("project/addStep")  
-        }
-        this.$router.push("/step");
-    }
-  }
 }
 </script>

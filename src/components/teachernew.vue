@@ -199,7 +199,6 @@
       steps: [],
       sections: [],
       settings: [],
-      stepProfile: [],
       reviewComment: "",
       studentView: [],
       chartData: [[['Right', 'Wrong'], ["Right", 0], ["Wrong", 0]], [['Right', 'Wrong'], ["Right", 0], ["Wrong", 0]], [['Right', 'Wrong'], ["Right", 0], ["Wrong", 0]], [['Right', 'Wrong'], ["Right", 0], ["Wrong", 0]]],
@@ -324,9 +323,6 @@
         this.steps = data[1];
         this.sections = data[2];
         this.settings = data[3];
-      },
-      stepProfile: function(data) {
-        this.stepProfile = data;
       },
       studentView: function( data ) {
         let img = data[0];

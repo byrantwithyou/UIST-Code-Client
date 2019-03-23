@@ -11,12 +11,13 @@ import VModal from "vue-js-modal";
 import VTooltip from "v-tooltip";
 
 let host = "https://obscure-beach-68992.herokuapp.com/";
+host = "http://localhost:3000";
 
 Vue.use(VModal, { dialog: false});
 Vue.config.productionTip = false;
 Vue.use(
   new VueSocketIO({
-    connection: "https://obscure-beach-68992.herokuapp.com/"
+    connection: host
   })
 );
 Vue.use(vueg, router);

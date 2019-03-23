@@ -8,20 +8,21 @@ add the choice of i'm not sure的逻辑
 authoring behaviors edit 无法传图片
 用id判断的都改
 disconnect 有问题 传名字
-取代重新登录的id
 分配算法
 photo not appearing for peer review bug
 检查大回环的逻辑
 教师端逻辑
 教师端直接从vue文件自己数据那authoring
-
+二次登陆
 
 notice:
 一旦study开始之后不能再authoring
 每个学生的姓名要unique
-必须在学生输入姓名之前authoring
 老师先于学生登录,这样才能接受到学生的信息
 拍照前必须登录
+
+
+
 
 
 

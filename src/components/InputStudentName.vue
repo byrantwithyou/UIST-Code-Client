@@ -26,7 +26,12 @@
         </v-card>
       </v-flex>
     </v-layout>
-
+    <modal name="notAuthored">
+      <v-card flat tile>
+        <v-card-media height="60"></v-card-media>
+        <v-card-title class="font-italic font-weight-black red--text display-1">The teacher has not authored the project! Please wait patiencely!</v-card-title>
+      </v-card>
+    </modal>
   </v-container>
 </template>
 
@@ -68,6 +73,13 @@
             this.$router.push("/sort");
           }
         } 
+      },
+      notAuthored: function() {
+        this.$modal.show("notAuthored");
+        let that = this;
+        setTimeout(function() {
+          that.$router.push("/");
+        }, 1000);
       }
     }
   }
