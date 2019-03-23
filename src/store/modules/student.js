@@ -25,7 +25,10 @@ const mutations = {
     })
   },
   deleteStudentReview(state, payload) {
-    state.studentReview.splice(state.studentReview.findIndex((element) => (element.name == payload.name)), 1);
+    const index = state.studentReview.findIndex((element) => (element.img == payload.img));
+    if (index >= 0) {
+      state.studentReview.splice(state.studentReview.findIndex((element) => (element.img == payload.img)), 1);
+    }
   }
 };
 

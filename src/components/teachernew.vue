@@ -93,8 +93,8 @@
                     <v-img contain :src="studentReview[0].img" height="200"></v-img>
                   </v-card-media>
                   <v-card-actions>
-                    <v-btn dark small @click="sendReviewResult(1, studentReview[0].name, studentReview[0].behavior)">Right</v-btn>
-                    <v-btn dark small @click="sendReviewResult(0, studentReview[0].name, studentReview[0].behavior)">Wrong</v-btn>
+                    <v-btn dark small @click="sendReviewResult(1, studentReview[0].name, studentReview[0].behavior, studentReview[0].img)">Right</v-btn>
+                    <v-btn dark small @click="sendReviewResult(0, studentReview[0].name, studentReview[0].behavior, studentReview[0].img)">Wrong</v-btn>
                     <v-layout>
                       <v-flex xs4 offset-xs1>
                         <v-text-field dark height="30" v-model="reviewComment" persistent-hint hint="Add some comment"></v-text-field>
@@ -185,11 +185,10 @@
     name: "teachernew",
     data: () => ({
       span: [],
-      styleData: [],
-      top4Style: [],
       steps: [],
       sections: [],
       settings: [],
+      behaviors: [],
       reviewComment: "",
       studentView: [],
       chartData: [[['Right', 'Wrong'], ["Right", 0], ["Wrong", 0]], [['Right', 'Wrong'], ["Right", 0], ["Wrong", 0]], [['Right', 'Wrong'], ["Right", 0], ["Wrong", 0]], [['Right', 'Wrong'], ["Right", 0], ["Wrong", 0]]],
@@ -256,9 +255,9 @@
           this.$set(this.span, index, true);
         }
       },
-      sendReviewResult(reviewResult, studentName, reviewResultBehavior) {
+      sendReviewResult(reviewResult, studentName, reviewResultBehavior, img) {
         this.$store.commit("student/deleteStudentReview", {
-          name: studentName
+          img: img
         });
         this.$socket.emit("reviewResult", reviewResult, studentName, reviewResultBehavior, this.reviewComment, "teacher");
         this.reviewComment = "";
@@ -302,15 +301,9 @@
           behavior: data[1]
         })
       },
-      styleData: function(data) {
-        this.styleData = data;
-        let style = this.styleData[0];
-        let right = this.styleData.filter((element) => (element.style == style && element.reviewResult == 1)).length;
-        let wrong = this.styleData.filter((element) => (element.style == style && element.reviewResult == 0)).length;
-        this.top4Style = [['', ''], ['Right', right], ['Wrong', wrong]]  
-      },
       authoring: function(data) {
         console.log(data);
+        this.behaviors = data[0]
         this.steps = data[1];
         this.sections = data[2];
         this.settings = data[3];
@@ -397,25 +390,6 @@
       },
       studentReview: function() {
         return this.$store.state.student.studentReview;
-      },
-      treeItems: function() {
-        return this.sections.map(function ( element ) {
-          let stepElement = [];
-          for (let stepNum = 0; stepNum < element.steps.length; ++stepNum ) {
-            stepElement.push({
-              id: element.steps[stepNum].content,
-              name: element.steps[stepNum].content
-            })
-          }
-          return {
-            id: element.name,
-            name: "Section " + element.name,
-            children: stepElement
-          }
-        })
-      },
-      behaviors: function() {
-        return this.$store.state.project.behaviors;
       },
       styleProfile: function() {
         return this.behaviors.map((element) => ({

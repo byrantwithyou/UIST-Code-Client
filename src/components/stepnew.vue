@@ -250,7 +250,6 @@
           return;
         }
         this.fetchedBehavior = false;
-        this.$socket.emit("stepProfile", this.$store.state.student.studentName, this.$store.state.project.currentSubsection, this.currentStepContent);
         this.answerQuestionCorrect = false;
         this.yourAnswer = [];
         if (this.currentBehaviors.length != 0 && (this.currentBehaviors[0].question == '') && !this.sectionBehaviors.map((element) => (element.name)).includes(this.currentBehaviors[0].name)) {
