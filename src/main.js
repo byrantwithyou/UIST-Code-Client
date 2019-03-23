@@ -10,13 +10,15 @@ import Notifications from "vue-notification";
 import VModal from "vue-js-modal";
 import VTooltip from "v-tooltip";
 
-let host = "https://polar-ravine-24711.herokuapp.com";
+let host = "https://obscure-beach-68992.herokuapp.com/";
 
 Vue.use(VModal, { dialog: false});
 Vue.config.productionTip = false;
-Vue.use(new VueSocketIO({
-  connection: "" 
-}));
+Vue.use(
+  new VueSocketIO({
+    connection: "https://obscure-beach-68992.herokuapp.com/"
+  })
+);
 Vue.use(vueg, router);
 Vue.use(VueGoogleCharts);
 Vue.use(Notifications);
