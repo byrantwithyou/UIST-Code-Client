@@ -1,7 +1,4 @@
 TODO:
-部署(app)
-data log 
-TODO:
 notification的外观
 如果没有其他reviewer,学生的style传给老师
 add the choice of i'm not sure的逻辑
@@ -14,12 +11,29 @@ photo not appearing for peer review bug
 教师端逻辑
 教师端直接从vue文件自己数据那authoring
 二次登陆
+disconnect的各种情况
+服务端大规模测试
+看服务端代码
+看客户端代码
 
+改 authoring
+snapshot -> peer review
+middle -> median
+拍照前必须登录
+
+
+
+
+
+
+
+TODO:
+部署(app)
+data log 
 notice:
 一旦study开始之后不能再authoring
 每个学生的姓名要unique
 老师先于学生登录,这样才能接受到学生的信息
-拍照前必须登录
 
 
 

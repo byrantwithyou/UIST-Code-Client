@@ -8,10 +8,10 @@
               Authoring Tool
             </span>
           </v-toolbar>
-          <AuthoringBehaviors v-if="authoringStep==1"></AuthoringBehaviors>
-          <AuthoringSteps v-if="authoringStep==2"></AuthoringSteps>
-          <AuthoringSubsections v-if="authoringStep==3"></AuthoringSubsections>
-          <AuthoringSettings v-if="authoringStep==4"></AuthoringSettings>
+          <AuthoringSettings v-if="authoringStep==1"></AuthoringSettings>
+          <AuthoringBehaviors v-if="authoringStep==2"></AuthoringBehaviors>
+          <AuthoringSteps v-if="authoringStep==3"></AuthoringSteps>
+          <AuthoringSubsections v-if="authoringStep==4"></AuthoringSubsections>
         </v-card>
       </v-flex>
     </v-layout>

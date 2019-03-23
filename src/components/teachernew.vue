@@ -143,15 +143,6 @@
             </template>
             <v-btn @click="change" absolute right>{{btnWord}}</v-btn>
           </v-badge>
-          <!--v-treeview :items="treeItems"></v-treeview-->
-          
-          <!--div v-for="(step, index) in steps" :key="index">
-            {{index + 1}}. {{step.content}}
-            <br>
-            <span class="font-italic amber--text">
-              Number of students in this step: {{stepProfile.filter((element) => (step.content == element.stepContent)).length}}
-            </span>
-          </div-->
         
           <div v-for="(section, index) in sections">
             <v-btn small @click="changeSpan(index)" icon><v-icon>trending_flat</v-icon></v-btn>
