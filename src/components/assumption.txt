@@ -15,8 +15,10 @@ disconnect的各种情况
 服务端大规模测试
 看服务端代码
 看客户端代码
-appear at authoringsections
-拍照前必须登录
+
+
+authoring sections 验证behavior
+
 
 
 
