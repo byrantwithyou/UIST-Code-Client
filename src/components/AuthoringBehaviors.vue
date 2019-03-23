@@ -1,8 +1,10 @@
 <template>
   <div>
     <v-toolbar flat color="white">
-      <v-toolbar-title>Step1: Authoring Styles</v-toolbar-title>
+      <v-toolbar-title>Step2: Authoring Styles</v-toolbar-title>
       <v-spacer></v-spacer>
+
+
       <v-dialog v-model="dialog" max-width="500px">
         <template v-slot:activator="{ on }">
           <v-btn color="amber" dark class="ma-0" v-on="on" icon><v-icon>add</v-icon></v-btn>
@@ -24,9 +26,6 @@
                 <v-flex xs6>
                   <v-select v-model="editedItem.level" label="Style Level" :items="behaviorLevel"></v-select>
                 </v-flex>
-                <!--v-flex xs6>
-                  <v-checkbox v-model="editedItem.dealingMethod" label="Block or not"></v-checkbox>
-                </v-flex-->
                 <v-flex xs12>
                   <v-text-field v-model="editedItem.description" label="Style Description"></v-text-field>
                 </v-flex>
@@ -46,12 +45,7 @@
                     </div>
                   </v-card>
                 </v-flex>
-                <v-flex xs6>
-                  <v-select v-model="editedItem.successTimes" :items="['1', '2', '3']" persistent-hint hint="Success times to consider not to validate the style "></v-select>
-                </v-flex>
-                <v-flex xs6>
-                  <v-select v-model="editedItem.pvfs" :items="['High', 'Middle', 'Low']" persistent-hint hint='Probability to validate the "formed" style'></v-select>
-                </v-flex>
+  
               </v-layout>
               <v-layout>
                 <v-flex xs6>
@@ -96,6 +90,8 @@
         </v-card>
       </v-dialog>
     </v-toolbar>
+
+
     <v-data-table
       :headers="headers"
       :items="behaviors"
@@ -104,7 +100,6 @@
       <template v-slot:items="props">
         <td>{{ props.item.name }}</td>
         <td>{{ props.item.level }}</td>
-        <td>{{ props.item.dealingMethod }}</td>
         <td>{{ props.item.detectionMethod }}</td>
         <td>
           <v-icon
@@ -146,7 +141,6 @@
           value: 'name'
         },
         { text: 'Level', value: 'level', sortable: false },
-        { text: 'Block or not?', value: 'dealingMethod', sortable: false },
         { text: 'Validation Method', value: 'detectionMethod', sortable: false },
         { text: 'Actions', value: 'action', sortable: false }
       ],
@@ -155,31 +149,25 @@
       editedItem: {
         name: '',
         level: "",
-        dealingMethod: true,
         detectionMethod: "",
         goodExample: "",
         badExample: "",
         description: "",
         question: "",
         answerSets: [],
-        successTimes: "1",
-        pvfs: "Low"
       },
       defaultItem: {
         name: "",
         level: "",
-        dealingMethod: true,
         detectionMethod: "",
         goodExample: "",
         badExample: "",
         description: "",
         question: "",
         answerSets: [],
-        successTimes: "1",
-        pvfs: "Low"
       },
-      detectionMethod: ["Snapshot", "Quiz"],
-      behaviorLevel: ["High", "Middle", "Low"],
+      detectionMethod: ["Peer Review", "Quiz"],
+      behaviorLevel: ["High", "Median", "Low"],
     }),
 
     computed: {
@@ -203,15 +191,16 @@
 
       deleteItem (item) {
         const index = this.behaviors.findIndex((element) => (element.name == item.name));
-        this.behaviors.splice(index, 1);
+        if (index >= 0) {
+          this.behaviors.splice(index, 1);
+        }
       },
 
       close () {
         this.dialog = false
-          this.editedItem = Object.assign({}, this.defaultItem);
-          this.editedItem.answerSets = [];
-          this.editedIndex = -1
-        
+        this.editedItem = Object.assign({}, this.defaultItem);
+        this.editedItem.answerSets = [];
+        this.editedIndex = -1
       },
 
       save () {

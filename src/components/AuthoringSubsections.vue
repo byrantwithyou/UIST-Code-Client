@@ -69,7 +69,7 @@
   import draggable from "vuedraggable";
   export default {
     data: () => ({
-      title: 'Step3: Authoring Subsections',
+      title: 'Step4: Authoring Subsections and its Orders',
       steps: [],
       subsections: [],
       addSubsectionDialog: false,

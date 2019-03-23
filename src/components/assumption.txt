@@ -1,11 +1,11 @@
 TODO:
 notification的外观
+authoring behaviors edit 无法传图片
+authoring steps 默认behavior
 如果没有其他reviewer,学生的style传给老师
 add the choice of i'm not sure的逻辑
-authoring behaviors edit 无法传图片
-用id判断的都改
 disconnect 有问题 传名字
-分配算法
+随机分配
 photo not appearing for peer review bug
 检查大回环的逻辑
 教师端逻辑
@@ -15,11 +15,9 @@ disconnect的各种情况
 服务端大规模测试
 看服务端代码
 看客户端代码
-
-改 authoring
-snapshot -> peer review
-middle -> median
+appear at authoringsections
 拍照前必须登录
+
 
 
 
