@@ -2,7 +2,7 @@ let steps = [
   {
     behaviors: [],
     content:
-      "Connect the jumper wire from pin 2 on Arduino to J24 on the breadboard",
+      "用跳线连接Arduino上的pin2和面包板上的J24",
     number: 3
   },
   {

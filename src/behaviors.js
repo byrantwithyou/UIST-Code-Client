@@ -1,19 +1,19 @@
 export default [
   {
-    name: "Minimal Wire Use",
+    name: "减少导线使用",
     detectionMethod: "Peer Review",
     level: "Low",
     goodExample: "/exp/Minimal_Wire_Use_Good.jpg",
     badExample: "/exp/Minimal_Wire_Use_Bad.jpg",
     description:
-      "Use as little wire as possible when wiring components. This will make your breadboard cleaner to work with and reduce chance of mis-wiring.",
+      "当连接组件时，使用尽可能少的导线。这将使您的面包板更整洁，并减少错误接线的机会。",
     answerSets: [],
     question: ""
   },
   {
-    name: "Color code your wires",
+    name: "用颜色标注导线",
     description:
-      "Color coded your circuit wires if possible(e.g., Red for power) and keep the color coding consistent.",
+      "如果可能的话，用颜色标注导线，并保持一致性。",
     level: "Medium",
     detectionMethod: "Peer Review",
     goodExample: "/exp/Color_Code_Good.jpg",
@@ -22,9 +22,9 @@ export default [
     question: ""
   },
   {
-    name: "Separate Long Leg Components",
+    name: "分离长脚元件",
     description:
-      "Avoid two components with long legs getting too close. The exposed legs may touch each other, resulting in a short circuit.",
+      "避免两个长脚部件靠得太近。因为暴露在外的长脚可能会互相接触，导致短路。",
     level: "High",
     detectionMethod: "Peer Review",
     goodExample: "",
@@ -33,9 +33,9 @@ export default [
     question: ""
   },
   {
-    name: "Don't Wire Over ICs",
+    name: "别让导线跨过IC",
     description:
-      "Avoid laying wires or components over ICs. Go around ICs if at all possible. This will help prevent your circuit from malfunctioning.",
+      "避免使导线或元件跨过IC，尽可能的绕过它。 这将有助于防止您的电路故障。",
     level: "Medium",
     detectionMethod: "Peer Review",
     goodExample: "/exp/Wire_Over_IC_Good.jpg",
@@ -44,9 +44,9 @@ export default [
     question: ""
   },
   {
-    name: "One Pin Per Socket",
+    name: "每个插孔一个引脚",
     description:
-      "Do not insert two pins of different components or two jumper wires into a same socket. This will cause your circuit to behave unpredictably. Only put one pin or wire into a socket.",
+      "不要将两个不同部件的引脚或两个跳线插入同一个插孔。这将导致你的电路可能出现故障。",
     level: "High",
     detectionMethod: "Peer Review",
     goodExample: "",
@@ -55,9 +55,9 @@ export default [
     question: ""
   },
   {
-    name: "Connect to Power Rails",
+    name: "连接电源线",
     description:
-      "Use the power rails to connect power supply (red -> positive/ blue -> negative) instead of other 5-pin arrays. This will allow more sockets to have access to power and keep your circuit organized.",
+      "使用电源轨道连接电源(红色->正极/蓝色->负极)，而不是其他5孔阵列。这将允许更多的插座接入电源，并保持您的电路合理组织。",
     level: "Medium",
     detectionMethod: "Peer Review",
     goodExample: "/exp/Connect_To_Power_Rails_Good.jpg",
@@ -66,9 +66,9 @@ export default [
     question: ""
   },
   {
-    name: "Avoid Crossing Wires",
+    name: "避免导线交叉",
     description:
-      "When wiring your circuit, avoid crossing wires if at all possible. This will help keep your circuit organized and easier to work with.",
+      "尽可能避免交叉布线。这将有助于保持你的电路合理组织，更易于工作。",
     level: "Medium",
     detectionMethod: "Peer Review",
     goodExample: "/exp/Crossing_Wires_Good.jpg",
@@ -77,9 +77,9 @@ export default [
     question: ""
   },
   {
-    name: "Trim Long-Leg Components",
+    name: "修剪长脚元件",
     description:
-      "If your component has long legs, use the wire cutter to clip the legs as short as possible. This will allow your component to be closer to the board. Remember that your legs still need to reach the bottom of the breadboard (so don't trim too short!)",
+      "如果您的组件有长脚，请尽量将其剪短。这将允许您的组件更接近面包板。但请记住，组件的脚仍然需要达到面包板的底部(所以不要剪得太短!)",
     level: "Low",
     detectionMethod: "Peer Review",
     goodExample: "/exp/Trim_Component_Good.jpg",
@@ -88,20 +88,20 @@ export default [
     question: ""
   },
   {
-    name: "Check Component’s Value",
-    description: "Measure the component's value (resistance/ capacitance/ inductance) using a multimeter before insertion into breadboard. This will ensure that your component is functioning properly.",
+    name: "测量元件值",
+    description: "在插入面包板之前，使用万用表测量元件的值(电阻/电容/电感)。这将确保组件正常工作。",
     level: "Medium",
-    question: "Did you check your component value before inserting into breadboard ?",
+    question: "在插入面包板之前，是否检查了组件值?",
     answerSets: [
       {
         check: true,
-        question: "Yes"
+        question: "是"
       },{
         check: false,
-        question: "No"
+        question: "否"
       }, {
         check: false,
-        question: "Not Sure"
+        question: "不确定"
       }
     ],
     detectionMethod: "Quiz",
@@ -109,30 +109,30 @@ export default [
     badExample: ""
 
   }, {
-    name: "Check Polarity",
-    description: "Make sure the polarized component's polarity is correct before insertion (e.g., Batteries, LEDs, etc.) using a multimeter. This will ensure that your component is facing the correct direction when inserted.",
+    name: "检查极性",
+    description: "在使用极性元件前(如电池、led等)，请用万用表确保它们极性正确。",
     level: "High",
-    question: "Did you check your component polarity before inserting into breadboard?",
+    question: "在插入面包板之前，你检查过你的元件极性了吗？",
     goodExample: "/exp/Check_Polarity_Good.jpg",
     badExample: "",
     detectionMethod: "Quiz",
     answerSets: [
       {
-        question: "Yes",
+        question: "是",
         check: true
       }, {
-        question: "No",
+        question: "否",
         check: false
       }, {
-        question: "Not Sure",
+        question: "不确定",
         check: false
       }
     ]
   }, {
-    name: "Verify Power Supply",
-    description: "Always verify the power supply voltages and input signals(i.e., function generator signals or signals from other modules) with the multimeter before use.",
+    name: "验证电源",
+    description: "在使用电源前，用万用表检查电源电压和输入信号(即函数发生器信号或来自其他模块的信号)",
     level: "High",
-    question: "What is the supply voltage of the battery box?",
+    question: "电池箱的供电电压是多少？",
     answerSets: [
       {
         question: "3V",
@@ -144,7 +144,7 @@ export default [
         question: "9V",
         check: false
       }, {
-        question: "Not Sure",
+        question: "不确定",
         check: false
       }
     ],
@@ -156,10 +156,10 @@ export default [
     detectionMethod: "Quiz",
     goodExample: "/exp/Check_IC_Number_Good.jpg",
     badExample: "",
-    name: "Check IC Part Number",
-    description: "Check IC part number before insertion.This will make sure you are using the correct component.The IC part number is located on the top of the component.",
+    name: "检查IC部件号",
+    description: "插入前检查IC部件号。这将确保您使用的组件是正确的。IC部件号位于部件的顶部。",
     level: "Medium",
-    question: "What is the part number of the motor driver IC ?",
+    question: "IC的部件号是多少？",
     answerSets: [
       {
         question: "L293D",
@@ -179,19 +179,19 @@ export default [
     detectionMethod: "Quiz",
     goodExample: "/exp/Check_IC_Direction_Good.jpg",
     badExample: "",
-    name: "Check IC’s Direction",
-    description: "Check IC’s direction before insertion.Please make sure the small dot on the IC(e.g., indicating pin 1) matches the IC’s dot on the breadboard figure.The dot is located on the top of the component.",
+    name: "检查IC的方向",
+    description: "插入前检查IC的方向。请确认IC上的小圆点与测试板图形上IC点匹配。点位于组件的顶部",
     level: "Medium",
-    question: "Did you check your IC’s direction before inserting into breadboard ?",
+    question: "插入面包板前，你检查过IC的方向了吗?",
     answerSets: [
       {
-        question: "Yes",
+        question: "是",
         check: true
       }, {
-        question: "No",
+        question: "否",
         check: false
       }, {
-        question: "Not Sure",
+        question: "不确定",
         check: false
       }
     ]
