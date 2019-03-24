@@ -1,5 +1,5 @@
 TODO:
-app: android + apple
+app: apple
 heroku
 
 
