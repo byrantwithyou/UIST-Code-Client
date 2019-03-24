@@ -1,7 +1,7 @@
 TODO:
-default 
+default image
 sequenze style
-recommend
+recommend style
 app: android + apple
 heroku
 

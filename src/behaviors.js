@@ -1,11 +1,10 @@
 export default [
   {
     name: "Minimal Wire Use",
-    //Can be Either "Snapshot" or "Quiz"
     detectionMethod: "Peer Review",
     level: "Low",
-    goodExample: "",
-    badExample: "",
+    goodExample: "/exp/Minimal_Wire_Use_Good.jpg",
+    badExample: "/exp/Minimal_Wire_Use_Bad.jpg",
     description:
       "Use as little wire as possible when wiring components. This will make your breadboard cleaner to work with and reduce chance of mis-wiring.",
     answerSets: [],
@@ -17,8 +16,8 @@ export default [
       "Color coded your circuit wires if possible(e.g., Red for power) and keep the color coding consistent.",
     level: "Medium",
     detectionMethod: "Peer Review",
-    goodExample: "",
-    badExample: "",
+    goodExample: "/exp/Color_Code_Good.jpg",
+    badExample: "/exp/Color_Code_Bad.jpg",
     answerSets: [],
     question: ""
   },
@@ -29,7 +28,7 @@ export default [
     level: "High",
     detectionMethod: "Peer Review",
     goodExample: "",
-    badExample: "",
+    badExample: "/exp/Separate_Long_Leg_Bad.jpg",
     answerSets: [],
     question: ""
   },
@@ -39,8 +38,8 @@ export default [
       "Avoid laying wires or components over ICs. Go around ICs if at all possible. This will help prevent your circuit from malfunctioning.",
     level: "Medium",
     detectionMethod: "Peer Review",
-    goodExample: "",
-    badExample: "",
+    goodExample: "/exp/Wire_Over_IC_Good.jpg",
+    badExample: "/exp/Wire_Over_IC_Bad.jpg",
     answerSets: [],
     question: ""
   },
@@ -51,7 +50,7 @@ export default [
     level: "High",
     detectionMethod: "Peer Review",
     goodExample: "",
-    badExample: "",
+    badExample: "/exp/One_Pin_Per_Socket_Bad.jpg",
     answerSets: [],
     question: ""
   },
@@ -61,8 +60,8 @@ export default [
       "Use the power rails to connect power supply (red -> positive/ blue -> negative) instead of other 5-pin arrays. This will allow more sockets to have access to power and keep your circuit organized.",
     level: "Medium",
     detectionMethod: "Peer Review",
-    goodExample: "",
-    badExample: "",
+    goodExample: "/exp/Connect_To_Power_Rails_Good.jpg",
+    badExample: "/exp/Connect_To_Power_Rails_Bad.jpg",
     answerSets: [],
     question: ""
   },
@@ -72,8 +71,8 @@ export default [
       "When wiring your circuit, avoid crossing wires if at all possible. This will help keep your circuit organized and easier to work with.",
     level: "Medium",
     detectionMethod: "Peer Review",
-    goodExample: "",
-    badExample: "",
+    goodExample: "/exp/Crossing_Wires_Good.jpg",
+    badExample: "/exp/Crossing_Wires_Bad.jpg",
     answerSets: [],
     question: ""
   },
@@ -83,8 +82,8 @@ export default [
       "If your component has long legs, use the wire cutter to clip the legs as short as possible. This will allow your component to be closer to the board. Remember that your legs still need to reach the bottom of the breadboard (so don't trim too short!)",
     level: "Low",
     detectionMethod: "Peer Review",
-    goodExample: "",
-    badExample: "",
+    goodExample: "/exp/Trim_Component_Good.jpg",
+    badExample: "/exp/Trim_Component_Bad.jpg",
     answerSets: [],
     question: ""
   },
@@ -106,7 +105,7 @@ export default [
       }
     ],
     detectionMethod: "Quiz",
-    goodExample: "",
+    goodExample: "/exp/Check_Value_Good.jpg",
     badExample: ""
 
   }, {
@@ -114,7 +113,7 @@ export default [
     description: "Make sure the polarized component's polarity is correct before insertion (e.g., Batteries, LEDs, etc.) using a multimeter. This will ensure that your component is facing the correct direction when inserted.",
     level: "High",
     question: "Did you check your component polarity before inserting into breadboard?",
-    goodExample: "",
+    goodExample: "/exp/Check_Polarity_Good.jpg",
     badExample: "",
     detectionMethod: "Quiz",
     answerSets: [
@@ -150,12 +149,12 @@ export default [
       }
     ],
     detectionMethod: "Quiz",
-    goodExample: "",
+    goodExample: "/exp/Verify_Power_Good.jpg",
     badExample: ""
 
   }, {
     detectionMethod: "Quiz",
-    goodExample: "",
+    goodExample: "/exp/Check_IC_Number_Good.jpg",
     badExample: "",
     name: "Check IC Part Number",
     description: "Check IC part number before insertion.This will make sure you are using the correct component.The IC part number is located on the top of the component.",
@@ -178,7 +177,7 @@ export default [
     ]
   }, {
     detectionMethod: "Quiz",
-    goodExample: "",
+    goodExample: "/exp/Check_IC_Direction_Good.jpg",
     badExample: "",
     name: "Check IC’s Direction",
     description: "Check IC’s direction before insertion.Please make sure the small dot on the IC(e.g., indicating pin 1) matches the IC’s dot on the breadboard figure.The dot is located on the top of the component.",

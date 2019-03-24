@@ -49,13 +49,13 @@
               </v-layout>
               <v-layout>
                 <v-flex xs6>
-                  <v-card-media contain height="70">
-                    <v-img :src="editedItem.goodExample" contain></v-img>
+                  <v-card-media contain height="200">
+                    <v-img :src="editedItem.goodExample" height="200" contain></v-img>
                   </v-card-media>
                 </v-flex>
                 <v-flex xs6>
-                  <v-card-media contain height="70">
-                    <v-img :src="editedItem.badExample" contain></v-img>
+                  <v-card-media contain height="200">
+                    <v-img :src="editedItem.badExample" height="200" contain></v-img>
                   </v-card-media>
                 </v-flex>
               </v-layout>
@@ -167,7 +167,7 @@
         answerSets: [],
       },
       detectionMethod: ["Peer Review", "Quiz"],
-      behaviorLevel: ["High", "Mediam", "Low"],
+      behaviorLevel: ["High", "Medium", "Low"],
     }),
 
     computed: {
