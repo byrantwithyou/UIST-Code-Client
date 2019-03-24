@@ -167,7 +167,7 @@
         answerSets: [],
       },
       detectionMethod: ["Peer Review", "Quiz"],
-      behaviorLevel: ["High", "Median", "Low"],
+      behaviorLevel: ["High", "Mediam", "Low"],
     }),
 
     computed: {

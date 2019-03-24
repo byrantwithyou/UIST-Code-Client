@@ -315,7 +315,7 @@
       behaviorColor: function() {
         const mapping = {
           "High": "#E57373",
-          "Median": "#F9A825",
+          "Mediam": "#F9A825",
           "Low": "#A5D6A7"
         }
         return mapping[this.currentBehaviors[0].level];

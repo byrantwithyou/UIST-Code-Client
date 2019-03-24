@@ -9,6 +9,7 @@
     "start": "vue-cli-service serve"
   },
   "dependencies": {
+    "base64-img": "^1.0.4",
     "v-tooltip": "^2.0.0-rc.33",
     "vue": "^2.6.6",
     "vue-google-charts": "^0.3.2",
