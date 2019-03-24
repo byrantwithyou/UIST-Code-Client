@@ -26,8 +26,9 @@ const mutations = {
   },
   deleteStudentReview(state, payload) {
     const index = state.studentReview.findIndex((element) => (element.img == payload.img));
+    console.log(index);
     if (index >= 0) {
-      state.studentReview.splice(state.studentReview.findIndex((element) => (element.img == payload.img)), 1);
+      state.studentReview.splice(index, 1);
     }
   }
 };

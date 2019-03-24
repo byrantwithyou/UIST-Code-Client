@@ -22,16 +22,15 @@
   <v-container>
     <v-layout>
       <v-flex xs3>
-        <v-card dark hover ripple :elevation="19">
+        <v-card flat tile>
           <v-card-title>
             <span class="font-italic title">
-              Best Practice Suggestion
+              <v-icon>touch_app</v-icon>Best Practice Suggestion
             </span>
           </v-card-title>
            <v-card-text>
-              <v-popover offset="16" v-if="currentBehaviors.length != 0">
-                <v-btn light :color="behaviorColor" class="tooltip-target font-italic">Mind the {{currentBehaviors[0].name}} style!</v-btn>
-                <template slot="popover">
+            <v-btn @click="ppp = !ppp" v-popover:ccc.right v-if="currentBehaviors.length != 0" light :color="behaviorColor" class="tooltip-target font-italic">{{currentBehaviors[0].name}}</v-btn>
+              <popover v-show="ppp" name="ccc" offset="16" v-if="currentBehaviors.length != 0">
                   <v-card min-height="400" min-width="400" tile hover elevation="13" :color="behaviorColor">
                     <v-card-text>
                       <div class="text-xs-center headline font-weight-bold font-italic">
@@ -80,8 +79,7 @@
                       <v-card-media height="30"></v-card-media>
                   </v-card-text>
                 </v-card>
-                </template>
-              </v-popover>
+              </popover>
            </v-card-text>
         </v-card>
       </v-flex>
@@ -122,6 +120,9 @@
                   <span class="ma-1 font-italic">
                     Answer the following questions about the style!
                   </span>
+                  <div>
+                    {{currentBehaviors[0].question}}
+                  </div>
                   <v-checkbox v-model="yourAnswer" v-for="(answer, index) in currentBehaviors[0].answerSets" :value="index" :key="answer.question" :label="answer.question"></v-checkbox>
                 </v-card-text>
               </v-card>
@@ -178,6 +179,10 @@
       <v-card flat tile>
         <v-card-media height="60"></v-card-media>
         <v-card-title class="font-italic font-weight-black orange--text display-1">Please take a photo of your current breadboard using our app to continue!</v-card-title>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn @click="hide">Dismiss</v-btn>
+        </v-card-actions>
       </v-card>
     </modal>
 
@@ -199,8 +204,8 @@
               This is the student's snapshot
             </span>
           </v-card-text>
-          <v-card-media contain height="200">
-            <v-img contain :src="review.img" height="200"></v-img>
+          <v-card-media contain height="150">
+            <v-img contain :src="review.img" height="150"></v-img>
           </v-card-media>
           <v-card-text>
             <v-text-field persistent-hint hint="Add some comment" background-color="#FCE4EC" v-model="photoToReview[index].comment"></v-text-field>
@@ -245,12 +250,21 @@
       sectionBehaviors: [],
       fetchedBehavior: false,
       photoToReview: [],
+      ppp: false
     }),
     methods: {
+      hide: function() {
+        this.$modal.hide("sectionend");
+      },
       cc: function() {
         this.$modal.show("pr");
       },
       nextStep: function() {
+        let sectionStep = this.$store.state.project.subsections[this.$store.state.project.currentSubsection - 1].steps;
+
+        if ( this.$store.state.project.currentStepContent == sectionStep[sectionStep.length - 1] ) {
+          this.$modal.show("sectionend");  
+        }
         if (this.$store.state.project.step == this.stepTot)  {
           this.$modal.show("over");
           return;
@@ -263,9 +277,9 @@
         }
         this.$store.commit("project/addStep");
         this.$socket.emit("addStep", this.$store.state.student.studentName, this.$store.state.project.currentSubsection, this.$store.state.project.currentStepContent);
-        let sectionStep = this.$store.state.project.subsections[this.$store.state.project.currentSubsection - 1].steps;
+        
+        sectionStep = this.$store.state.project.subsections[this.$store.state.project.currentSubsection - 1].steps;
         if ( this.$store.state.project.currentStepContent == sectionStep[sectionStep.length - 1] ) {
-          this.$modal.show("sectionend");
           if (this.currentBehaviors.length != 0 && (this.currentBehaviors[0].question == '') && !this.sectionBehaviors.map((element) => (element.name)).includes(this.currentBehaviors[0].name)) {
             this.sectionBehaviors.push(this.currentBehaviors[0]);
           }  
@@ -347,12 +361,6 @@
       }
       if (this.currentBehaviors.length != 0 && this.currentBehaviors[0].question == '') {
         this.sectionBehaviors.push(this.currentBehaviors[0]);
-      }
-      if (this.$store.state.project.subsections[0].steps.length == 1) {
-        let that = this;
-        setTimeout(function() {
-          that.$modal.show("sectionend");
-        }, 1000);
       }
     },
     sockets: {
