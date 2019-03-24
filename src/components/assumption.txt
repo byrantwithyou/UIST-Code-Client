@@ -2,16 +2,15 @@ TODO:
 default 
 sequenze style
 recommend
+app: android + apple
+heroku
+
+
+
 
 
 大规模测试
-
-
-android app
-heroku
-word
 notice:
-
 一旦study开始之后不能再authoring
 每个学生的姓名要unique
 老师先于学生登录,这样才能接受到学生的信息
