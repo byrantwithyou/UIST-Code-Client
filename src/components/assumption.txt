@@ -1,5 +1,4 @@
 TODO:
-default image
 sequenze style
 recommend style
 app: android + apple
