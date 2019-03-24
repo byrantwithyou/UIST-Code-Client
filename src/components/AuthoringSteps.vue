@@ -50,9 +50,7 @@
       }
     },
     created: function() {
-      for (let a = 0; a < this.aa.length; ++a) {
-        this.aa[a] = this.aa[a].map((element) => (element.name));
-      } 
+      
     },
 
     methods: {
