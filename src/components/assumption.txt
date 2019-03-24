@@ -1,6 +1,5 @@
 TODO:
 sequenze style
-recommend style
 app: android + apple
 heroku
 
