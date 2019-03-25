@@ -32,7 +32,7 @@ let steps = [
   {
     behaviors: [],
     content:
-      "Connect the jumper wire from pin 13 on the Arduino to I5 on the breadboard",
+      "Connect the jumper wire from pin 13 on the Arduino to i5 on the breadboard",
     number: 0
   },
   {

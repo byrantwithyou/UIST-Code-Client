@@ -1,12 +1,6 @@
 TODO:
 app: apple
 heroku
-
-转换两次变成object
-
-
-
-
 大规模测试
 notice:
 一旦study开始之后不能再authoring

@@ -13,20 +13,18 @@
             </v-img>
           </v-card-media>
           <v-card-text>
-          <!--draggable :list="subsections"-->
+          <draggable :list="studentSections">
             <div v-for="(subsection, index) in studentSections" :key="index">
               <span class="font-weight-bold headline font-italic indigo--text">
                 {{index + 1}}. {{subsection.name}} Subsection
               </span>
-              <draggable :list="subsection.steps">
                 <div v-for="(step, index) in subsection.steps" :key="index">
                   <span class="font-italic teal--text">
                     {{index + 1}}. {{step}}
                   </span>
                 </div>
-              </draggable>
             </div>
-          <!--/draggable-->
+          </draggable>
           </v-card-text>
           <v-card-media height="50"></v-card-media>
           <v-card-actions> 
@@ -85,9 +83,7 @@
       function shuffle(array) {
         array.sort(() => Math.random() - .5);
       }
-      for (let section of this.studentSections) {
-        shuffle(section.steps);  
-      }
+      shuffle(this.studentSections);
     },
 
   }
