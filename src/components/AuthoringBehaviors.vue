@@ -120,9 +120,9 @@
     </v-data-table>
     <v-card>
       <v-card-actions>
-        <v-btn outline color="#E53935">Back</v-btn>
+        <v-btn class="ma-5">Back</v-btn>
         <v-spacer></v-spacer>
-        <v-btn outline @click="nextStep" color="#E53935">Next Step</v-btn>
+        <v-btn  @click="nextStep" class="ma-5">Next Step</v-btn>
       </v-card-actions>
     </v-card>
   </div>

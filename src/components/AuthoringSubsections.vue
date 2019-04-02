@@ -48,10 +48,10 @@
     </v-layout>
     <v-card>
       <v-card-actions>
-        <v-btn outline color="#E53935">Back</v-btn>
+        <v-btn small class="ma-2" outline color="#E53935">Back</v-btn>
         <v-spacer></v-spacer>
-        <v-btn outline @click='saveAll' color="indigo">Save all</v-btn>
-        <v-btn outline @click="nextStep" color="#E53935">Back to teacher Homepage</v-btn>
+        <v-btn small class="ma-2" outline @click='saveAll' color="indigo">Save all</v-btn>
+        <v-btn small class="ma-2" outline @click="nextStep" color="#E53935">Back to teacher Homepage</v-btn>
       </v-card-actions>
     </v-card>
     <v-dialog persistent v-model="addSubsectionDialog" width="500">

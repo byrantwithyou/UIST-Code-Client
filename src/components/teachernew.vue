@@ -157,7 +157,7 @@
                 Number of people: {{studentStepProfile.filter((element) => (element.currentSection == (index + 1))).length}}
               </div>
             </div>
-            <div style="border-style: solid; border-width: thin;" v-for="(step, index1) in section.steps">
+            <div  style="border-style: solid; border-width: thin;" v-for="(step, index1) in section.steps">
               <div :style="color(studentStepProfile.filter((element) => (element.stepContent == (step))).length)">
                 <span v-if="span[index]" >
                   {{step}}

@@ -4,7 +4,7 @@
       <v-flex xs8 offset-xs2>
         <v-card dark color="#00693e">
           <v-card-media height="50"></v-card-media>
-          <span class="font-weight-black font-italic orange--text display-1 ma-5">
+          <span class="font-weight-black font-italic white--text display-1 ma-5">
             Decide your circuit prototyping orders
           </span>
           <v-card-media height="50"></v-card-media>
@@ -15,7 +15,7 @@
           <v-card-text>
           <draggable :list="studentSections">
             <div v-for="(subsection, index) in studentSections" :key="index">
-              <span class="font-weight-bold headline font-italic grey--text">
+              <span class="font-weight-bold headline font-italic white--text">
                 {{index + 1}}. {{subsection.name}} Subsection
               </span>
                 <div v-for="(step, index) in subsection.steps" :key="index">
@@ -29,7 +29,7 @@
           <v-card-media height="50"></v-card-media>
           <v-card-actions> 
             <v-spacer></v-spacer>
-            <v-btn @click="nextStep" outline color="#E53935">Next Step</v-btn>
+            <v-btn @click="nextStep" outline class="ma-5">Next Step</v-btn>
           </v-card-actions>
           <v-card-media height="50"></v-card-media>
         </v-card>

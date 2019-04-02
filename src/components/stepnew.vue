@@ -31,8 +31,8 @@
           </v-card-title>
            <v-card-text>
             <v-btn @click="ppp = !ppp" v-popover:ccc.right v-if="currentBehaviors.length != 0" light :color="behaviorColor" class="tooltip-target font-italic">{{currentBehaviors[0].name}}</v-btn>
-              <popover v-show="ppp" name="ccc" offset="16" v-if="currentBehaviors.length != 0">
-                  <v-card min-height="400" min-width="400" tile hover elevation="13" :color="behaviorColor">
+              <!--popover v-show="ppp" name="ccc" offset="16" v-if="currentBehaviors.length != 0"-->
+                  <v-card v-show="ppp" v-if="currentBehaviors.length != 0" min-height="400" min-width="400" tile hover elevation="24" :color="behaviorColor">
                     <v-card-text>
                       <div class="text-xs-center headline font-weight-bold font-italic">
                         Style Card
@@ -80,13 +80,13 @@
                       <v-card-media height="30"></v-card-media>
                   </v-card-text>
                 </v-card>
-              </popover>
+              <!--/popover-->
            </v-card-text>
         </v-card>
       </v-flex>
 
 
-      <v-flex xs8 offset-xs1>
+      <v-flex xs8 offset-xs2>
         <v-card dark color="#757575">
           
 
@@ -130,23 +130,23 @@
 
 
           <v-card-actions v-if="currentBehaviors.length != 0">
-            <v-btn outline color="#E53935">Back</v-btn>
+            <v-btn outline class="ma-5">Back</v-btn>
             <v-spacer></v-spacer>
-            <v-btn @click="submitAnswer" v-if="currentBehaviors[0].question && !answerQuestionCorrect" outline color="#E53935">Submit Answer</v-btn>
-            <v-btn @click="nextStep" v-if="currentBehaviors[0].question && !arrSectionEnd && answerQuestionCorrect" outline color="#E53935">Next Step</v-btn>
-            <v-btn @click="nextStep" v-if="currentBehaviors[0].question == '' && !arrSectionEnd" outline color="#E53935">Next Step</v-btn>
+            <v-btn class="ma-5" @click="submitAnswer" v-if="currentBehaviors[0].question && !answerQuestionCorrect" outline >Submit Answer</v-btn>
+            <v-btn class="ma-5" @click="nextStep" v-if="currentBehaviors[0].question && !arrSectionEnd && answerQuestionCorrect" outline >Next Step</v-btn>
+            <v-btn class="ma-5" @click="nextStep" v-if="currentBehaviors[0].question == '' && !arrSectionEnd" outline >Next Step</v-btn>
             <!--v-btn @click="nextStep" v-if="currentBehaviors[0].question && arrSectionEnd" :disabled="!fetchedBehavior" outline color="#E53935">Next Step</v-btn>
             <v-btn @click="nextStep" v-if="currentBehaviors[0].question == '' && arrSectionEnd" :disabled="!fetchedBehavior" outline color="#E53935">Next Step</v-btn-->
-            <v-btn @click="nextStep" v-if="currentBehaviors[0].question && arrSectionEnd && answerQuestionCorrect" outline color="#E53935">Next Step</v-btn>
-            <v-btn @click="nextStep" v-if="currentBehaviors[0].question == '' && arrSectionEnd" outline color="#E53935">Next Step</v-btn>
+            <v-btn @click="nextStep" v-if="currentBehaviors[0].question && arrSectionEnd && answerQuestionCorrect" outline >Next Step</v-btn>
+            <v-btn @click="nextStep" v-if="currentBehaviors[0].question == '' && arrSectionEnd" outline >Next Step</v-btn>
      
           </v-card-actions>
          
           <v-card-actions v-if="currentBehaviors.length == 0">
-            <v-btn outline color="#E53935">Back</v-btn>
+            <v-btn class="ma-5" outline >Back</v-btn>
             <v-spacer></v-spacer>
-            <v-btn @click="nextStep" v-if="!arrSectionEnd" outline color="#E53935">Next Step</v-btn>
-            <v-btn @click="nextStep" v-if="arrSectionEnd" outline color="#E53935">Next Step</v-btn>
+            <v-btn class="ma-5" @click="nextStep" v-if="!arrSectionEnd" outline >Next Step</v-btn>
+            <v-btn class="ma-5" @click="nextStep" v-if="arrSectionEnd" outline >Next Step</v-btn>
           </v-card-actions>
         
         </v-card>
@@ -157,23 +157,23 @@
 
 
 
-    <modal :clickToClose="false" name="right" height="auto">
+    <modal :clickToClose="false" name="right" height="auto" width="500">
       <v-card flat tile color="green">
         <v-card-media height="60"></v-card-media>
         <p class="font-italic font-weight-black text-xs-center display-2 white--text">Right!</p>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn small @click="$modal.hide('right');">Continue</v-btn>
+          <v-btn class="ma-5" small @click="$modal.hide('right');">Continue</v-btn>
         </v-card-actions>
       </v-card>
     </modal>
-    <modal :clickToClose="false" height="auto" name="wrong">
+    <modal :clickToClose="false" height="auto" width="500" name="wrong">
       <v-card flat tile color="red">
         <v-card-media height="60"></v-card-media>
         <p class="font-italic font-weight-black text-xs-center display-2 white--text">Try Again!</p>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn small @click="$modal.hide('wrong');">Go Back</v-btn>
+          <v-btn class="ma-5" small @click="$modal.hide('wrong');">Go Back</v-btn>
         </v-card-actions>
 
       </v-card>
