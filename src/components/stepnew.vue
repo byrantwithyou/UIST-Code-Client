@@ -1,7 +1,7 @@
 <template>
   <div>
   <notifications group="bar" position="top right"></notifications>
-  <notifications :duration="3000" group="foo" position="top right" >
+  <notifications :duration="-1" group="foo" position="top right" >
       <template slot="body" slot-scope="props">
       <v-card color="#CCFF90">
         <v-card-text>
@@ -22,10 +22,11 @@
   <v-container>
     <v-layout>
       <v-flex xs3>
-        <v-card flat tile>
+        <v-card dark color="#424242" flat tile>
           <v-card-title>
             <span class="font-italic title">
-              <v-icon>touch_app</v-icon>Best Practice Suggestion
+              <v-icon>touch_app</v-icon>
+              <span class="font-weight-thin white--text">Best Practice Suggestion</span>
             </span>
           </v-card-title>
            <v-card-text>
@@ -86,28 +87,26 @@
 
 
       <v-flex xs8 offset-xs1>
-        <v-card>
+        <v-card dark color="#757575">
           
 
           <!--        This is the teaching stuff                                   -->
-          <v-card-title>
-            <span class="display-1 font-weight-black font-italic blue-grey--text ma-2">Tutorial</span>
-          </v-card-title>
+         
           <v-card-media contain height="300">
             <v-img contain height="300" :src="tutorial"></v-img>
           </v-card-media>
           <v-card-media height="30"></v-card-media>
           <v-card-text>
             <div>
-              <span class="headline font-weight-regular grey--text font-italic">{{currentSubsectionName}} Subsection</span>
+              <span class="headline font-weight-regular white--text font-italic">{{currentSubsectionName}} Subsection</span>
             </div>
             <v-card-media height="30"></v-card-media>
             <div>
-              <span class="title font-italic amber--text">Step Instruction</span>
+              <span class="title font-italic white--text">Step Instruction</span>
             </div>
             <v-card-media height="30"></v-card-media>
             <div>
-              <span class="subheading font-weight-light black--text">{{$store.state.project.step}}. {{currentStepContent}}</span>
+              <span class="subheading font-weight-light" style="color: #F5F5F5;">{{$store.state.project.step}}. {{currentStepContent}}</span>
             </div>
           </v-card-text>
            
@@ -131,6 +130,7 @@
 
 
           <v-card-actions v-if="currentBehaviors.length != 0">
+            <v-btn outline color="#E53935">Back</v-btn>
             <v-spacer></v-spacer>
             <v-btn @click="submitAnswer" v-if="currentBehaviors[0].question && !answerQuestionCorrect" outline color="#E53935">Submit Answer</v-btn>
             <v-btn @click="nextStep" v-if="currentBehaviors[0].question && !arrSectionEnd && answerQuestionCorrect" outline color="#E53935">Next Step</v-btn>
@@ -143,6 +143,7 @@
           </v-card-actions>
          
           <v-card-actions v-if="currentBehaviors.length == 0">
+            <v-btn outline color="#E53935">Back</v-btn>
             <v-spacer></v-spacer>
             <v-btn @click="nextStep" v-if="!arrSectionEnd" outline color="#E53935">Next Step</v-btn>
             <v-btn @click="nextStep" v-if="arrSectionEnd" outline color="#E53935">Next Step</v-btn>
@@ -156,16 +157,25 @@
 
 
 
-    <modal name="right">
-      <v-card flat tile>
+    <modal :clickToClose="false" name="right" height="auto">
+      <v-card flat tile color="green">
         <v-card-media height="60"></v-card-media>
-        <v-card-title class="font-italic font-weight-black green--text display-1">Right!</v-card-title>
+        <p class="font-italic font-weight-black text-xs-center display-2 white--text">Right!</p>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn small @click="$modal.hide('right');">Continue</v-btn>
+        </v-card-actions>
       </v-card>
     </modal>
-    <modal name="wrong">
-      <v-card flat tile>
+    <modal :clickToClose="false" height="auto" name="wrong">
+      <v-card flat tile color="red">
         <v-card-media height="60"></v-card-media>
-        <v-card-title class="font-italic font-weight-black red--text display-1">Wrong!</v-card-title>
+        <p class="font-italic font-weight-black text-xs-center display-2 white--text">Try Again!</p>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn small @click="$modal.hide('wrong');">Go Back</v-btn>
+        </v-card-actions>
+
       </v-card>
     </modal>
     <modal name="over">

@@ -4,9 +4,6 @@
       <v-layout>
         <v-flex xs10 v-if="btnWord == 'Style'"> 
           <v-card flat tile>
-            <v-card-text class="display-1 font-weight-black font-italic blue-grey--text ma-1">
-              Tutorial
-            </v-card-text>
             <v-img :src="settings.projectTutorial" contain height="400" v-if="btnWord == 'Style'">
             </v-img>
           </v-card>
@@ -18,7 +15,7 @@
           <v-layout>
 
           <v-flex xs6>
-              <v-card height="320">
+              <v-card color="#EEEEEE" height="320">
                 <div v-if="studentView.length >= 1">
                   <v-card-text>
                     <code>{{studentView[0].studentName}}'s recent progess:</code>
@@ -38,7 +35,7 @@
             </v-flex>
 
             <v-flex xs6>
-              <v-card height="320">
+              <v-card color="#EEEEEE" height="320">
                 <div v-if="studentView.length >= 2">
                   <v-card-text>
                     <code>{{studentView[1].studentName}}'s recent progess:</code>
@@ -65,7 +62,7 @@
             <v-layout>
 
             <v-flex xs6>
-              <v-card height="320">
+              <v-card color="#EEEEEE" height="320">
                 <div v-if="studentView.length >= 3">
                   <v-card-text>
                     <code>{{studentView[2].studentName}}'s recent progess:</code>
@@ -84,7 +81,7 @@
 
 
             <v-flex xs6 v-if="studentReview.length">
-              <v-card dark height="320" v-if="studentReview.length">
+              <v-card color="#EEEEEE" dark height="320" v-if="studentReview.length">
                 <div v-if="studentReview.length">
                   <v-card-media>
                     <span class="font-weight-bold font-italic amber--text">
@@ -110,7 +107,7 @@
             </v-flex>
 
             <v-flex xs6 v-if="(studentReview.length == 0) && (studentView.length >= 4)">
-              <v-card height="320" v-if="(studentReview.length == 0) && (studentView.length >= 4)">
+              <v-card color="#EEEEEE" height="320" v-if="(studentReview.length == 0) && (studentView.length >= 4)">
                 <div v-if="(studentReview.length == 0) && (studentView.length >= 4)">
                   <v-card-text>
                     <code>{{studentView[3].studentName}}'s recent progess:</code>
@@ -126,6 +123,11 @@
                 </div>
               </v-card>
             </v-flex>
+
+             <v-flex v-if="(studentReview.length == 0) && (studentView.length < 4)" xs6>
+              <v-card color="#EEEEEE" height="320">
+              </v-card>
+             </v-flex>
 
 
             
@@ -145,21 +147,22 @@
           </v-badge>
         
           <div v-for="(section, index) in sections">
-            <div :style="color(studentStepProfile.filter((element) => (element.currentSection == (index + 1))).length)">
+            <!--div :style="color(studentStepProfile.filter((element) => (element.currentSection == (index + 1))).length)"-->
+             <div>
               <v-btn small @click="changeSpan(index)" icon><v-icon>trending_flat</v-icon></v-btn>
               <span>
                 {{section.name}}
               </span>
-              <div class="font-weight-bold text-xs-right">
+              <div class="font-weight-bold text-xs-left">
                 Number of people: {{studentStepProfile.filter((element) => (element.currentSection == (index + 1))).length}}
               </div>
             </div>
-            <div v-for="(step, index1) in section.steps" color="red">
+            <div style="border-style: solid; border-width: thin;" v-for="(step, index1) in section.steps">
               <div :style="color(studentStepProfile.filter((element) => (element.stepContent == (step))).length)">
                 <span v-if="span[index]" >
                   {{step}}
                 </span>
-                <div v-if="span[index]" class="font-weight-bold text-xs-right">
+                <div v-if="span[index]" class="font-weight-bold text-xs-left">
                   Number of people: {{studentStepProfile.filter((element) => (element.stepContent == (step))).length}}
                 </div>
               </div>
@@ -237,17 +240,23 @@
     methods: {
       color: function(number) {
         if ( 0 == this.studentStepProfile.length) {
-          return "grey";
+          return {
+            "background-color": "#EEEEEE",
+            color: "black"
+          }
         }
         let percentage = number / this.studentStepProfile.length;
         if (0 == percentage) return {
-          color: "grey"
+          "background-color": "grey",
+          color: "black"
         }
         if (percentage < .3) return {
-          color: "red"
+          "background-color": "red",
+          color: "white"
         }
         return {
-          color: "green"
+          "background-color": "green",
+          color: "white"
         }
       },
       changeSpan: function(index) {

@@ -2,7 +2,7 @@
    <v-container>
     <v-layout>
       <v-flex xs8 offset-xs2>
-        <v-card>
+        <v-card dark color="#00693e">
           <v-card-media height="50"></v-card-media>
           <span class="font-weight-black font-italic orange--text display-1 ma-5">
             Decide your circuit prototyping orders
@@ -15,11 +15,11 @@
           <v-card-text>
           <draggable :list="studentSections">
             <div v-for="(subsection, index) in studentSections" :key="index">
-              <span class="font-weight-bold headline font-italic indigo--text">
+              <span class="font-weight-bold headline font-italic grey--text">
                 {{index + 1}}. {{subsection.name}} Subsection
               </span>
                 <div v-for="(step, index) in subsection.steps" :key="index">
-                  <span class="font-italic teal--text">
+                  <span class="font-italic grey--text">
                     {{index + 1}}. {{step}}
                   </span>
                 </div>

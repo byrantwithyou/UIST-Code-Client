@@ -3,7 +3,7 @@
     <v-layout>
       <v-flex xs8 offset-xs2>
         <v-card>
-          <v-toolbar color="#2196F3">
+          <v-toolbar color="#00693e">
             <span class="headline font-weight-bold white--text text-uppercase">
               Authoring Tool
             </span>

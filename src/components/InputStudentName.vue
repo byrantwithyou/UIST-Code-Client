@@ -2,12 +2,16 @@
   <v-container>
     <v-layout>
       <v-flex xs8 offset-xs2>
-        <v-card>
-          <v-card-media height="150"></v-card-media>
+        <v-card dark color="#00693e">
+          <v-card-media height="100"></v-card-media>
+          <p class="text-xs-center">
+            <v-icon x-large>fa fa-user-graduate</v-icon>
+          </p>
+          <v-card-media height="100"></v-card-media>
           <v-card-media>
             <v-layout>
               <v-flex xs6 offset-xs3>
-                <v-text-field label="Your Name:" v-model="studentName"></v-text-field>
+                <v-text-field dark label="Your Name:" v-model="studentName"></v-text-field>
               </v-flex>
             </v-layout>
           </v-card-media>
@@ -17,7 +21,7 @@
               <v-flex xs6 offset-xs3>
                 <v-card-actions class="pa-0">
                   <v-spacer></v-spacer>
-                  <v-btn primary outline color="#E53935" @click="studentLogin">Next Step</v-btn>
+                  <v-btn primary dark outline color="#E53935" @click="studentLogin">Next Step</v-btn>
                 </v-card-actions>
               </v-flex>
             </v-layout>

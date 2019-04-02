@@ -48,6 +48,7 @@
     </v-layout>
     <v-card>
       <v-card-actions>
+        <v-btn outline color="#E53935">Back</v-btn>
         <v-spacer></v-spacer>
         <v-btn outline @click='saveAll' color="indigo">Save all</v-btn>
         <v-btn outline @click="nextStep" color="#E53935">Back to teacher Homepage</v-btn>
@@ -69,10 +70,14 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-      <modal name="saveSuccess">
+      <modal :clickToClose="false" name="saveSuccess" height="150">
         <v-card flat tile>
-          <v-card-media height="60"></v-card-media>
-          <v-card-title class="font-italic font-weight-black green--text display-1">Save Success!</v-card-title>
+          <v-card-media height="20"></v-card-media>
+          <p class="font-italic font-weight-black display-1 text-xs-center">Save Success!</p>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn small color="success" small @click="$modal.hide('saveSuccess');">Ok</v-btn>
+          </v-card-actions>
         </v-card>
       </modal>
   </div>

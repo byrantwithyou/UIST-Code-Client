@@ -8,22 +8,23 @@
         <v-btn flat small @click="handleUpload"><span class="caption font-weight-regular font-italic">Upload your project file</span></v-btn>
       </v-toolbar-items>
     </v-toolbar>
-    <v-layout v-for="(step, index) in steps" :key=index>
+    <v-layout contain v-for="(step, index) in steps" :key=index>
       <v-flex xs4 offset-xs1>
         <span class="ma-1 font-weight-thin font-italic">
           {{index + 1}}. {{step.content}}
         </span>
         <v-card-media height="100"></v-card-media>
       </v-flex>
-      <v-flex xs4 offset-xs1>
+      <v-flex xs4>
         <v-select height="20" dense v-model="step.behaviors" color="green" hint="Choose the styles to detect for each step" persistent-hint :items="aa[index]"></v-select>
       </v-flex>
-      <v-flex xs1 offset-xs1>
-        <v-btn @click="change(index)" icon><v-icon>all_inclusive</v-icon></v-btn>
+      <v-flex xs2>
+        <v-btn small @click="change(index)">{{btnWord[index]}}</v-btn>
       </v-flex> 
     </v-layout>
     <v-card>
       <v-card-actions>
+        <v-btn outline color="#E53935">Back</v-btn>
         <v-spacer></v-spacer>
         <v-btn outline @click="nextStep" color="#E53935">Next Step</v-btn>
       </v-card-actions>
@@ -41,7 +42,8 @@
       steps: [],
       deors: JSON.parse(JSON.stringify(deors)),
       aa: deors,
-      isde: [true, true, true, true, true, true, true, true, true, true, true]
+      isde: [true, true, true, true, true, true, true, true, true, true, true],
+      btnWord: []
     }),
 
     computed: {
@@ -50,12 +52,19 @@
       }
     },
     created: function() {
-      
+      for (let i = 0; i < steps.length; ++i) {
+        this.btnWord.push("all styles");
+      }
     },
 
     methods: {
      change: function(index) {
-       if (this.isde[index]) {
+       if (this.btnWord[index] == 'all styles') {
+         this.btnWord[index] = 'recommend styles';
+       } else {
+         this.btnWord[index] = 'all styles';
+       }
+       if (this.isde[index]) { 
         this.isde[index] = false;
         this.$set(this.aa, index, this.behaviors);
        } else {
