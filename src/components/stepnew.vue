@@ -21,12 +21,12 @@
     </notifications>
   <v-container>
     <v-layout>
-      <v-flex xs3>
+      <v-flex xs4>
         <v-card dark color="#424242" flat tile>
           <v-card-title>
-            <span class="font-italic title">
+            <span class="font-italic">
               <v-icon>touch_app</v-icon>
-              <span class="font-weight-thin white--text">Best Practice Suggestion</span>
+              <span class="font-weight-thin white--text subheading">Best Practice Suggestion</span>
             </span>
           </v-card-title>
            <v-card-text>
@@ -91,7 +91,7 @@
           
 
           <!--        This is the teaching stuff                                   -->
-         
+          <v-card-media height="50"></v-card-media>
           <v-card-media contain height="300">
             <v-img contain height="300" :src="tutorial"></v-img>
           </v-card-media>
@@ -191,7 +191,7 @@
         <v-card-title class="font-italic font-weight-black orange--text display-1">Please take a photo of your current breadboard using our app to continue!</v-card-title>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn @click="hide">Dismiss</v-btn>
+          <v-btn @click="hide" class="ma-5">Dismiss</v-btn>
         </v-card-actions>
       </v-card>
     </modal>
