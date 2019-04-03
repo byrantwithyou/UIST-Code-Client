@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <v-card height="700">
       <v-layout>
         <v-flex xs10 v-if="btnWord == 'Style'"> 
@@ -16,17 +17,23 @@
           <v-flex xs6>
               <v-card color="#EEEEEE" height="320">
                 <div v-if="studentView.length >= 1">
-                    <code class="ma-1">{{studentView[0].studentName}}'s recent progess:</code>
-                  <v-img :src="studentView[0].img" contain height="200"></v-img>
-
-                  <v-card-actions>
-                    
-                    <v-spacer></v-spacer>
+                <v-layout>
+                  <v-flex xs8>
+                    <v-card-media height="15"></v-card-media>
+                    <span class="ma-1 headline black--text">{{studentView[0].studentName}}</span>
+                    <v-card-media height="15"></v-card-media>
+                    <v-img :src="studentView[0].img" contain height="200" width="400"></v-img>
+                  </v-flex>
+                  <v-flex xs4 align-self-center>
                     <GChart type="PieChart" :data="fake0" :options="nooption"></GChart>
-                    <v-btn icon @click="thu(studentView[0].studentName)"><v-icon>thumb_up</v-icon></v-btn>
-                    <v-btn @click="vvif0 = !vvif0" icon><v-icon>reply</v-icon></v-btn>
+                    <div>
+                    <v-btn large icon @click="thu(studentView[0].studentName)"><v-icon large>thumb_up</v-icon></v-btn>
+                    <v-btn large @click="vvif0 = !vvif0" icon><v-icon large>reply</v-icon></v-btn>
                     <v-text-field @click:append-outer="sendFeedback0(studentView[0].studentName)" v-model="comments[0]" v-if="vvif0" type="text" label="message" append-outer-icon="send"></v-text-field>
-                  </v-card-actions>
+                    
+                    </div>
+                  </v-flex>
+                </v-layout>
                 </div>
               </v-card>
             </v-flex>
@@ -34,17 +41,27 @@
             <v-flex xs6>
               <v-card color="#EEEEEE" height="320">
                 <div v-if="studentView.length >= 2">
-                  <v-card-text>
-                    <code class="ma-1">{{studentView[1].studentName}}'s recent progess:</code>
-                  </v-card-text>                  
-                  <v-img :src="studentView[1].img" contain height="200"></v-img>
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
+                  <v-layout>
+                    <v-flex xs8>
+                      <v-card-media height="15"></v-card-media>
+                      <span class="ma-1 headline black--text">{{studentView[1].studentName}}</span>
+                       <v-card-media height="15"></v-card-media>
+                       <v-img :src="studentView[1].img" contain height="200" width="400"></v-img>
+                    </v-flex>
+                    <v-flex xs4 align-self-center>
                     <GChart type="PieChart" :data="fake1" :options="nooption"></GChart>
-                    <v-btn icon @click="thu(studentView[1].studentName)"><v-icon>thumb_up</v-icon></v-btn>
-                    <v-btn @click="vvif1 = !vvif1" icon><v-icon>reply</v-icon></v-btn>
+                    <div>
+                    <v-btn large icon @click="thu(studentView[1].studentName)"><v-icon large>thumb_up</v-icon></v-btn>
+                    <v-btn large @click="vvif1 = !vvif1" icon><v-icon large>reply</v-icon></v-btn>
                     <v-text-field @click:append-outer="sendFeedback1(studentView[1].studentName)" v-model="comments[1]" v-if="vvif1" type="text" label="message" append-outer-icon="send"></v-text-field>
-                  </v-card-actions>
+                    
+                    </div>
+
+                    </v-flex>
+
+                  </v-layout>
+                                   
+            
                 </div>
               </v-card>
             </v-flex>
@@ -61,15 +78,24 @@
             <v-flex xs6>
               <v-card color="#EEEEEE" height="320">
                 <div v-if="studentView.length >= 3">
-                    <code class="ma-1">{{studentView[2].studentName}}'s recent progess:</code>
-                  <v-img :src="studentView[2].img" contain height="200"></v-img>
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
+                <v-layout>
+                  <v-flex xs8>
+                    <v-card-media height="15"></v-card-media>
+                    <span class="ma-1 headline black--text">{{studentView[2].studentName}}</span>
+                    <v-card-media height="15"></v-card-media>
+                    <v-img :src="studentView[2].img" contain height="200" width="400"></v-img>
+                  </v-flex>
+                  <v-flex xs4 align-self-center>
                     <GChart type="PieChart" :data="fake2" :options="nooption"></GChart>
-                    <v-btn icon><v-icon @click="thu(studentView[2].studentName)">thumb_up</v-icon></v-btn>
-                    <v-btn @click="vvif2 = !vvif2" icon><v-icon>reply</v-icon></v-btn>
+                  <div>
+                    <v-btn large icon><v-icon large @click="thu(studentView[2].studentName)">thumb_up</v-icon></v-btn>
+                    <v-btn large @click="vvif2 = !vvif2" icon><v-icon large>reply</v-icon></v-btn>
                     <v-text-field @click:append-outer="sendFeedback2(studentView[2].studentName)" v-model="comments[2]" v-if="vvif2" type="text" label="message" append-outer-icon="send"></v-text-field>
-                  </v-card-actions>
+                  </div>
+                  </v-flex>
+
+                </v-layout>
+                 
                 </div>
               </v-card>
             </v-flex>
@@ -104,15 +130,26 @@
             <v-flex xs6 v-if="(studentReview.length == 0) && (studentView.length >= 4)">
               <v-card color="#EEEEEE" height="320" v-if="(studentReview.length == 0) && (studentView.length >= 4)">
                 <div v-if="(studentReview.length == 0) && (studentView.length >= 4)">
-                    <code class="ma-1">{{studentView[3].studentName}}'s recent progess:</code>
-                  <v-img :src="studentView[3].img" contain height="200"></v-img>
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <GChart type="PieChart" :data="fake3" :options="nooption"></GChart>
-                    <v-btn icon><v-icon @click="thu(studentView[3].studentName)">thumb_up</v-icon></v-btn>
-                    <v-btn @click="vvif3 = !vvif3" icon><v-icon>reply</v-icon></v-btn>
+                    <v-layout>
+                      <v-flex xs8>
+                        <v-card-media height="15"></v-card-media>
+                        <span class="ma-1 headline black--text">{{studentView[3].studentName}}</span>
+                        <v-card-media height="15"></v-card-media>
+                        <v-img :src="studentView[3].img" contain height="200" width="400"></v-img>
+                      
+                      </v-flex>
+                      <v-flex xs4 align-self-center>
+                        <GChart type="PieChart" :data="fake3" :options="nooption"></GChart>
+                        <div>
+                    <v-btn large icon><v-icon large @click="thu(studentView[3].studentName)">thumb_up</v-icon></v-btn>
+                    <v-btn large @click="vvif3 = !vvif3" icon><v-icon large>reply</v-icon></v-btn>
                     <v-text-field @click:append-outer="sendFeedback3(studentView[3].studentName)" v-model="comments[3]" v-if="vvif3" type="text" label="message" append-outer-icon="send"></v-text-field>
-                  </v-card-actions>
+                        
+                        </div>
+
+                      </v-flex>
+                    </v-layout>
+                
                 </div>
               </v-card>
             </v-flex>
@@ -219,12 +256,15 @@
       studentProfile: [],
       nooption: {
         legend: "none",
-        height: 90,
-        width: 90,
-        colors: ['green', 'red']
+        height: 130,
+        width: 130,
+        colors: ['green', 'red'],
+        backgroundColor: "#EEEEEE",
+        chartArea: {width: "100%", height: "80%"}
       },
       studentStepProfile: [],
-      testdata: [['', ''], ['right', 50], ['wrong', 50]]
+      testdata: [['', ''], ['right', 50], ['wrong', 50]],
+      test: [['', ''], ['right', 50], ['wrong', 50]]
     }),
     created: function() {
       for (let i = 0; i < this.sections.length; ++i) {
