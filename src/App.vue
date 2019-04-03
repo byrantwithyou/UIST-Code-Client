@@ -20,7 +20,7 @@ export default {
   name: 'App',
   created: function() {
     console.log(this.$socket);
-    this.$router.push("/");
+    this.$router.push("/card");
     console.log(this.$route.path);
   },
 }

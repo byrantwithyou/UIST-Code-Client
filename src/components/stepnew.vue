@@ -6,15 +6,15 @@
       <v-card color="#CCFF90">
         <v-card-text>
           <div>
-            <span class="font-italic">{{props.item.data.behavior.name}} is </span>
-            <span class="font-italic" v-if="props.item.data.result == 0">not</span>
-            <span class="font-italic">approved</span>
+            <span class="font-italic headline font-weight-black">{{props.item.data.behavior.name}} is </span>
+            <span class="font-italic headline" v-if="props.item.data.result == 0">not </span>
+            <span class="font-italic headline">approved</span>
           </div>
-          <div class="font-italic">Comment: {{props.item.data.comment}}</div>
+          <div class="font-italic headline">Comment: {{props.item.data.comment}}</div>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn v-if="(props.item.data.result == 0) && (props.item.data.img != 'teacher')" small @click="emit(props.item.data.img, props.item.data.behavior, props.item.data.name)">send to teacher again</v-btn>
+          <v-btn v-if="(props.item.data.result == 0) && (props.item.data.img != 'teacher')" small @click="emit(props.item.data.img, props.item.data.behavior, props.item.data.name)">contact instructor</v-btn>
           <v-btn small @click="props.close" icon><v-icon>close</v-icon></v-btn>
         </v-card-actions>
       </v-card>
@@ -25,15 +25,15 @@
       <v-card color="red">
         <v-card-text>
           <div>
-            <span class="font-italic white--text">{{props.item.data.behavior.name}} is </span>
-            <span class="font-italic white--text" v-if="props.item.data.result == 0">not</span>
-            <span class="font-italic white--text">approved</span>
+            <span class="font-italic white--text headline font-weight-black">{{props.item.data.behavior.name}} is </span>
+            <span class="font-italic white--text headline" v-if="props.item.data.result == 0">not </span>
+            <span class="font-italic white--text headline">approved</span>
           </div>
-          <div class="font-italic white--text">Comment: {{props.item.data.comment}}</div>
+          <div class="font-italic white--text headline">Comment: {{props.item.data.comment}}</div>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn dark v-if="(props.item.data.result == 0) && (props.item.data.img != 'teacher')" small @click="emit(props.item.data.img, props.item.data.behavior, props.item.data.name)">send to teacher again</v-btn>
+          <v-btn dark v-if="(props.item.data.result == 0) && (props.item.data.img != 'teacher')" small @click="emit(props.item.data.img, props.item.data.behavior, props.item.data.name)">contact instructor</v-btn>
           <v-btn small @click="props.close" dark icon><v-icon>close</v-icon></v-btn>
         </v-card-actions>
       </v-card>
