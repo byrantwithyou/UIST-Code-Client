@@ -1,9 +1,10 @@
 <template>
   <div>
-    <v-card height="640">
+    <v-card height="700">
       <v-layout>
         <v-flex xs10 v-if="btnWord == 'Style'"> 
           <v-card flat tile>
+            <v-card-media height="60"></v-card-media>
             <v-img :src="settings.projectTutorial" contain height="400" v-if="btnWord == 'Style'">
             </v-img>
           </v-card>
@@ -11,15 +12,11 @@
 
         <v-flex xs10 v-if="btnWord == 'Classroom'">
 
-
-          <v-layout>
-
+        <v-layout>
           <v-flex xs6>
               <v-card color="#EEEEEE" height="320">
                 <div v-if="studentView.length >= 1">
-                  <v-card-text>
-                    <code>{{studentView[0].studentName}}'s recent progess:</code>
-                  </v-card-text>
+                    <code class="ma-1">{{studentView[0].studentName}}'s recent progess:</code>
                   <v-img :src="studentView[0].img" contain height="200"></v-img>
 
                   <v-card-actions>
@@ -38,7 +35,7 @@
               <v-card color="#EEEEEE" height="320">
                 <div v-if="studentView.length >= 2">
                   <v-card-text>
-                    <code>{{studentView[1].studentName}}'s recent progess:</code>
+                    <code class="ma-1">{{studentView[1].studentName}}'s recent progess:</code>
                   </v-card-text>                  
                   <v-img :src="studentView[1].img" contain height="200"></v-img>
                   <v-card-actions>
@@ -64,9 +61,7 @@
             <v-flex xs6>
               <v-card color="#EEEEEE" height="320">
                 <div v-if="studentView.length >= 3">
-                  <v-card-text>
-                    <code>{{studentView[2].studentName}}'s recent progess:</code>
-                  </v-card-text>                  
+                    <code class="ma-1">{{studentView[2].studentName}}'s recent progess:</code>
                   <v-img :src="studentView[2].img" contain height="200"></v-img>
                   <v-card-actions>
                     <v-spacer></v-spacer>
@@ -81,10 +76,10 @@
 
 
             <v-flex xs6 v-if="studentReview.length">
-              <v-card color="#EEEEEE" dark height="320" v-if="studentReview.length">
+              <v-card color="#FFF9C4" dark height="320" v-if="studentReview.length">
                 <div v-if="studentReview.length">
                   <v-card-media>
-                    <span class="font-weight-bold font-italic amber--text">
+                    <span class="font-weight-bold font-italic black--text">
                       Style to review: {{studentReview[0].behavior.name}} 
                     </span>
                     <v-img contain :src="studentReview[0].img" height="200"></v-img>
@@ -109,9 +104,7 @@
             <v-flex xs6 v-if="(studentReview.length == 0) && (studentView.length >= 4)">
               <v-card color="#EEEEEE" height="320" v-if="(studentReview.length == 0) && (studentView.length >= 4)">
                 <div v-if="(studentReview.length == 0) && (studentView.length >= 4)">
-                  <v-card-text>
-                    <code>{{studentView[3].studentName}}'s recent progess:</code>
-                  </v-card-text>                  
+                    <code class="ma-1">{{studentView[3].studentName}}'s recent progess:</code>
                   <v-img :src="studentView[3].img" contain height="200"></v-img>
                   <v-card-actions>
                     <v-spacer></v-spacer>
@@ -125,7 +118,7 @@
             </v-flex>
 
              <v-flex v-if="(studentReview.length == 0) && (studentView.length < 4)" xs6>
-              <v-card color="#EEEEEE" height="320">
+              <v-card color="#FFF9C4" height="320">
               </v-card>
              </v-flex>
 
@@ -226,11 +219,12 @@
       studentProfile: [],
       nooption: {
         legend: "none",
-        height: 50,
-        width: 50,
+        height: 90,
+        width: 90,
         colors: ['green', 'red']
       },
-      studentStepProfile: []
+      studentStepProfile: [],
+      testdata: [['', ''], ['right', 50], ['wrong', 50]]
     }),
     created: function() {
       for (let i = 0; i < this.sections.length; ++i) {

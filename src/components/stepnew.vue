@@ -15,6 +15,26 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn v-if="(props.item.data.result == 0) && (props.item.data.img != 'teacher')" small @click="emit(props.item.data.img, props.item.data.behavior, props.item.data.name)">send to teacher again</v-btn>
+          <v-btn small @click="props.close" icon><v-icon>close</v-icon></v-btn>
+        </v-card-actions>
+      </v-card>
+      </template>
+    </notifications>
+<notifications :duration="-1" group="foobar" position="top right" >
+      <template slot="body" slot-scope="props">
+      <v-card color="red">
+        <v-card-text>
+          <div>
+            <span class="font-italic white--text">{{props.item.data.behavior.name}} is </span>
+            <span class="font-italic white--text" v-if="props.item.data.result == 0">not</span>
+            <span class="font-italic white--text">approved</span>
+          </div>
+          <div class="font-italic white--text">Comment: {{props.item.data.comment}}</div>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn dark v-if="(props.item.data.result == 0) && (props.item.data.img != 'teacher')" small @click="emit(props.item.data.img, props.item.data.behavior, props.item.data.name)">send to teacher again</v-btn>
+          <v-btn small @click="props.close" dark icon><v-icon>close</v-icon></v-btn>
         </v-card-actions>
       </v-card>
       </template>
@@ -182,10 +202,14 @@
       <v-card flat tile>
         <v-card-media height="60"></v-card-media>
         <v-card-title class="font-italic font-weight-black blue--text display-2">Congratulations! Your project is done!</v-card-title>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn @click="hideOver" class="ma-5">Dismiss</v-btn>
+        </v-card-actions>
       </v-card>
     </modal>
 
-    <modal :clickToClose="false" name="sectionend">
+    <modal :clickToClose="false" name="sectionend" height="auto">
       <v-card flat tile>
         <v-card-media height="60"></v-card-media>
         <v-card-title class="font-italic font-weight-black orange--text display-1">Please take a photo of your current breadboard using our app to continue!</v-card-title>
@@ -197,20 +221,23 @@
     </modal>
 
       <modal :clickToClose="false" :height="900" v-for="(review, index) in photoToReview" @closed="close(index)" :key="index" :name="index.toString()">
-        <v-card flat tile>
-          <v-card-title>
-            <span class="font-weight-black font-italic title">
+        <v-card dark color="#616161" flat tile>
+         <v-toolbar dense card color="#00693e">
+            <v-toolbar-title>PEER REVIEW</v-toolbar-title>
+          </v-toolbar>
+          <v-card-text>
+            <p class="font-weight-black font-italic display-1 white--text">
               Please review the {{review.behavior.name}} style
-            </span>
-            <span class="font-weight-bold headline amber--text" v-if="review.behavior.goodExample">
+            </p>
+            <p class="font-weight-bold display-1 white--text" v-if="review.behavior.goodExample">
               The good example of the style is as follow:
-            </span>
-          </v-card-title>
+            </p>
+          </v-card-text>
           <v-card-media contain height="150" v-if="review.behavior.goodExample">
             <v-img contain :src="review.behavior.goodExample" height="150"></v-img>
           </v-card-media>
           <v-card-text>
-            <span class="font-italic blue--text">
+            <span class="font-italic headline white--text">
               This is the student's snapshot
             </span>
           </v-card-text>
@@ -218,7 +245,7 @@
             <v-img contain :src="review.img" height="150"></v-img>
           </v-card-media>
           <v-card-text>
-            <v-text-field persistent-hint hint="Add some comment" background-color="#FCE4EC" v-model="photoToReview[index].comment"></v-text-field>
+            <v-text-field persistent-hint hint="Add some comment" v-model="photoToReview[index].comment"></v-text-field>
           </v-card-text>
           <v-card-actions>
             <v-layout>
@@ -229,9 +256,9 @@
           </v-card-actions>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn @click="sendReviewResult(index, 1, review.studentName, review.behavior, review.comment, review.img)">Right</v-btn>
-            <v-btn @click="sendReviewResult(index, 0, review.studentName, review.behavior, review.comment, review.img)">Wrong</v-btn>
-            <v-btn @click="closeDialog(index, review.img, review.studentName, review.behavior)">Not Sure</v-btn>
+            <v-btn class="ma-4" @click="sendReviewResult(index, 1, review.studentName, review.behavior, review.comment, review.img)">Right</v-btn>
+            <v-btn class="ma-4" @click="sendReviewResult(index, 0, review.studentName, review.behavior, review.comment, review.img)">Wrong</v-btn>
+            <v-btn class="ma-4" @click="closeDialog(index, review.img, review.studentName, review.behavior)">Not Sure</v-btn>
           </v-card-actions>
         </v-card>
       </modal>
@@ -263,6 +290,9 @@
       ppp: false
     }),
     methods: {
+      hideOver: function() {
+        this.$modal.hide("over");
+      },
       hide: function() {
         this.$modal.hide("sectionend");
       },
@@ -437,7 +467,7 @@
         }
         else {
           this.$notify({
-            group: "foo",
+            group: "foobar",
             data: {
               behavior: behavior,
               result: reviewResult,

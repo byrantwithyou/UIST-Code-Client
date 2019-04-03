@@ -7,9 +7,15 @@ import Sort from "@/components/Sort";
 import TeacherLogin from "@/components/TeacherLogin";
 import stepnew from "@/components/stepnew";
 import teachernew from "@/components/teachernew";
+import card from "@/components/card";
+
 Vue.use(Router);
 
 const routes = [
+  {
+    path: "/card",
+    component: card
+  },
   {
     path: "/",
     component: Login
