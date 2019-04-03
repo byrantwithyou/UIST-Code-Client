@@ -70,13 +70,13 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-      <modal :clickToClose="false" name="saveSuccess" height="150">
+      <modal :clickToClose="false" name="saveSuccess" height="300">
         <v-card flat tile>
           <v-card-media height="20"></v-card-media>
           <p class="font-italic font-weight-black display-1 text-xs-center">Save Success!</p>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn small color="success" small @click="$modal.hide('saveSuccess');">Ok</v-btn>
+            <v-btn class="ma-5" small color="success" small @click="$modal.hide('saveSuccess');">Ok</v-btn>
           </v-card-actions>
         </v-card>
       </modal>

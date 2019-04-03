@@ -20,7 +20,7 @@
       </template>
     </notifications>
   <v-container>
-    <v-layout>
+    <v-layout> 
       <v-flex xs4>
         <v-card dark color="#424242" flat tile>
           <v-card-title>
