@@ -58,26 +58,26 @@
                         Style Card
                       </div>
                       <v-card-media height="20"></v-card-media>
-                        <span class="font-weight-medium subheading font-italic">
-                          <code>Style Name: {{currentBehaviors[0].name}}</code>
+                        <span style="background-color: black;" class="font-weight-medium subheading font-italic">
+                          Style Name: {{currentBehaviors[0].name}}
                         </span>
                       <v-card-media height="20"></v-card-media>
-                        <span class="font-weight-medium subheading font-italic">
-                          <code>Validation Method: {{currentBehaviors[0].detectionMethod}}</code>
+                        <span style="background-color: black;" class="font-weight-medium subheading font-italic">
+                          Validation Method: {{currentBehaviors[0].detectionMethod}}
                         </span>
                       <v-card-media height="20"></v-card-media>
-                        <span class="font-weight-medium subheading font-italic">
-                          <code>Level: {{currentBehaviors[0].level}}</code>
+                        <span style="background-color: black;" class="font-weight-medium subheading font-italic">
+                          Level: {{currentBehaviors[0].level}}
                         </span>
                       <v-card-media height="20"></v-card-media>
-                        <span class="font-weight-medium subheading font-italic">
-                          <code>Style Description: {{currentBehaviors[0].description}}</code>
+                        <span style="background-color: black;" class="font-weight-medium subheading font-italic">
+                          Style Description: {{currentBehaviors[0].description}}
                         </span>
                       <v-card-media height="20"></v-card-media>
                       <v-layout>
                         <v-flex xs12>
-                          <span v-if="currentBehaviors[0].goodExample" class="font-weight-medium subheading font-italic">
-                            <code>Good Example of the style:</code>
+                          <span style="background-color: black;" v-if="currentBehaviors[0].goodExample" class="font-weight-medium subheading font-italic">
+                            Good Example of the style:
                           </span>
                           <v-card-media height="10"></v-card-media>
                           <v-card-media contain height="200">
@@ -88,8 +88,8 @@
                       <v-card-media height="20"></v-card-media>
                       <v-layout>
                         <v-flex xs12>
-                          <span v-if="currentBehaviors[0].badExample" class="font-weight-medium subheading font-italic">
-                            <code>Bad Example of the style:</code>
+                          <span style="background-color: black;" v-if="currentBehaviors[0].badExample" class="font-weight-medium subheading font-italic">
+                            Bad Example of the style:
                           </span>
                           <v-card-media height="10"></v-card-media>
                           <v-card-media contain height="200">
@@ -210,9 +210,13 @@
     </modal>
 
     <modal :clickToClose="false" name="sectionend" height="auto">
-      <v-card flat tile>
+      <v-card color="#00693e" flat tile height="350">
         <v-card-media height="60"></v-card-media>
-        <v-card-title class="font-italic font-weight-black orange--text display-1">Please take a photo of your current breadboard using our app to continue!</v-card-title>
+        <v-card-text>
+          <p class="text-xs-center font-italic font-weight-black white--text display-1">
+            Please take a photo of your current breadboard using our app to continue!
+          </p>
+        </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn @click="hide" class="ma-5">Dismiss</v-btn>
@@ -227,10 +231,10 @@
           </v-toolbar>
           <v-card-text>
             <p class="font-weight-black font-italic display-1 white--text">
-              Please review the {{review.behavior.name}} style
+              Please review the "{{review.behavior.name}}" style
             </p>
-            <p class="font-weight-bold display-1 white--text" v-if="review.behavior.goodExample">
-              The good example of the style is as follow:
+            <p class="font-weight-bold headline white--text" v-if="review.behavior.goodExample">
+              A good example of this style
             </p>
           </v-card-text>
           <v-card-media contain height="150" v-if="review.behavior.goodExample">

@@ -5,7 +5,7 @@
         <v-card dark color="#00693e">
           <v-card-media height="50"></v-card-media>
           <span class="font-weight-black font-italic white--text display-1 ma-5">
-            Decide your circuit prototyping orders
+            Please sort the tutorial subsections below
           </span>
           <v-card-media height="50"></v-card-media>
           <v-card-media height="250">
@@ -35,16 +35,24 @@
         </v-card>
       </v-flex>
     </v-layout>
-    <modal name="right">
-      <v-card flat tile>
-        <v-card-media height="60"></v-card-media>
-        <v-card-title class="font-italic font-weight-black green--text display-1">Right!</v-card-title>
+    <modal name="right" height="auto" width="20%">
+      <v-card flat tile height="130">
+        <v-card-media height="20"></v-card-media>
+        <v-card-text>
+          <p class="text-xs-center font-italic font-weight-black green--text display-3">
+            Right!
+          </p>
+        </v-card-text>
       </v-card>
     </modal>
-    <modal name="wrong">
-      <v-card flat tile>
-        <v-card-media height="60"></v-card-media>
-        <v-card-title class="font-italic font-weight-black red--text display-1">Wrong!</v-card-title>
+    <modal name="wrong" height="auto" width="20%">
+      <v-card flat tile height="130">
+        <v-card-media height="20"></v-card-media>
+        <v-card-text>
+          <p class="text-xs-center font-italic font-weight-black red--text display-3">
+            Wrong!
+          </p>
+        </v-card-text>
       </v-card>
     </modal>
   </v-container>
